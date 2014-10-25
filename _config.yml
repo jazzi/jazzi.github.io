@@ -1,0 +1,6 @@
+# Site settings
+title: Jazzi Homepage
+
+# Build settings
+permalink: /:title.html
+
