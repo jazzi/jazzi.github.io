@@ -8,6 +8,7 @@ dl, dd, ol, ul, figure {
 }
 
 
+
 /**
  * Basic styling
  */
@@ -22,6 +23,7 @@ body {
 }
 
 
+
 /**
  * Set `margin-bottom` to maintain vertycal rhythm
  */
@@ -33,6 +35,7 @@ ul, ol, dl, figure,
 }
 
 
+
 /**
  * Images
  */
@@ -40,6 +43,7 @@ img {
     max-width: 100%;
     vertical-align: middle;
 }
+
 
 
 /**
@@ -54,6 +58,7 @@ figcaption {
 }
 
 
+
 /**
  * Lists
  */
@@ -64,9 +69,10 @@ ul, ol {
 li {
     > ul,
     > ol {
-    margin-bottom: 0;
+         margin-bottom: 0;
     }
 }
+
 
 
 /**
@@ -77,6 +83,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 
+
 /**
  * Links
  */
@@ -85,14 +92,15 @@ a {
     text-decoration: none;
 
     &:visited {
-    color: darken($brand-color, 15%);
-}
+        color: darken($brand-color, 15%);
+    }
 
     &:hover {
-      color: $text-color;
-      text-decoration: underline;
+        color: $text-color;
+        text-decoration: underline;
     }
 }
+
 
 
 /**
@@ -110,6 +118,7 @@ blockquote {
         margin-bottom: 0;
     }
 }
+
 
 
 /**
@@ -135,8 +144,9 @@ pre {
         border: 0;
         padding-right: 0;
         padding-left: 0;
-   }
+    }
 }
+
 
 
 /**
@@ -144,7 +154,7 @@ pre {
  */
 .wrapper {
     max-width: -webkit-calc(800px - (#{$spacing-unit} * 2));
-    max-width: calc(800px - (#{$spacing-unit} * 2));
+    max-width:         calc(800px - (#{$spacing-unit} * 2));
     margin-right: auto;
     margin-left: auto;
     padding-right: $spacing-unit;
@@ -153,11 +163,12 @@ pre {
 
     @include media-query($on-laptop) {
         max-width: -webkit-calc(800px - (#{$spacing-unit}));
-        max-width: calc(800px - (#{$spacing-unit}));
+        max-width:         calc(800px - (#{$spacing-unit}));
         padding-right: $spacing-unit / 2;
         padding-left: $spacing-unit / 2;
-   }
+    }
 }
+
 
 
 /**
@@ -171,6 +182,7 @@ pre {
         clear: both;
     }
 }
+
 
 
 /**
@@ -189,3 +201,4 @@ pre {
         }
     }
 }
+

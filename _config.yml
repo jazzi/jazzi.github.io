@@ -1,5 +1,6 @@
 # Site settings
-title: Jazzi Homepage
+title: Ji Homepage
+github_username: jazzi
 
 # Build settings
 markdown: kramdown
