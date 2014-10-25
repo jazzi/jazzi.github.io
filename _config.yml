@@ -2,5 +2,6 @@
 title: Jazzi Homepage
 
 # Build settings
+markdown: kramdown
 permalink: /:title.html
 
