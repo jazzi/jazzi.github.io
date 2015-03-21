@@ -85,6 +85,7 @@ A magical thing happens when you start reading an email in your own Inbox. You s
 3. If you spend more than 2 seconds, would you know what to do next?
 
 **Go back to writting your email and ask yourself:**
+
 1. Why am I sending this email?
 2. Why should my prospect care?
 3. Assuming I convince them to care, what do I wnat them to do next?
