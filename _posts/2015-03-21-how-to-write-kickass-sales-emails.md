@@ -12,7 +12,7 @@ Think of cathy, short, and informative subject lines so that your email actually
 
 **Remember:** Only 20% to 40% of emails actually get opened but most subject lines get seen.
 
-> 3 Tactics You Can Apply To Get Your Email Viewed
+> Three Tactics You Can Apply To Get Your Email Viewed
 
 > 1. **Personalize** with a point relevant to the person you are emailing, like " Hunter Sullivan suggested I contact you," or " Thanks for your blog post on x."
 > 2. **Hook'em.** Share information that allows them to learn something interesting:"The future of sales emails." But *don't try to fool anybody*.
