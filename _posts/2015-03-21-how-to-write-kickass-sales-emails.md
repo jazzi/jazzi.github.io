@@ -3,8 +3,7 @@ layout: post
 ---
 Copyright belongs to toutapp and can be found on [sales101](http://www1.toutapp.com/sales101/kickass-sales-emails-pdf/)
 
-Re:Subject line
-===============
+# Re:Subject line
 
 Most salespeople stress over the body of their emails. You should spend more time on the subject line.
 
