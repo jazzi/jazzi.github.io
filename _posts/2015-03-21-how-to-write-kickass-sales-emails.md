@@ -1,7 +1,7 @@
 ---
 layout: post
 ---
-Copyright belongs to toutapp and can be found on [sales101](http://www1.toutapp.com/sales101/kickass-sales-emails-pdf/)
+© Copyright belongs to toutapp and can be found on [sales101](http://www1.toutapp.com/sales101/kickass-sales-emails-pdf/)
 
 Re:Subject line
 ---------------
