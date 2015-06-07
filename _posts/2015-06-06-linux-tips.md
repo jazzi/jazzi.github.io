@@ -32,12 +32,10 @@ If you have a Linux machine running in Virtualbox, no matter your host is Linux 
 3. Configure the guest, *Settings -> Network -> Adapter 2*, *Enable Network Adapter*, pick *Host-only Adapter* for *Attached to*
 4. Edit the /etc/network/interfaces file and add following block:
 
-```
- autho eth1
- iface eth1 inet static
- address 192.168.56.110
- netmask 255.255.255.0
-```
+>autho eth1
+>iface eth1 inet static
+>address 192.168.56.110
+>netmask 255.255.255.0
 
 5. Then restart the networking using command `/etc/init.d/networking`
 6. Install openssh-server `apt-get install openssh-server`
