@@ -36,9 +36,10 @@ If you have a Linux machine running in Virtualbox, no matter your host is Linux 
 	iface eth1 inet static
 	address 192.168.56.110
 	netmask 255.255.255.0
+
 5. Then restart the networking using command `/etc/init.d/networking`
 6. Install openssh-server `apt-get install openssh-server`
-7. Now restart the Virtualbox guest
+7. Now restart the Virtualbox	 guest
 
 8. Edit host's /etc/hosts, `sudo vim /etc/hosts` and add a line *192.168.56.110  guest*
 
