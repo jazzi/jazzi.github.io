@@ -13,9 +13,11 @@ Set the boot option to begin with CD/DVD, so your machine can take off.
 You can type `dd if=/iso_file of=/dev/sdx bs=4M && sync` to burn an image into USB stick, hereby howto reverse it:
 
 1. Zero its first 512 bytes:
+
 	# dd count=1 bs=512 if=/dev/zero of=/dev/sdx && sync
 
 2. Then install dosfstools and FAT32 and run:
+
 	# cfdisk /dev/sdx
 	# mkfs.vfat -F32 /dev/sdx1
 	# dosfslabel /dev/sdx1	The_Label_U_Like
