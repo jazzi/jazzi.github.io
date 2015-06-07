@@ -24,4 +24,27 @@ You can type `dd if=/iso_file of=/dev/sdx bs=4M && sync` to burn an image into U
 
     `# dosfslabel /dev/sdx1 The_Label_U_Like`
 
+## Howto ssh ubuntu in VirtualBox ##
+If you have a Linux machine running in Virtualbox, no matter your host is Linux or not, you can login to the guest by ssh without password.
+
+1. Shutdown the Virtualbox guest
+2. On the Virtualbox go to *File -> Preferences -> Network -> Host-only Networks* add one
+3. Configure the guest, *Settings -> Network -> Adapter 2*, *Enable Network Adapter*, pick *Host-only Adapter* for *Attached to*
+4. Edit the /etc/network/interfaces file and add following block:
+	autho eth1
+	iface eth1 inet static
+	address 192.168.56.110
+	netmask 255.255.255.0
+5. Then restart the networking using command `/etc/init.d/networking`
+6. Install openssh-server `apt-get install openssh-server`
+7. Now restart the Virtualbox guest
+
+8. Edit host's /etc/hosts, `sudo vim /etc/hosts` and add a line *192.168.56.110  guest*
+
+### The next stage is about ssh login with no need of password by using RSA key ###
+1. On the host machine, generate RSA key by `ssh-keygen -t rsa`
+2. Copy that public key onto guest machine per `scp ~/.ssh/id_rsa.pub You_User_Name@guest`
+3. Then login `ssh Your_User_Name@guest`
+4. `cat id_rsa.pub >> ~/.ssh/authorized.keys`
+5. Exit the ssh session and take a try of the new world!!
 
