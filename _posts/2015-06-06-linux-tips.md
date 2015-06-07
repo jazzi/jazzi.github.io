@@ -19,7 +19,9 @@ You can type `dd if=/iso_file of=/dev/sdx bs=4M && sync` to burn an image into U
 2. Then install dosfstools and FAT32 and run:
 
     `# cfdisk /dev/sdx`
+
     `# mkfs.vfat -F32 /dev/sdx1`
+
     `# dosfslabel /dev/sdx1 The_Label_U_Like`
 
 
