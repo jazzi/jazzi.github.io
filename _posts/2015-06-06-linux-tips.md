@@ -43,7 +43,7 @@ If you have a Linux machine running in Virtualbox, no matter your host is Linux 
 
 8. Edit host's /etc/hosts, `sudo vim /etc/hosts` and add a line *192.168.56.110  guest*
 
-### The next stage is about ssh login with no need of password by using RSA key ###
+#### The next stage is about ssh login with no need of password by using RSA key ####
 1. On the host machine, generate RSA key by `ssh-keygen -t rsa`
 2. Copy that public key onto guest machine per `scp ~/.ssh/id_rsa.pub You_User_Name@guest:`  ## Don't forget the ":" in the end
 3. Then login `ssh Your_User_Name@guest`
