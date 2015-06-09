@@ -50,6 +50,6 @@ If you have a Linux machine running in Virtualbox, no matter your host is Linux 
 1. On the host machine, generate RSA key by `ssh-keygen -t rsa`
 2. Copy that public key onto guest machine per `scp ~/.ssh/id_rsa.pub You_User_Name@guest:`  ## Don't forget the ":" in the end
 3. Then login `ssh Your_User_Name@guest`
-4. `cat id_rsa.pub >> ~/.ssh/authorized.keys`
+4. `cat id_rsa.pub >> ~/.ssh/authorized_keys`
 5. Exit the ssh session and take a try of the new world!!
 
