@@ -40,8 +40,8 @@ If you have a Linux machine running in Virtualbox, no matter your host is Linux 
 
 >netmask 255.255.255.0
 
-5. Then restart the networking using command `/etc/init.d/networking`
-6. Install openssh-server `apt-get install openssh-server`
+5. Then restart the networking using command `/etc/init.d/networking restart`
+6. Install openssh-server `apt-get install openssh-server` and set password for root `sudo passwd root`
 7. Now restart the Virtualbox	 guest
 
 8. Edit host's /etc/hosts, `sudo vim /etc/hosts` and add a line *192.168.56.110  guest*
