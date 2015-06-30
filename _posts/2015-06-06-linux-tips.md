@@ -53,3 +53,5 @@ If you have a Linux machine running in Virtualbox, no matter your host is Linux 
 4. `cat id_rsa.pub >> ~/.ssh/authorized_keys`
 5. Exit the ssh session and take a try of the new world!!
 
+## systemD and boot time ##
+`sudo systemd-analyze blame` will show you which service takes the longest time, if it's about journal then you can remove all files within */var/log/journal/* and limit the usage by editing `SystemMaxUse=40M` of `sudo vim /etc/systemd/journald.conf`.
