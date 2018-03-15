@@ -12,19 +12,15 @@ This is my note about how to build a fast & secure Wordpress eCommerce website w
 
 2. The next thing is about SSH, about how to remotely control this OS safely. I edit /etc/ssh/ssd_config to abdon login through password but RSA only (ssh-copy-id -i ~/.ssh/id_rsa.pub "root@192.1.8.8 -p 60021").
 
-> PasswordAuthentication  no
-
-> RSAAuthentication       yes
-
-> PubkeyAuthentication    yes
+    PasswordAuthentication  no
+    RSAAuthentication       yes
+    PubkeyAuthentication    yes
 
 3. Turn on BBR to increase internet speed, as Debian 9 already shipped with Kernel 4.9, so can just turn it on.
 
-> echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf
-
-> echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
-
-> sysctl -p
+    echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf
+    echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
+    sysctl -p
 
 Then double check the status, 'sysctl net.ipv4.tcp_available_congestion_control', if something like below show out means you got it.
 
@@ -46,22 +42,17 @@ This LAMP pack include automatically deployment of SSL from [Let's Encrypt](http
 #### Some adjustments on MariaDB to speed up Wordpress
 Edit MariaDB configuration */etc/my.cnf*
 
-> default-storage-engine = MyISAM
-
-> key-buffer-size = 256M
-
-> query-cache-type = 1  ## turn query cache on
-
-> query-cache-size = 256M
-
-> query-cache-limit = 2M   ## cache will stop if more than 2M
+    default-storage-engine = MyISAM
+    key-buffer-size = 256M
+    query-cache-type = 1  ## turn query cache on
+    query-cache-size = 256M
+    query-cache-limit = 2M   ## cache will stop if more than 2M
 
 #### Some adjustments on PHP
 Edit /usr/local/php/php.d/php.ini, for more details, check [here](http://blog.csdn.net/weixin_36333654/article/details/52770325)
 
-> opcache.enable=1
-
-> opcache.enable_cli=1
+    opcache.enable=1
+    opcache.enable_cli=1
 
 #### There is also some lines about how to adjust Nginx, check [here](http://www.elecfans.com/d/633003.html)
 
