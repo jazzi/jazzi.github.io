@@ -64,3 +64,19 @@ Edit /usr/local/php/php.d/php.ini, for more details, check [here](http://blog.cs
 > opcache.enable_cli=1
 
 #### There is also some lines about how to adjust Nginx, check [here](http://www.elecfans.com/d/633003.html)
+
+#### Add a Virtual Host on Apache, be sure to edit your DNS and mapping the domain to the IP before this step, as the auto SSL certificate apply gotta need this.
+
+Type following commands to add a virtual host:
+
+    lamp add      // 创建虚拟主机
+    lamp del      //删除虚拟主机
+    lamp list     //列出虚拟主机
+
+## Install Wordpress with WooCommerce & Storefront theme
+
+1. Download the latest WP and root login VPS
+
+2. Upload WP files to /data/www/newdomain.com/
+
+"ssh-copy-id -i ~/wordpress.tar.gz “root@192.1.8.8 -p 60021”"
