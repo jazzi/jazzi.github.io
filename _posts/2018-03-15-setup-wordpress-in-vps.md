@@ -41,7 +41,7 @@ This LAMP pack include automatically deployment of SSL from [Let's Encrypt](http
 
 > 0 3 */7 * * /bin/certbot renew --disable-hook-validation --renew-hook "/etc/init.d/httpd restart"
 
-** I choose PHP 7.1 with imagick on & MariaDB & Apache ** 
+**I choose PHP 7.1 with imagick on & MariaDB & Apache** 
 
 #### Some adjustments on MariaDB to speed up Wordpress
 Edit MariaDB configuration */etc/my.cnf*
