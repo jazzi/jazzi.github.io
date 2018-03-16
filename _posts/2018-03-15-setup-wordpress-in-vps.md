@@ -109,4 +109,30 @@ For more suggestions on Wordpress security, check [here](http://www.luoxiao123.c
 
 ## Secure the server ###
 
-* Iptable
+* 'apt-get upgrade' to keep system updated
+
+* 'netstat -a' or 'netstat -an' to see what service/port opened
+
+Then we can uninstall unnessary service/package or use **iptables** firewall to forbid specific port access.
+
+Take a try of following command to ban port 3306 (MySQL/MariaDB remote access)
+
+> iptables -A INPUT -p tcp --dport 3306 -j DROP
+
+Then use 'iptables -L' to see if works
+
+As in Debian these rules will be invalid once reboot, here is the solution:
+
+    iptables-save > /etc/iptables.rules;
+    
+Then edit the file to make it work once network card launch, type command below:
+
+    vi /etc/network/if-pre-up.d/iptables
+
+And paste following lines into it:
+
+    #!/bin/bash
+    iptables -F
+    iptables-restore /etc/iptables.rules
+
+Later if you have more rules, just edit /etc/iptables.rules and restore it.
