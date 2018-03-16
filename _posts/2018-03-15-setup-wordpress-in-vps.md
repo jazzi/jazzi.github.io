@@ -135,4 +135,4 @@ And paste following lines into it:
     iptables -F
     iptables-restore /etc/iptables.rules
 
-Later if you have more rules, just edit /etc/iptables.rules and restore it.
+Later if you have more rules, just edit /etc/iptables.rules and restore it, more details is [here](http://blog.csdn.net/yygydjkthh/article/details/50772238).
