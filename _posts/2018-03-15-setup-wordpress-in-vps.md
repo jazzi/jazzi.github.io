@@ -12,15 +12,15 @@ This is my note about how to build a fast & secure Wordpress eCommerce website w
 
 2. The next thing is about SSH, about how to remotely control this OS safely. I edit /etc/ssh/ssd_config to abdon login through password but RSA only (ssh-copy-id -i ~/.ssh/id_rsa.pub "root@192.1.8.8 -p 60021").
 
-      PasswordAuthentication  no
-      RSAAuthentication       yes
-      PubkeyAuthentication    yes
+    > PasswordAuthentication  no
+    > RSAAuthentication       yes
+    > PubkeyAuthentication    yes
 
 3. Turn on BBR to increase internet speed, as Debian 9 already shipped with Kernel 4.9, so can just turn it on.
 
-      echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf
-      echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
-      sysctl -p    //save the changes
+    > echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf
+    > echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
+    > sysctl -p    //save the changes
 
 Then double check the status, 'sysctl net.ipv4.tcp_available_congestion_control', if something like below show out means you got it.
 
