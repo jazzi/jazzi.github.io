@@ -12,9 +12,9 @@ This is my note about how to build a fast & secure Wordpress eCommerce website w
 
 2. The next thing is about SSH, about how to remotely control this OS safely. I edit /etc/ssh/ssd_config to abdon login through password but RSA only (ssh-copy-id -i ~/.ssh/id_rsa.pub "root@192.1.8.8 -p 60021").
 
-    > PasswordAuthentication  no
-    > RSAAuthentication       yes
-    > PubkeyAuthentication    yes
+    >PasswordAuthentication  no
+    >RSAAuthentication       yes
+    >PubkeyAuthentication    yes
 
 3. Turn on BBR to increase internet speed, as Debian 9 already shipped with Kernel 4.9, so can just turn it on.
 
@@ -100,7 +100,9 @@ Then decompress it:
 
 * add line below into the head of .htaccess to prohibit people visiting your WP directory
 
-* replace the security [key generate](http://www.luoxiao123.cn/go/?url=https://api.wordpress.org/secret-key/1.1/salt/)d by wp from wp-config.php
+    > Options -Indexes
+
+* replace the security [key generated](http://www.luoxiao123.cn/go/?url=https://api.wordpress.org/secret-key/1.1/salt/) by wp from wp-config.php
 
 For more suggestions on Wordpress security, check [here](http://www.luoxiao123.cn/1172-2.html)
 
