@@ -60,7 +60,7 @@ Edit /usr/local/php/php.d/php.ini, for more details, check [here](http://blog.cs
 
 Type following commands to add a virtual host:
 
-    lamp add      // 创建虚拟主机
+    lamp add      //创建虚拟主机
     lamp del      //删除虚拟主机
     lamp list     //列出虚拟主机
 
@@ -136,3 +136,19 @@ And paste following lines into it:
     iptables-restore /etc/iptables.rules
 
 Later if you have more rules, just edit /etc/iptables.rules and restore it, more details is [here](http://blog.csdn.net/yygydjkthh/article/details/50772238).
+
+# Make your Wordpress faster #
+
+1. Turn on BBR of your linux kernel, it's a contribution of Google sits on [Github](https://github.com/google/bbr)
+
+2. Best to install higher version PHP like 7.2 as it's faster than before, also turn on OpCache and Gzip
+
+3. Cache query of the database
+
+4. Use WP plugin like WP Super Cache
+
+5. Compress the pictures
+
+6. Find a right DNS & CDN service
+
+3. 
