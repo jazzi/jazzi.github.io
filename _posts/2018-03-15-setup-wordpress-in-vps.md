@@ -95,8 +95,8 @@ Then decompress it:
 
 * set the rights
 
-    find /your/wordpress/folder/ -type d -exec chmod 755 {} \;
-    find /your/wordpress/folder/ -type f -exec chmod 644 {} \;
+    > find /your/wordpress/folder/ -type d -exec chmod 755 {} \;
+    > find /your/wordpress/folder/ -type f -exec chmod 644 {} \;
 
 * add line below into the head of .htaccess to prohibit people visiting your WP directory
 
