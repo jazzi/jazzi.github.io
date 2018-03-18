@@ -151,4 +151,24 @@ Later if you have more rules, just edit /etc/iptables.rules and restore it, more
 
 6. Find a right DNS & CDN service
 
-3. 
+## Remove Google fonts from WooCommerce Storefront theme ##
+While Wordpress has finally removed their Open Sans font from the core, WooThemes decided to add Source Sans Pro from Google, in order to remove it, just edit *functions.php* from your Storefront theme, for more details check [here](http://www.fix-css.com/2016/09/remove-google-fonts-form-woo-storefront-theme/)
+
+    // Remove Google Font from Storefront theme
+
+    function iggy_child_styles(){
+        wp_dequeue_style('storefront-fonts');
+    }
+
+    add_action( 'wp_enqueue_scripts', 'iggy_child_styles', 999);
+
+    **It removes also new rel='dns-prefetch' from the page’s head.**
+
+**If you just need to change Google font from default one, you may use the snippet taken from here.**
+
+    add_filter( 'storefront_google_font_families', 'my_font_families' );
+
+    function my_font_families( $family ) {
+        $family['merienda'] = 'Merienda:400,700';
+        return $family;
+    } 
