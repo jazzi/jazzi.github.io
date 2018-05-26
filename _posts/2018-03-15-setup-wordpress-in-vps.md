@@ -76,7 +76,7 @@ Type following commands to add a virtual host:
 
 Then decompress it:
 
-> tar -jvf wordpress.tar.gz 
+> tar -zxvf wordpress.tar.gz 
 
 3. After successfully installed, login and change the URL & SiteURL into https in *Settings* -> *General*, or later the WooCommerce status might report https not turn on, if you meet this situation, here is [the solution](https://github.com/woocommerce/woocommerce/issues/13921).
 
