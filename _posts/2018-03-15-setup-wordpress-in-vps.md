@@ -172,3 +172,9 @@ While Wordpress has finally removed their Open Sans font from the core, WooTheme
         $family['merienda'] = 'Merienda:400,700';
         return $family;
     } 
+
+## Troubleshooting ##
+
+1. Wordpress asking for FTP Credentials when installing theme or plugin
+
+`chown -R apache:apache /data/www/website.com`
