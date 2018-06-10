@@ -178,3 +178,9 @@ While Wordpress has finally removed their Open Sans font from the core, WooTheme
 1. Wordpress asking for FTP Credentials when installing theme or plugin
 
 `chown -R apache:apache /data/www/website.com`
+
+2. Lets Encrypt SSL doens't work with prefix "www"
+Be sure add www.domian.com plus domain.com.com when asking domain under 'lamp add'
+
+3. Revoke ssl certification before 'lamp del'
+`certbot revoke --cert-path /etc/letsencrypt/live/domain.com/fullchain.pem`
