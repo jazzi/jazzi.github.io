@@ -184,3 +184,7 @@ Be sure add www.domian.com plus domain.com.com when asking domain under 'lamp ad
 
 3. Revoke ssl certification before 'lamp del'
 `certbot revoke --cert-path /etc/letsencrypt/live/domain.com/fullchain.pem`
+
+4. Open port 80 & 443 as some firewall pre-installed in some OS image like Aliyun, do it on the control center and in the system run:
+`ufw allow https`
+`systemctl status ufw` will show you if ufw is runing.
