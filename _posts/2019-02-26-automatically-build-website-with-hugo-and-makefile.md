@@ -1,7 +1,6 @@
 ---
 layout: post
 ---
-
 Makefile is a file for compiling software using make, here is a [detailed description of what's makefile](https://gist.github.com/isaacs/62a2d1825d04437c6f08).
 
 By using makefile, task automation can be easy, [Siyuan Liu's blog](https://shawnliu.me/post/using-makefile-for-task-automation/) is a great example.
