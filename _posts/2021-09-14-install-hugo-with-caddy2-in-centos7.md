@@ -45,14 +45,25 @@ sudo chmod -R 640 /srv/www ## for files
 Okay, finally the show comes, the [Caddyfile](https://shibumi.dev/posts/new-caddyfile-and-more/).
 
 ```
+# This rule matches on www.nullday.de and www.nspawn.org and strips off the www
+# part. I need this for Hugo (my static website generator). Otherwise Hugo will
+# generate wrong sitemap.xml files. You might ask your self what {http.request.host.labels.1} mean.
+# These are templates. This way you can access various internal Caddy variables.
+# For example the host name in the incoming HTTP request.
+
 www.nullday.de, www.nspawn.org, www.shibumi.dev {
 	redir * https://{http.request.host.labels.1}.{http.request.host.labels.0}{path}
 }
 
+# This part is the actual server configuration. I match on my domains nullday.de and nnspawn.org.
+# First I activate the file_server for serving static files.
 
 nspawn.org, shibumi.dev {
 	file_server
 	root * /srv/www/{host}/public/
+	# And here I set all headers, that Caddy doesn't set on default.
+        # Public-Key-Pins is not set here as it's not recommended any more.
+	# TLS settings are not necessary, because Caddy has strong TLS defaults.
 	header {
 		Strict-Transport-Security "max-age=31536000; includeSubDomains; preload; always"
 		X-Frame-Options "SAMEORIGIN"
@@ -63,6 +74,11 @@ nspawn.org, shibumi.dev {
 		Feature-Policy "geolocation 'none';midi 'none'; sync-xhr 'none';microphone 'none';camera 'none';magnetometer 'none';gyroscope 'none';speaker 'none';fullscreen 'self';payment 'none';"
 		Expect-CT "max-age=604800"
 	}
+	# Lastly we just enable zstd and gzip compression.
+	# Note: zstd compression is not yet supported by browsers.
+	# You may ask yourself why I don't enable brotli.
+	# The brotli impementation in caddy performs surprisingly bad.
+	# I hope the caddy devs are going to fix this..
 	encode {
 		zstd
 		gzip
