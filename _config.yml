@@ -6,3 +6,10 @@ github_username: jazzi
 markdown: kramdown
 permalink: /:title.html
 
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+
