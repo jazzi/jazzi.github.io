@@ -31,6 +31,9 @@ I do not want to be alarmed "Dooom your website is hacked!" The internet is some
 ```
 [sshd]
 enabled = true
+
+#Permanent ban by setting a value of -1
+bantime = -1
 ```
 Remember, you can ban one IP by `sudo fail2ban-client set sshd banip <ip address>`
 
