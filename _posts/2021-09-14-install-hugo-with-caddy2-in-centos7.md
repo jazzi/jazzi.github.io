@@ -27,11 +27,13 @@ I do not want to be alarmed "Dooom your website is hacked!" The internet is some
 3. Forbid SSH login through _password_ but ssh key and no _Root_ login (vim /etc/ssh/sshd_config)
 4. Change SSH default port 22 to something else like 12306
 5. Set up a [firewall](https://docs.fedoraproject.org/en-US/quick-docs/firewalld/) and open port for SSH and https (firewall-cmd --permanent --zone=public --add-port=12306/tcp, firewall-cmd --permanent --zone=public --add-port=80/tcp )
-6. [Fail2ban](https://devops.ionos.com/tutorials/install-fail2ban-on-centos-7-to-protect-ssh-via-firewalld/), install package fail2ban and fail2ban-firewalld, then add following text into /etc/fail2ban/jail.local
+6. [Fail2ban](https://www.linuxcapable.com/how-to-install-fail2ban-with-firewalld-on-rocky-linux-8/), install package fail2ban and fail2ban-firewalld, then add following text into /etc/fail2ban/jail.local
 ```
 [sshd]
 enabled = true
 ```
+Remember, you can ban one IP by `sudo fail2ban-client set sshd banip <ip address>`
+
 7. Set right [permission](https://www.cnblogs.com/sochishun/p/7413572.html) for files and directory:
 ```
 sudo chown -R RegularUser:caddy /srv/www
