@@ -12,13 +12,13 @@ Bus 008 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
 Bus 005 Device 004: ID 0bda:c811 Realtek Semiconductor Corp. RTL8812AU 802.11a/b/g/n/ac WLAN Adapter
 ```
 
-In above listing, `0bda:8812` is the Vendor id and Product id, checking the flowing database to find out what each number represent.
+In above listing, `0bda:c811` is the Vendor id and Product id, checking the flowing database to find out what each number represent.
 
 * [Device Hunter](https://devicehunt.com/view/type/usb/vendor/0BDA)
 * [The USB ID Repository](http://www.linux-usb.org/usb-ids.html)
 * [USB ID Database](https://the-sz.com/products/usbid/index.php)
 
-After searching you will find out code **0bda* represents Realtek while code **c811** represents the real chipset model **8811CU**, so the complete chipset name is Realtek 8811CU, Mercury just purchase this chipset from Realtek company.
+After searching you will find out code **0bda** represents Realtek while code **c811** represents the real chipset model **8811CU**, so the complete chipset name is Realtek 8811CU, Mercury just purchase this chipset from Realtek company.
 
 ## Install the driver
 
