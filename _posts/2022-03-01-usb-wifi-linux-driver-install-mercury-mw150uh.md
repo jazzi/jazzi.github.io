@@ -42,3 +42,11 @@ Here are the driver for common chipsets you might need:
 
 1. 8188gu (Produt id = 1a2b): https://github.com/McMCCRU/rtl8188gu
 2. 8192eu (Product id = 818b): https://github.com/clnhub/rtl8192eu-linux 
+
+## Configuration change
+
+Once any changes made within `/etc/modprobe.d/8821cu.conf`, you should run the following command or will meet some ERROR message during system boot.
+
+```
+sudo update-initramfs -u
+```
