@@ -14,7 +14,7 @@ There are two ways to install the system:
 1. Plug in monitor and keyboard
 2. Connect Cubieboard2 to PC by TTL-USB serial cable, 3.5v
 
-I bought a serial cable and solution 2 didn't work, don't bad line or what, anyway I plug on keyboard and monitor, it brings out the text on screen, but there is a trick, the console won't work in that way only, you need to set tty to framebuffer as below.
+I bought a serial cable and solution 2 didn't work, don't know bad cable or what, anyway I plug on keyboard and monitor, it brings out the text on screen, but there is a trick, the console won't work in that way only, you need to set tty to framebuffer as below.
 
 ```text
 >> OpenBSD/armv7 BOOTARM 1.14
