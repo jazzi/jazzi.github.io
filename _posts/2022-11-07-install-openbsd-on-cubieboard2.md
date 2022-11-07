@@ -60,7 +60,7 @@ Just follow [Using NFS on FAQ](https://www.openbsd.org/faq/faq6.html#NFS) and ev
 
 Above is server part, below is client part.
 
-* MacOS - it needs a special option for mount, that's **resvport**, I put a line into my */Users/jazzi/.zshrc* file. 
+* MacOS - it needs a special option for mount, that's **resvport**, I put a line into my */Users/robin/.zshrc* file. 
 
 ```text
 # Alias to mount NFS server on Cubieboard2
@@ -75,6 +75,14 @@ The NFS performance is somewhat connected to option *wsize* and *rsize*, 32768/1
 ## Troubleshooting
 
 1. I/O Errors - add option *nolock*
+2. mount_nfs: can't mount with remote locks when server is not running rpc.statd: RPC prog. not avail - add the following into */etc/rc.local*
+
+```text
+#!/bin/csh
+#
+# MacOS needs rpc.statd
+rpc.statd
+```
 
 ## Reference resource
 
