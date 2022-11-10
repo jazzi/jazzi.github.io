@@ -64,7 +64,7 @@ Above is server part, below is client part.
 
 ```bash
 # Alias to mount NFS server on Cubieboard2
-alias nfs="sudo mount -t nfs -o resvport,nolock,locallocks,async,wsize=32768,rsize=32768 192.168.0.231:/mnt/hdd /Users/robin/nfs"
+alias nfs="sudo mount -t nfs -o resvport,nolocks,locallocks,soft,async,wsize=32768,rsize=32768 192.168.0.231:/mnt/hdd /Users/robin/nfs"
 alias unfs="sudo umount /Users/robin/nfs"
 ```
 
