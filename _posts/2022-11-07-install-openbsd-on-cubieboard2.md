@@ -16,7 +16,7 @@ There are two ways to install the system:
 
 I bought a serial cable and solution 2 didn't work, don't know bad cable or what, anyway I plug on keyboard and monitor, it brings out the text on screen, but there is a trick, the console won't work in that way only, you need to set tty to framebuffer as below.
 
-```text
+```bash
 >> OpenBSD/armv7 BOOTARM 1.14
 boot> set tty fb0
 switching console to fb0
@@ -28,7 +28,7 @@ switching console to fb0
 
 The rest is nothing special, just follow the [instructions on OpenBSD](https://ftp.openbsd.org/pub/OpenBSD/7.2/armv7/INSTALL.armv7).
 
-```text
+```bash
 Location of sets = http
 HTTP proxy URL = mirrors.bfsu.edu.cn
 HTTP Server = mirrors.bfsu.edu.cn
@@ -40,7 +40,7 @@ What timezone are you in = Asia/Shanghai
 
 My drive was formatted as filesystem ext4 and used under Armbian Linux, now moved to OpenBSD, both partition label and filesystem do not work any more, so need to destroy and create new MBR and FFS as follows:
 
-```text
+```bash
 #fdisk -i sd0
 #disklabel -E sd0
 #newfs sd0i (given new partition lable is "i")
@@ -52,7 +52,7 @@ The trick is, /etc/exports file has different options between Linux and OpenBSD,
 
 Here is my exports file:
 
-```text
+```bash
 /mnt/hdd	-alldirs -network=192.168.0 -mask=255.255.255.0
 ```
 
@@ -62,9 +62,9 @@ Above is server part, below is client part.
 
 * MacOS - it needs a special option for mount, that's **resvport**, I put a line into my */Users/robin/.zshrc* file. 
 
-```text
+```bash
 # Alias to mount NFS server on Cubieboard2
-alias nfs="sudo mount -t nfs -o resvport,wsize=32768,rsize=32768 192.168.0.231:/mnt/hdd /Users/robin/nfs"
+alias nfs="sudo mount -t nfs -o resvport,nolock,locallocks,async,wsize=32768,rsize=32768 192.168.0.231:/mnt/hdd /Users/robin/nfs"
 alias unfs="sudo umount /Users/robin/nfs"
 ```
 
@@ -77,7 +77,7 @@ The NFS performance is somewhat connected to option *wsize* and *rsize*, 32768/1
 1. I/O Errors - add option *nolock*
 2. mount_nfs: can't mount with remote locks when server is not running rpc.statd: RPC prog. not avail - add the following into */etc/rc.local*
 
-```text
+```bash
 #!/bin/csh
 #
 # MacOS needs rpc.statd
