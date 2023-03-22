@@ -67,3 +67,4 @@ newuser ALL=(ALL:ALL) ALL  # add this new line
 # Defaults secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin" # remove the # to let regular user can run command *installpkg* etc.
 ```
 
+For the rest you may visit [TuM'Fatig's website](https://www.tumfatig.net/2022/slackware-linux-15-with-fde-on-uefi-laptop/#:~:text=Slackware%20Linux%2015%20with%20FDE%20on%20UEFI%20laptop,be%20entered%20with%20the%20configured%20keyboard%20layout.%20)
