@@ -20,7 +20,7 @@ The HEX code:
 2. Linux File System: 8300
 3. SWAP: 8200
 
-Then the EFI System partition **NEEDs* to be formatted as **vfat* file system:
+Then the EFI System partition **NEEDs** to be formatted as **vfat** file system:
 
 `mkfs.vfat -n "EFI System" /dev/nvme0n1p1`
 
