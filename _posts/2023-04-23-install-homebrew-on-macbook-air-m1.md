@@ -16,7 +16,7 @@ If you do as above everything should be fine but there is an exception, in China
 
 > curl: (7) Failed to connect to raw.githubusercontent.com port 443: Connection refused
 
-In short this url is blocked, the way to solve it is use resource within the wall, so excute the following script instead:
+In short this url is blocked, the way to solve it is using resource within the wall, so excute the following script instead:
 
 `/bin/zsh -c "$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)"`
 
@@ -35,6 +35,7 @@ When you type `brew udpate` or `brew doctor`, the following error will show up:
 The way to solve it is as below:
 
 `rm -rf "/opt/homebrew/Library/Taps/homebrew/homebrew-core"`
+
 `brew tap homebrew/core`
 
 And that's it!
