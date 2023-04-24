@@ -38,4 +38,11 @@ The way to solve it is as below:
 
 `brew tap homebrew/core`
 
+## Fatal: not in a git directory
+
+If you encounter this problem, pls run `brew -v` and read the messages carefully, normally the solution is there too, that is:
+
+> git config --global --add safe.directory /opt/homebrew/Library/Taps/homebrew/homebrew-core
+
+
 And that's it!
