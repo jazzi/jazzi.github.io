@@ -78,3 +78,49 @@ newuser ALL=(ALL:ALL) ALL  # add this new line
 ```
 
 For the rest you may visit [TuM'Fatig's website](https://www.tumfatig.net/2022/slackware-linux-15-with-fde-on-uefi-laptop/#:~:text=Slackware%20Linux%2015%20with%20FDE%20on%20UEFI%20laptop,be%20entered%20with%20the%20configured%20keyboard%20layout.%20)
+
+## Error: Startx failed after kernel upgrade
+
+Some may use the following commands to upgrade the Slackware system:
+
+```
+#slackpkg update
+#slackpkg install-new
+#slackpkg upgrade-all
+```
+
+Everything should works except one thing, the **Elilo**, if above command upgrade kernel, the Elilo will not update its configuration automaticly, thus need you to do it manually before reboot.
+
+1. mount /boot/efi
+2. cp /boot/{vmlinux,vmlinuz-generic} /boot/efi/EFI/Slackware
+3. /usr/sbin/geninitrd
+4. cp /boot/initrd.gz /boot/efi/EFI/Slackware
+
+The above copy dummies could be replaced with command **eliloconf**.
+
+Command **geninitrd** could be replaced with command **mkinitrd**, in order to use right options for command mkinitrd, the following command could be excuted in advance:
+
+`/usr/share/mkinitrd/mkinitrd_command_generator.sh -k 5.15.94 # Kernel version 5.15.94`
+
+Finally hereis my elilo.conf:
+
+`
+chooser=simple
+delay=1
+timeout=1
+default=vmlinuz
+#
+image=vmlinuz
+        label=vmlinuz
+        initrd=initrd.gz
+        read-only
+        append="root=/dev/nvme0n1p2 vga=normal ro"
+#
+# Linux bootable partition config begins
+# initrd created with 'mkinitrd -c -k 5.15.94 -f ext4 -r /dev/nvme0n1p2 -m usb-storage:xhci-hcd:xhci-pci:ohci-pci:ehci-pci:uhci-hcd:ehci-hcd:hid:usbhid:i2c-hid:hid_generic:hid-asus:hid-cherry:hid-logitech:hid-logitech-dj:hid-logitech-hidpp:hid-lenovo:hid-microsoft:hid_multitouch:jbd2:mbcache:crc32c_intel:crc32c_generic:ext4 -u -o /boot/initrd.gz'
+image=vmlinuz-generic
+	initrd=initrd.gz
+	label=generic
+	read-only
+	append="root=/dev/nvme0n1p2 vga=normal ro"
+`
