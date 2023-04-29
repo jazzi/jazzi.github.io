@@ -108,7 +108,7 @@ In order to ommit kernel upgrading, we can blacklist them by editing /etc/slackp
 
 Finally hereis my elilo.conf:
 
-`
+```
 chooser=simple
 delay=1
 timeout=1
@@ -127,4 +127,4 @@ image=vmlinuz-generic
 	label=generic
 	read-only
 	append="root=/dev/nvme0n1p2 vga=normal ro"
-`
+```
