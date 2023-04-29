@@ -102,7 +102,7 @@ Command **geninitrd** could be replaced with command **mkinitrd**, in order to u
 
 `/usr/share/mkinitrd/mkinitrd_command_generator.sh -k 5.15.94 # Kernel version 5.15.94`
 
-In order to ommit kernel upgrading, we can blacklist them by editing /etc/slackpkg/blacklist.
+**In order to ommit kernel upgrading, we can blacklist them by editing /etc/slackpkg/blacklist.**
 
 ---
 
