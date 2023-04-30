@@ -104,6 +104,8 @@ Command **geninitrd** could be replaced with command **mkinitrd**, in order to u
 
 **In order to ommit kernel upgrading, we can blacklist them by editing /etc/slackpkg/blacklist.**
 
+For the topic about initrd on Slackware, there is a [long discussions](https://www.linuxquestions.org/questions/slackware-14/startx-failed-after-system-upgrade-elilo-hits-the-wrong-kernel-4175724509/page4.html#post6427386) on linuxquestions.com.
+
 ---
 
 Finally hereis my elilo.conf:
