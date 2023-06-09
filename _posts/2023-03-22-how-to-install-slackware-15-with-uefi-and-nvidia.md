@@ -57,7 +57,7 @@ Regarding install packages through command *sbopkg*, I personally perfer to use 
 
 ## FCITX Chinese Input method
 
-*fcitx* is already installed if you choose FULL installation but not started yet. To make fcitx5 the default input method, please add these lines to your /etc/environment (or .profile):
+*fcitx* is already installed if you choose FULL installation but not started yet. To make fcitx5 the default input method, please add these lines to your /etc/environment (or .profile or ~/.bash_profile):
 
 ```
     GTK_IM_MODULE=fcitx
@@ -135,3 +135,16 @@ image=vmlinuz-generic
 	read-only
 	append="root=/dev/nvme0n1p2 vga=normal ro"
 ```
+
+## Adjust the fonts
+
+The default fonts including Liberation and wqy-zenhei are not tea, hereby to blacklist it and change to Noto sans.
+
+```
+sudo slackpkg remove wqy-zenhei-font-ttf
+echo wqy-zenhen-font-ttf | sudo tee -a /etc/slackpkg/blacklist
+
+mkdir -p ~/.config/fontconfig/conf.d
+ln -s /etc/fonts/conf.avail/{70-no-bitmaps,70-noto-cjk}.conf ~/.config/fontconfig/conf.d
+```
+
