@@ -19,22 +19,25 @@ The release of Slackware 15.0 is the reason I bought this NVME SSD, after tried 
 As my machine start under UEFI mode, GPT table, so before the installation starts, there is a need for hard drive partition, EFI partiion is a MUST have.
 
 ```
-Partition 1: nvme0n1p1: 2G : EFI System
-Partition 2: nvme0n1p2: 50G: Linux File System for root /
-Partition 3: nvme0n1p3: 16G: SWAP
-Partition 4: nvme0n1p4: 397G:Linux File System for /home
+Partition 1: nvme0n1p1: 300M : EFI System
+Partition 2: nvme0n1p2: 500M : Linux File System for /boot
+Partition 3: nvme0n1p3: 16G  : SWAP
+Partition 4: nvme0n1p4: 50G  : Linux File System for root /
+Partition 5: nvme0n1p5: 397G : Linux File System for /home
 ```
 
-The HEX code:
-1. EFI System: ef00
-2. Linux File System: 8300
-3. SWAP: 8200
+The filetype in command fdisk:
+1. EFI System: 1
+2. Linux File System: 20
+3. SWAP: 19
 
 Then the EFI System partition **NEEDs** to be formatted as **vfat** file system:
 
-`mkfs.vfat -n "EFI System" /dev/nvme0n1p1`
+`mkfs.fat -F 32 /dev/nvme0n1p1`
 
 After that you will be ready to type the master command "setup" to install it.
+
+*Option: Or maybe before partition the disk you might want to clean it by excuting this command in advance 'dd if=/dev/zero of=/dev/nvme0n1 bs=10M'*
 
 ## Nvidia driver
 
@@ -77,7 +80,7 @@ newuser ALL=(ALL:ALL) ALL  # add this new line
 # Defaults secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin" # remove the # to let regular user can run command *installpkg* etc.
 ```
 
-For the rest you may visit [TuM'Fatig's website](https://www.tumfatig.net/2022/slackware-linux-15-with-fde-on-uefi-laptop/#:~:text=Slackware%20Linux%2015%20with%20FDE%20on%20UEFI%20laptop,be%20entered%20with%20the%20configured%20keyboard%20layout.%20)
+For the rest you may visit [TuM'Fatig's website](https://www.tumfatig.net/2022/slackware-linux-15-with-fde-on-uefi-laptop/#:~:text=Slackware%20Linux%2015%20with%20FDE%20on%20UEFI%20laptop,be%20entered%20with%20the%20configured%20keyboard%20layout.%20) and [Dieken's Slackware Journal](https://dieken.gitlab.io/posts/play-slackware-linux/)
 
 ## Error: Startx failed after kernel upgrade
 
@@ -105,6 +108,8 @@ Command **geninitrd** could be replaced with command **mkinitrd**, in order to u
 **In order to ommit kernel upgrading, we can blacklist them by editing /etc/slackpkg/blacklist.**
 
 For the topic about initrd on Slackware, there is a [long discussions](https://www.linuxquestions.org/questions/slackware-14/startx-failed-after-system-upgrade-elilo-hits-the-wrong-kernel-4175724509/page4.html#post6427386) on linuxquestions.com.
+
+Also the Slackpkg extension [Slackpkg+](https://slakfinder.org/slackpkg+.html) can handle this kernel upgrade problem automatically.
 
 ---
 
