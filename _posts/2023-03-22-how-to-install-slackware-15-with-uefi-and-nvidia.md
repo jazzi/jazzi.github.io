@@ -109,7 +109,7 @@ Command **geninitrd** could be replaced with command **mkinitrd**, in order to u
 
 For the topic about initrd on Slackware, there is a [long discussions](https://www.linuxquestions.org/questions/slackware-14/startx-failed-after-system-upgrade-elilo-hits-the-wrong-kernel-4175724509/page4.html#post6427386) on linuxquestions.com.
 
-Also the Slackpkg extension [Slackpkg+](https://slakfinder.org/slackpkg+.html) can handle this kernel upgrade problem automatically.
+Also the Slackpkg extension [Slackpkg+](https://slakfinder.org/slackpkg+.html) can handle this kernel upgrade problem automatically as long as you uncomment `set PLUGIN_ZLOOKKERNEL=enable` in /etc/slackpkg/slackpkgplus.conf.
 
 ---
 
