@@ -2,12 +2,12 @@
 layout: post
 ---
 
-Caddy is a Let's Encrypt TLS default webserver, much easier than Apache or Nginx, I chose it to run Wordpress or Hugo or what's next Nextcloud.
+Caddy is a Let's Encrypt TLS ready webserver, much easier than Apache or Nginx, I chose it to run Wordpress or Hugo or what's next Nextcloud.
 
-OS: Ubuntu: 22.04
-PHP: 7.4
-Nextcloud: 25
-MariaDB: 
+* OS: Ubuntu: 22.04
+* PHP: 7.4
+* Nextcloud: 25
+* MariaDB: 
 
 As I already has Caddy2 installed and running, all I need to do is to choose the right version of Nextcloud. The latest Nextcloud requires at least PHP 8.0, so I chose Nextcloud 25.0.
 
@@ -21,7 +21,7 @@ This setting may take over 30 minutes or couple hours to be effective.
 
 That's the most complicated part however, just add the following lines into /etc/caddy/Caddyfile should work.
 
----txt
+---
 ## For nextcloud
 
 example.com {
@@ -69,7 +69,7 @@ example.com {
 
 No matter which database used, MariaDB or MySQL, using the commind line to create a databse and a user.
 
----text
+---
 $> mysql -u root -p  # Enter the database
 $> CREATE DATABASE nextcloud;
 $> GRANT ALL PRIVILEGES ON nextcloud.* TO 'nextcloud'@'localhost' IDENTIFIED BY 'nextcloudPassword';
@@ -81,7 +81,7 @@ $> \q
 
 `curl -O https://download.nextcloud.com/server/releases/nextcloud-25.0.9.tar.bz2`
 
----text
+---
 $> cp nextcloud-25.0.9.tar.bz2 /www/
 $> tar -xvf nextcloud-25.0.9.tar.bz2
 $> sudo chown -R www-data:www-data /www/nextcloud
@@ -89,7 +89,7 @@ $> sudo chown -R www-data:www-data /www/nextcloud
 
 ## Restart Caddy
 
-$> sudo systemctl restart caddy.service
+`$> sudo systemctl restart caddy.service`
 
 If above command failed, then check the log by command `sudo systemctl status caddy` and follow the instructions.
 
