@@ -2,9 +2,9 @@
 layout: post
 ---
 
-Arch Linux is so light that I think might be the best option for old Cubieboard2 single board, so I followed the [Archlinux installation instruction[(https://archlinuxarm.org/platforms/armv7/allwinner/cubieboard-2) and get it working.
+Arch Linux is so light that I think might be the best option for old Cubieboard2 single board, so I followed the [Archlinux installation instruction](https://archlinuxarm.org/platforms/armv7/allwinner/cubieboard-2) and get it working.
 
-## No Sound ALSA problem
+## No Sound - ALSA problem
 
 After `ssh alarm@192.168.1.5` and enter password "alarm", then change to root by `su -` with password "root", I found everything is fine except the sound.
 
@@ -40,7 +40,7 @@ Card: sun4i-codec
 Use left and right arrow to choose the item and unmute all items by stroke M
 ```
 
-** Remember to unmute all items **
+**Remember to unmute all items**
 
 I ever encountered below errors:
 
@@ -52,9 +52,11 @@ aplay: pcm_write:2146: write error: Input/output error
 
 Finally the problem is one item named "Right Mixer Right DAC" is muted, unmute it solved the problem.
 
+---
+
 ## Configure the system
 
-1. Set the mirror by edit /etc/pacman.d/mirrorlist and add server Server = https://mirrors.bfsu.edu.cn/archlinuxarm/$arch/$repo
+1. Set the mirror by edit /etc/pacman.d/mirrorlist and add server *Server = https://mirrors.bfsu.edu.cn/archlinuxarm/$arch/$repo*
 2. Edit file /etc/locale.gen and uncomment en_US-UTF8 then run `locale-gen` and `localectl set-locale en_US.UTF8`
 3. Set timezone by run `timedatectl set-timezone Asia/Shanghai`
 4. Add user alarm to group **audio** by `usermod -a -G audio alarm`
