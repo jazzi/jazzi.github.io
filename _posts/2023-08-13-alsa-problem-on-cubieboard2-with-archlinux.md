@@ -56,9 +56,11 @@ Finally the problem is one item named "Right Mixer Right DAC" is muted, unmute i
 
 ## Configure the system
 
-1. Set the mirror by edit /etc/pacman.d/mirrorlist and add server *Server = https://mirrors.bfsu.edu.cn/archlinuxarm/$arch/$repo*
-2. Edit file /etc/locale.gen and uncomment en_US-UTF8 then run `locale-gen` and `localectl set-locale en_US.UTF8`
-3. Set timezone by run `timedatectl set-timezone Asia/Shanghai`
-4. Add user alarm to group **audio** by `usermod -a -G audio alarm`
-5. Add user alarm to *sudoer* by `visudo` after package "sudo" installed
-6. Add SSH Key to the server by run command in client side `ssh-copy-id alarm@192.168.1.5` and copy this key to root by `sudo cp .ssh/authorized_keys /root/.ssh`
+1. Add user alarm to *sudoer* by `visudo` after package "sudo" installed
+2. Add SSH Key to the server by run command in client side `ssh-copy-id alarm@192.168.1.5` and copy this key to root by `sudo cp .ssh/authorized_keys /root/.ssh`
+3. Now you can login as root to change user name `usermode -l jazzi -d /home/jazzi -m alarm` and group name `groupmod -n jazzi alarm`, actually it's all about /etc/passwd, /etc/group, /etc/shadow and /home/alarm
+4. Set the mirror by edit /etc/pacman.d/mirrorlist and add server *Server = https://mirrors.bfsu.edu.cn/archlinuxarm/$arch/$repo*
+5. Edit file /etc/locale.gen and uncomment en_US-UTF8 then run `locale-gen` and `localectl set-locale en_US.UTF8`
+6. Set timezone by run `timedatectl set-timezone Asia/Shanghai`
+7. Add user jazzi to group **audio** by `usermod -a -G audio jazzi`
+8. Add user jazzi to *sudoer* by `visudo` after package "sudo" installed
