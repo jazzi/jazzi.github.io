@@ -91,7 +91,9 @@ I just change the *2g* into zero 0 to disable swap and pick the USB 2.0 stick fo
 
 Disable *syslogd* causes problem for user to login though no problem with remote SSH Login, I decided to keep service *syslogd* and *newsyslog* running and change */var/log* into *tmpfs* by adding the following line into */etc/fstab*
 
-> tmpfs  /var/log  tmpfs  rw,mode=0755,size=128m  0  0
+```
+tmpfs  /var/log  tmpfs  rw,mode=0755,size=128m  0  0
+```
 
 And delete */zroot/var/log* by issuing command `zfs destroy zroot/var/log` but you may encounter file system busy error problem as daemon *syslogd* is still running and writing into this file system, the trick is forcely umount it by command:
 
@@ -100,10 +102,11 @@ And delete */zroot/var/log* by issuing command `zfs destroy zroot/var/log` but y
 Or disable *syslogd* in */etc/rc.conf*:
 
 > syslogd_enable = "NO"
+>
 > newsyslog = "NO"
 
 Then a reboot will disable both services and you are ok to destroy */zroot/var/log*.
 
 At this point, most of your log files will be in the memory file tmpfs, it's better to sync to somewhere of the disk monthly or weekly, you can put the following command into *cron*:
 
-`rsync -vaz --delete /var/log/ /somewhere`
+`rsync -avx --delete /var/log/ /somewhere`
