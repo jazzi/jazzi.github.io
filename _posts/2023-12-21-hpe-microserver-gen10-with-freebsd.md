@@ -48,17 +48,18 @@ There is a 128G SSD there, it's good choice for OS installation however I decide
 2. Change **PKG** cache location
   * Put `mkdir -p /tmp/cache/pkg` in */etc/rc.local*
   * Configure */usr/local/etc/pkg.conf* and add the following three lines
-    * PKG_CACHEDIR = "/tmp/cache/pkg";
-    * AUTOCLEAN = true;
-    * REPO_AUTOUPDATE = false;
+      * PKG_CACHEDIR = "/tmp/cache/pkg";
+      * AUTOCLEAN = true;
+      * REPO_AUTOUPDATE = false;
 3. Disable some services and daemons in */etc/rc.conf*
   * sendmail_enable = "NONE"
   * hostid_enable = "NO"
-  * syslogd_enable = "NO" # Be careful with this as all logs are disabled
-  * newsyslod_enable = "NO"
+  * ~~syslogd_enable = "NO"~~ # Be careful with this as all logs are disabled
+  * ~~newsyslod_enable = "NO"~~
 4. Disable some routine periodic services in "/etc/periodic.conf"
   * weekly_locate_enable = "NO"
   * weekly_whatis_enable = "NO" 
+  * daily_status_enable = "NO"
 5. Disable SWAP
 
 As this machine now has 8G memory even can be max 32G later, besides its role is just small home NAS to serve file sharing and music server or maybe video streaming server, should not a memory consuming monster, so SWAP is disabled by setting to 0.
@@ -85,3 +86,24 @@ The **Guided Partitioning Using Root-on-ZFS** has the following configureation o
 * W Encruypt Swap?	NO
 
 I just change the *2g* into zero 0 to disable swap and pick the USB 2.0 stick for **Pool Type/Disks**.
+
+### Update on tmpfs and syslogd service
+
+Disable *syslogd* causes problem for user to login though no problem with remote SSH Login, I decided to keep service *syslogd* and *newsyslog* running and change */var/log* into *tmpfs* by adding the following line into */etc/fstab*
+
+> tmpfs  /var/log  tmpfs  rw,mode=0755,size=128m  0  0
+
+And delete */zroot/var/log* by issuing command `zfs destroy zroot/var/log` but you may encounter file system busy error problem as daemon *syslogd* is still running and writing into this file system, the trick is forcely umount it by command:
+
+`umount --force /zroot/var/log`
+
+Or disable *syslogd* in */etc/rc.conf*:
+
+> syslogd_enable = "NO"
+> newsyslog = "NO"
+
+Then a reboot will disable both services and you are ok to destroy */zroot/var/log*.
+
+At this point, most of your log files will be in the memory file tmpfs, it's better to sync to somewhere of the disk monthly or weekly, you can put the following command into *cron*:
+
+`rsync -vaz --delete /var/log/ /somewhere`
