@@ -35,9 +35,9 @@ Don't install any hard drive in advance.
 There is a 128G SSD there, it's good choice for OS installation however I decided to install the system on a USB stick based on the following reasons:
 
 1. There is an internal USB 2.0 port and USB 2.0 flash memory stick is cheap
-2. Easier to clone a USB stick as cold offline backup, once one failed I can just plug another one
+2. Easier to clone a USB stick as cold offline backup, once one failes I can just plug another one
 3. It's a home NAS server, not much services and workloads on it
-4. The above 128G SSD could be a **cache* drive to improve reading speed a lot
+4. The above 128G SSD could be a **cache** drive to improve reading speed a lot
 5. There is perfect solution to decrease USB **write** 
 
 ### How to decrease USB write?
@@ -45,7 +45,7 @@ There is a 128G SSD there, it's good choice for OS installation however I decide
 1. Replace default /zroot/tmp as **tmpfs**
   * Delete */zroot/tmp*: `zfs destroy /zroot/tmp`
   * Add a line into */etc/fstab*: `echo "tmpfs	/tmp	tmpfs	rw,mode=1777,size=128m	0	0" >> /etc/fstab`
-2. Change **PKG* cache location
+2. Change **PKG** cache location
   * Put `mkdir -p /tmp/cache/pkg` in */etc/rc.local*
   * Configure */usr/local/etc/pkg.conf* and add the following three lines
     * PKG_CACHEDIR = "/tmp/cache/pkg";
@@ -69,10 +69,10 @@ Once the FreeBSD Installer steps into *Allocating Disk Space*, four options show
 
 The *Guided Partitioning Using Root-on-ZFS* has the following configureation options:
 
-* >>> Install		Proceed with Installation
+* \>>> Install		Proceed with Installation
 * T Pool Type/Disks:	Stripe: 0 disks
-* - Rescan Devices	*
-* - Disk Info		*
+* \- Rescan Devices	*
+* \- Disk Info		*
 * N Pool Name		zroot
 * 4 Force 4k Sectors?	YES
 * E Encrypt Disks?	NO
