@@ -56,7 +56,10 @@ There is a 128G SSD there, it's good choice for OS installation however I decide
   * hostid_enable = "NO"
   * syslogd_enable = "NO" # Be careful with this as all logs are disabled
   * newsyslod_enable = "NO"
-4. Disable SWAP
+4. Disable some routine periodic services in "/etc/periodic.conf"
+  * weekly_locate_enable = "NO"
+  * weekly_whatis_enable = "NO" 
+5. Disable SWAP
 
 As this machine now has 8G memory even can be max 32G later, besides its role is just small home NAS to serve file sharing and music server or maybe video streaming server, should not a memory consuming monster, so SWAP is disabled by setting to 0.
 
@@ -67,7 +70,7 @@ Once the FreeBSD Installer steps into *Allocating Disk Space*, four options show
 * Manual	Manual Disk Setup (experts)
 * Shell		Open a shell and partition by hand
 
-The *Guided Partitioning Using Root-on-ZFS* has the following configureation options:
+The **Guided Partitioning Using Root-on-ZFS** has the following configureation options:
 
 * \>>> Install		Proceed with Installation
 * T Pool Type/Disks:	Stripe: 0 disks
