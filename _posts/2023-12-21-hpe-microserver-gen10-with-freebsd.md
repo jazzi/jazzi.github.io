@@ -101,12 +101,19 @@ And delete */zroot/var/log* by issuing command `zfs destroy zroot/var/log` but y
 
 Or disable *syslogd* in */etc/rc.conf*:
 
-> syslogd_enable = "NO"
->
-> newsyslog = "NO"
+```
+syslogd_enable = "NO"
+newsyslog = "NO"
+```
 
 Then a reboot will disable both services and you are ok to destroy */zroot/var/log*.
 
 At this point, most of your log files will be in the memory file tmpfs, it's better to sync to somewhere of the disk monthly or weekly, you can put the following command into *cron*:
 
 `rsync -avx --delete /var/log/ /somewhere`
+
+## SSH takes too long time to connect
+
+This problem bothered me, everytime I try to connect the FreeBSD, it takes almost 20 seconds to get connected and I know it should be less than 5s. Adding the following line into */etc/ssh/sshd_config* resolved this problem.
+
+> UseDNS no
