@@ -150,7 +150,7 @@ At this point, the base system is ready, let's install some services.
 `pkg search samba`
 `pkg install samba416`
 
-Then create the Samba configuration */usr/local/etc/smb4.conf* and put some settings there:
+Then create the [Samba configuration](https://www.samba.org/samba/docs/using_samba/ch09.html) */usr/local/etc/smb4.conf* and put some settings there:
 
 ```
 [global]
@@ -164,7 +164,7 @@ Then create the Samba configuration */usr/local/etc/smb4.conf* and put some sett
     writable = yes
     printable = no
     guest ok = no
-    valid users = jazzi
+    valid users = jazzi mike lily
 ```
 
 As we put */var/log* as *tmpfs* and Samba gonna need to write its logs into */var/log/samba4/* but this directory is not existed and Samba can not create it, so we need to creat it in advance:
