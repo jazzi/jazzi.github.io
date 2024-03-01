@@ -60,6 +60,7 @@ There is a 128G SSD there, it's good choice for OS installation however I decide
   * weekly_locate_enable = "NO"
   * weekly_whatis_enable = "NO" 
   * daily_status_enable = "NO"
+  * daily_status_security_enable = "NO"
 5. Disable SWAP
 
 As this machine now has 8G memory even can be max 32G later, besides its role is just small home NAS to serve file sharing and music server or maybe video streaming server, should not a memory consuming monster, so SWAP is disabled by setting to 0.
@@ -114,6 +115,73 @@ At this point, most of your log files will be in the memory file tmpfs, it's bet
 
 ## SSH takes too long time to connect
 
-This problem bothered me, everytime I try to connect the FreeBSD, it takes almost 20 seconds to get connected and I know it should be less than 5s. Adding the following line into */etc/ssh/sshd_config* resolved this problem.
+This problem bothered me, everytime I try to connect the FreeBSD, it takes almost 20 seconds to get connected and I know it should be less than 1s. Adding the following line into */etc/ssh/sshd_config* resolved this problem.
 
 > UseDNS no
+
+## Set up data pool
+
+Firstly is to identiy which disk is attached to which port and which port refers to which disk label.
+
+`camcontrol devlist`
+`glabel status`
+
+It shows all attached labels and tells /dev/ada0 is the data drive, so set the data pool up.
+
+`zpool create data /dev/ada0`
+
+This sets up one drive *stripe* type pool, it can be transferred to *mirror* type pool later if one more drive added.
+
+Then I added the SSD cache drive as [L2ARC](http://www.brendangregg.com/blog/2008-07-22/zfs-l2arc.html) which is /dev/ada1
+
+`zpool add data cache /dev/ada1`
+
+Then command `zpool status` indicated everthing is ok.
+
+After that I created several *dataset* as follows:
+
+`zfs create data/tv`
+`zfs create data/music`
+
+At this point, the base system is ready, let's install some services.
+
+## Install Samba file sharing server
+
+`pkg search samba`
+`pkg install samba416`
+
+Then create the Samba configuration */usr/local/etc/smb4.conf* and put some settings there:
+
+```
+[global]
+    workgroup = WORKGROUP 
+    realm = yo.home
+    netbios name = NAS
+
+[data]
+    path = /data
+    public = no
+    writable = yes
+    printable = no
+    guest ok = no
+    valid users = jazzi
+```
+
+As we put */var/log* as *tmpfs* and Samba gonna need to write its logs into */var/log/samba4/* but this directory is not existed and Samba can not create it, so we need to creat it in advance:
+
+`mkdir /var/log/samba4`
+
+As it will disappear after reboot, we need to put this command into */etc/rc.local* to let the system create it automatically.
+
+Ater that we need to enable Samba and start it:
+
+`sysrc samba_server_enable=YES`
+`service samba_server start`
+
+So Samba Server is ready and it's time to add some users. By default Samba relies on system users, you need to use command *adduser* to create *system* grade user in advance, then enable it for Samba by:
+
+`pdedit -a -u jazzi`
+
+After that you can open your MacOS App Finder and connect the server as:
+
+`smb://192.168.0.2`
