@@ -148,6 +148,7 @@ At this point, the base system is ready, let's install some services.
 ## Install Samba file sharing server
 
 `pkg search samba`
+
 `pkg install samba416`
 
 Then create the [Samba configuration](https://www.samba.org/samba/docs/using_samba/ch09.html) */usr/local/etc/smb4.conf* and put some settings there:
@@ -176,6 +177,7 @@ As it will disappear after reboot, we need to put this command into */etc/rc.loc
 Ater that we need to enable Samba and start it:
 
 `sysrc samba_server_enable=YES`
+
 `service samba_server start`
 
 So Samba Server is ready and it's time to add some users. By default Samba relies on system users, you need to use command *adduser* to create *system* grade user in advance, then enable it for Samba by:
