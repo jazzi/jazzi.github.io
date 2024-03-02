@@ -188,7 +188,7 @@ After that you can open your MacOS App Finder and connect the server as:
 
 `smb://192.168.0.2`
 
-Also you might want to tune some kernel settings to max files handling. Add the followings into */etc/sysctl.conf*:
+Also you might want to tune some kernel settings to max files handling. Add the followings suggested by [Davd.io](https://www.davd.io/samba-fileserver-on-freebsd/) into */etc/sysctl.conf*:
 
 ```
 kern.maxfiles=25600
