@@ -207,7 +207,7 @@ Its command is not just issuing *aria2* but *aria2c* instead, to install this pa
 
 `pkg install aria2`
 
-There is no default configuration file and you should add the following lines into */home/.aria2/aria2.conf*:
+There is no default configuration file and you should add the following lines into */home/mike/.aria2/aria2.conf*:
 
 ```
 #
