@@ -196,3 +196,257 @@ kern.maxfilesperproc=16384
 net.inet.tcp.sendspace=65536
 net.inet.tcp.recvspace=65536
 ```
+
+## Aria2 settings for FreeBSD
+
+> aria2 is a lightweight multi-protocol & multi-source command-line download utility.
+
+Its command is not just issuing *aria2* but *aria2c* instead, to install this package:
+
+`pkg install aria2`
+
+There is no default configuration file and you should add the following lines into */home/.aria2/aria2.conf*:
+
+```
+#
+## aria2 config
+#
+# man page  = https://aria2.github.io/manual/en/html/
+# file path = /home/jazzi/.aria2/aria2.conf
+ 
+
+# Download Directory: specify the directory all files will be downloaded to.
+# When this directive is commented out, aria2 will download the files to the
+# current directory where you execute the aria2 binary.
+dir=/data/download
+
+
+# Bit Torrent: If the speed of the incoming data (download) from other peers is
+# greater then the peer-speed-limit, then do not allow any more connections
+# than max-peers. The idea is to limit the amount of clients our system will
+# connect with to reduce our overall load when we are already saturating our
+# incoming bandwidth.  Make sure to set the the peer-speed-limit to your
+# preferred incoming (download) speed. Speeds must be whole numbers so 5.5M is
+# illegal, but 5500K is valid.  For unlimited connections set
+# request-peer-speed-limit something high like 10000M (10gig).
+ bt-max-peers=0
+ bt-request-peer-speed-limit=0
+
+
+# Bit Torrent: the max upload speed for all torrents combined. Again, only
+# whole numbers are valid. We find a global upload limit is more flexible then
+# an upload limit per torrent. Zero(0) is unrestricted upload spreeds.
+ max-overall-upload-limit=0
+
+
+# Bit Torrent: When downloading a torrent remove ALL trackers from the listing.
+# This is a good way to only use distributed hash table (DHT) and Peer eXchange
+# (PeX) for connections. We find start up of the torrent takes a little longer
+# with all trackers disabled, but helps reduce the load on trackers.
+ bt-exclude-tracker="*"
+ bt-external-ip=127.0.0.1
+
+
+# Bit Torrent: ports and protocols used for bit torrent TCP and UDP
+# connections. Make sure DHT is enabled in order to connect to UDP trackers as
+# well as negotiating with DHT and PEX peers. Use xboxlive port 3074 for
+# obfuscation.
+ dht-listen-port=6970
+ enable-dht=true
+ enable-peer-exchange=true
+ listen-port=51413
+ bt-enable-lpd=true
+
+
+# When running aria2 on FreeBSD with ZFS, disable disk-cache due to ZFS's use
+# of Adaptive Replacement Cache (ARC). ZFS can also take advantage of the
+# "sparse files" format which is significantly faster then pre allocation of
+# file space. For other file systems like EXT4 and XFS you can test
+# file-allocation with "prealloc" and "falloc" to see which file-allocation
+# allows arai2 to start quicker and use less disk I/O.
+ disk-cache=0
+ file-allocation=none
+
+
+# Bit Torrent: fully encrypt the negotiation as well and the payload of all bit
+# torrent traffic. With this configuration, encryption is required and all old,
+# non-encrypted clients are ignored (dropped). This may help avoid some ISPs
+# rate limiting P2P clients, but will also reduce the amount of clients aria2
+# will talk to.
+ bt-force-encryption=true
+ bt-min-crypto-level=arc4
+ bt-require-crypto=true
+
+
+# Bit Torrent: Download the torrent file into memory (RAM) if there is no need
+# to save the .torrent file itself. This option works with both magnet and
+# torrent URL links.
+ follow-torrent=mem
+
+
+# Bit Torrent: The amount of time and the upload-to-download ratio you wish to
+# seed to. If either the seed time limit ( minutes ) or the seed ratio is
+# reached, torrent seeding will stop. You can set seed-time to zero(0) to
+# disable seeding completely.
+ seed-ratio=100
+ seed-time=0
+
+
+# Bit Torrent: timeout values for servers and clients.
+#bt-tracker-connect-timeout=10
+#bt-tracker-interval=900
+#bt-tracker-timeout=10
+
+
+# Bit Torrent: scripts or commands to execute before, during or after a
+# download finishes.
+# on-bt-download-complete=/path/to/script.sh
+# on-download-complete=/path/to/script.pl
+# on-download-error=/path/to/script
+# on-download-pause=/path/to/script.sh
+# on-download-start=/path/to/script.pl
+# on-download-stop=/path/to/script
+
+
+# Network: maximum socket receive buffer in bytes. 1M can sustain 1Gbit/sec.
+# Default: 0 which is disabled.
+ socket-recv-buffer-size=1M
+
+
+# Event Multiplexing: set polling to the OS type you are using. For FreeBSD,
+# OpenBSD and NetBSD set to "kqueue". For Linux set to "epoll".
+ event-poll=kqueue
+
+
+# Certificate Authority PEM : specify the full path to the OS certificate
+# authority pem file to verify the peers. On FreeBSD with OpenSSL the following
+# file path is valid. Without a valid pem file aria2 will print out the error,
+# "[ERROR] Failed to load trusted CA certificates from no. Cause:
+# error:02001002:system library:fopen:No such file or directory"
+ ca-certificate=/etc/ssl/cert.pem
+
+
+# Data Integrity: check the MD5 / SHA256 hash of metalink downloads as well as
+# the hash of bit torrent chunks as our client receives them. CPU time is
+# reasonably low for the high value of real time verified data. Note:
+# check-integrity set as true will show "ERROR - Checksum error detected" for
+# magnet links which can be ignored.
+#check-integrity=true
+ realtime-chunk-checksum=true
+
+
+# File Names: Resume file downloads if we have a partial copy. Do not rename
+# the file or make another copy if the same file is downloaded a second time.
+ allow-overwrite=true
+ always-resume=true
+ auto-file-renaming=false
+ continue=true
+ remote-time=true
+
+
+# User Agent: Disable the identification string of our client. If you connect
+# to a server which requires a certain id string you can always add one here.
+# Trackers should never use client id strings as security authentication or
+# access control.
+ peer-id-prefix=""
+ user-agent=""
+
+
+# Status Summery messages are disabled since the status of the download is
+# updated in real time on the CLI anyways.
+ summary-interval=0
+
+
+# FTP: use passive ftp which is firewall friendly and reuse the ftp data
+# connection when asking for multiple resources from the same server for
+# efficiency.
+ ftp-pasv=true
+ ftp-reuse-connection=true
+
+
+# Metalink: Set the country code to prefer mirrors closest to you. Prefer more
+# secure https mirrors over http and ftp servers.
+ metalink-language=zh_CN
+ metalink-location=cn
+ metalink-preferred-protocol=https
+
+
+# Disconnect from https, http or ftp servers who do not upload data to us
+# faster then the specified value. Aria2 will then find another mirror in the
+# metalink file which might be quicker. If there are no more mirrors left then
+# the current slow mirror is still used. This value is NOT used for bit torrent
+# connections though. NOTE: we hope to convince the developer to add a
+# lower-speed value or even a minimal client U/D ratio to bit torrent some day
+# to kick off leachers too.
+ lowest-speed-limit=50K
+
+
+# Concurrent downloads: Set the number of different servers to download from
+# concurrently; i.e. in parallel. If we are downloading a single file then
+# split that file into the same amount of streams. Make sure to keep in mind
+# that if the amount of parallel downloads times the lowest-speed-limit is
+# greater then your total download bandwidth then you will drop servers
+# incorrectly. For example, we have ten(10) connections at a minimum of
+# 50KiB/sec which equals 500KiB/sec. If our total download bandwidth is not at
+# least 500KiB/sec then arai2 will think the mirrors are too slow and drop
+# connection slowing down the whole download. Do not set the
+# max-connection-per-server greater then three(3) as to avoid abusing a single
+# server.
+ max-concurrent-downloads=10
+ max-connection-per-server=3
+ min-split-size=5M
+ split=10
+
+
+# RPC Interface: To access aria2 through XML-RPC API, like using webui-aria2.
+#enable-rpc
+#rpc-listen-all
+#rpc-user=username
+#rpc-passwd=passwd
+
+
+# Daemon Mode: To run aria2 in the background as a daemon. Use daemon mode to
+# start aria2 on reboot or when using an RPC interface like webui-aria2.
+#daemon=true
+
+
+#
+#
+# Reference: the following options arethe developers defaults. We kept them
+# here for reference.
+
+# bt-max-open-files=100
+# bt-save-metadata=false
+# bt-stop-timeout=0
+ check-certificate=true
+ conditional-get=true
+# dht-entry-point="dht.transmissionbt.com:6881"
+ dht-file-path=/home/jazzi/.aria2/dht.dat
+# dht-message-timeout=10
+ disable-ipv6=true
+ http-accept-gzip=true
+ log=/var/log/aria2.log
+ log-level=warn
+## BT Tracker server list: https://github.com/ngosang/trackerslist
+bt-tracker=udp://tracker.opentrackr.org:1337/announce,udp://open.tracker.cl:1337/announce,udp://tracker.auctor.tv:6969/announce,udp://opentracker.i2p.rocks:6969/announce,https://opentracker.i2p.rocks:443/announce,udp://open.demonii.com:1337/announce,udp://open.stealth.si:80/announce,udp://tracker.torrent.eu.org:451/announce,udp://tracker.moeking.me:6969/announce,udp://exodus.desync.com:6969/announce,udp://tracker.tiny-vps.com:6969/announce,udp://tracker.theoks.net:6969/announce,udp://tracker.skyts.net:6969/announce,udp://retracker01-msk-virt.corbina.net:80/announce,udp://opentracker.io:6969/announce,udp://open.tracker.ink:6969/announce,udp://movies.zsw.ca:6969/announce,udp://explodie.org:6969/announce,udp://bt.ktrackers.com:6666/announce,https://tracker.tamersunion.org:443/announce
+### EOF ###
+```
+
+### Certificate issue
+
+You might enter a CA-Certificate fails error as below:
+
+> [SocketCore.cc:933] errorCode=1 SSL/TLS handshake failure: unable to get local issuer certificate
+
+The problem is about the OpenSSL certificate, the FreeBSD installation doesn't have this and you need to install a package as below:
+
+```
+$ pkg search ca_root_nss
+ca_root_nss-3.93_2             Root certificate bundle from the Mozilla Project
+```
+
+`pkg install ca_root_nss`
+
+Or if you just turn off the ca-certificate by the following line, you will still get problem.
+
+> check-certificate=false
