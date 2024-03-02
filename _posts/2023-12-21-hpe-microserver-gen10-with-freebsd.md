@@ -201,6 +201,8 @@ net.inet.tcp.recvspace=65536
 
 > [aria2](https://aria2.github.io) is a lightweight multi-protocol & multi-source command-line download utility.
 
+Combined with detaching session function of [terminal multiplexers](http://linuxcommand.org/lc3_adv_termmux.php) like *screen* or *tmux*, it can be a very convenient and powerful headless download server.
+
 Its command is not just issuing *aria2* but *aria2c* instead, to install this package:
 
 `pkg install aria2`
