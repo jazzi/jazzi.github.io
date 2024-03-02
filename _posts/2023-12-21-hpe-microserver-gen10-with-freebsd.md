@@ -199,7 +199,7 @@ net.inet.tcp.recvspace=65536
 
 ## Aria2 settings for FreeBSD
 
-> aria2 is a lightweight multi-protocol & multi-source command-line download utility.
+> [aria2](https://aria2.github.io) is a lightweight multi-protocol & multi-source command-line download utility.
 
 Its command is not just issuing *aria2* but *aria2c* instead, to install this package:
 
@@ -323,6 +323,9 @@ dir=/data/download
 # file path is valid. Without a valid pem file aria2 will print out the error,
 # "[ERROR] Failed to load trusted CA certificates from no. Cause:
 # error:02001002:system library:fopen:No such file or directory"
+# The default location for MacOS is /usr/local/openssl/cert.pem
+# The default location for OpenBSD is
+# The default location for Archlinux is
  ca-certificate=/etc/ssl/cert.pem
 
 
