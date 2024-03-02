@@ -437,7 +437,7 @@ bt-tracker=udp://tracker.opentrackr.org:1337/announce,udp://open.tracker.cl:1337
 
 ### Certificate issue
 
-You might enter a CA-Certificate fails error as below:
+You might encounter a CA-Certificate fails error as below:
 
 > [SocketCore.cc:933] errorCode=1 SSL/TLS handshake failure: unable to get local issuer certificate
 
