@@ -290,8 +290,8 @@ dir=/data/download
 # seed to. If either the seed time limit ( minutes ) or the seed ratio is
 # reached, torrent seeding will stop. You can set seed-time to zero(0) to
 # disable seeding completely.
- seed-ratio=100
- seed-time=0
+ seed-ratio=10
+ seed-time=60
 
 
 # Bit Torrent: timeout values for servers and clients.
