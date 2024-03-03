@@ -455,3 +455,31 @@ ca_root_nss-3.93_2             Root certificate bundle from the Mozilla Project
 Or if you just turn off the ca-certificate by the following line, you will still get problem.
 
 > check-certificate=false
+
+## NFS setting problem
+
+I have problem with MacOS client to connect to FreeBSD NFS server, maybe someday I will dip my toes into it. Anyway here is a link might be useful in the future.
+
+* [macOS X Mount NFS Share / Set an NFS Client](https://www.cyberciti.biz/faq/apple-mac-osx-nfs-mount-command-tutorial/)
+* [Share ZFS datasets with FreeBSD NFS](https://wiki.freebsd.org/ZFS/ShareNFS)
+* [NFS shares with ZFS](https://klarasystems.com/articles/nfs-shares-with-zfs/)
+
+The following two lines needed to be put into */etc/rc.conf* otherwise the MacOS client will have problem and even command `showmount -e 192.168.0.3` won't list any shares.
+
+```
+rpc_lockd_enable="YES" # for MacOS client
+rpc_statd_enable="YES" # for MacOS client
+```
+
+Also NFS share with ZFS enabled on FreeBSD has something special, it doesn't use */etc/exports* but */etc/zfs/exports* instead, this file should not be manually edited but issue the following command:
+
+`zfs set sharenfs=on pool-name/dataset-name`
+
+Or more detailed control:
+
+`zfs set sharenfs="on,-maproot=root,name=my-share,rw=@192.168.0.1/24" pool-name/dataset-name`
+
+Or
+
+`zfs set sharenfs ="on,-network=192.168.0.1/24" pool-name/dataset-name`
+
