@@ -456,6 +456,26 @@ Or if you just turn off the ca-certificate by the following line, you will still
 
 > check-certificate=false
 
+### /var/log/aria2.log error
+
+If you use *tmpfs* as */var/log* too, you probably will have such below errors too:
+
+```
+$ aria2c /data/download/1.torrent
+Exception caught
+Exception: [Logger.cc:73] errorCode=1 Failed to open the file /var/log/aria2.log, cause: n/a
+```
+
+Above message indicates the file */var/log/aria2.log* is missing, so let's create one
+
+`touch /var/log/aria2.log`
+
+But still the same error shows up, no worries, it's about the privilages, let's change it by:
+
+`chmod 777 /var/log/aria2.log`
+
+Then woooo, everything goes up, so let's wrap it up and put these two commands into */etc/rc.local*.
+
 ## NFS setting problem
 
 I have problem with MacOS client to connect to FreeBSD NFS server, maybe someday I will dip my toes into it. Anyway here is a link might be useful in the future.
