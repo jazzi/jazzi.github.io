@@ -470,9 +470,9 @@ Above message indicates the file */var/log/aria2.log* is missing, so let's creat
 
 `touch /var/log/aria2.log`
 
-But still the same error shows up, no worries, it's about the privilages, let's change it by:
+But still the same error shows up, no worries, it's about the privilages, the user needs *write* permission, let's change it by:
 
-`chmod 777 /var/log/aria2.log`
+`chmod 664 /var/log/aria2.log`
 
 Then woooo, everything goes up, so let's wrap it up and put these two commands into */etc/rc.local*.
 
