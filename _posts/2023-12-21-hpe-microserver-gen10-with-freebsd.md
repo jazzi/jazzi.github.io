@@ -503,3 +503,43 @@ Or
 
 `zfs set sharenfs ="on,-network=192.168.0.1/24" pool-name/dataset-name`
 
+## Set up Owntone with USB DAC
+
+Firstly is to figure out what's hop on USB, in Linux you can simply fire command `lsusb`, in FreeBSD there are three choices at least:
+
+* pciconf -lv
+* camcontrol devlist
+* usbconfig
+
+```
+root@0ob:~ # usbconfig
+ugen1.1: <AMD EHCI root HUB> at usbus1, cfg=0 md=HOST spd=HIGH (480Mbps) pwr=SAVE (0mA)
+ugen0.1: <AMD XHCI root HUB> at usbus0, cfg=0 md=HOST spd=SUPER (5.0Gbps) pwr=SAVE (0mA)
+ugen0.2: <Burr-Brown from TI USB Audio DAC> at usbus0, cfg=0 md=HOST spd=FULL (12Mbps) pwr=ON (20mA)
+ugen1.2: <vendor 0x0438 product 0x7900> at usbus1, cfg=0 md=HOST spd=HIGH (480Mbps) pwr=SAVE (100mA)
+ugen1.3: <SanDisk Cruzer Blade> at usbus1, cfg=0 md=HOST spd=HIGH (480Mbps) pwr=ON (200mA)
+```
+So my USB DAC is on the thrid line, in alsa part of */usr/local/etc/owntone.conf* the card="hw 0,2"
+
+You can check the log files either */var/log/owntone.log* or */var/log/messages* if something goes wrong.
+
+In order to install **Owntone** you need to install and enable *avahai* and *dbus* in advance.
+
+`pkg install avahi owntone`
+
+Then put the following three lines into */etc/rc.conf* to enable them:
+
+```
+dbus_enable="YES"
+avahi_daemon_enable="YES"
+owntone_enable="YES"
+```
+After that start them by fire commands:
+
+```
+service dbus start
+service avahai-daemon start
+service owntone start
+```
+
+You can check their status by command `service owntone status`.
