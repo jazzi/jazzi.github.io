@@ -505,6 +505,23 @@ Or
 
 ## Set up Owntone with USB DAC
 
+Before we dive in, we need some background about driver or call it module in advance. Normally all loadable modules sit under */boot/kernel*, you can manually load it by command `kldload module_name`, after that you can check the loaded modules by command:
+
+```
+# kldstat
+ Id Refs Address    Size     Name
+ 1    6 0xc0100000 52679c   kernel
+ 3    1 0xc063b000 4a6ac    acpi.ko
+ 8    1 0xc162e000 1f000    smbfs.ko
+ 9    2 0xc1303000 3000     libiconv.ko
+10    2 0xc1309000 3000     libmchain.ko
+```
+If everything goes ok, you can let the system load it automatically at boot time by add the following line in file */boot/loader.conf*
+
+> snd_uaudio_load="YES"
+
+---
+
 Firstly is to figure out what's hop on USB, in Linux you can simply fire command `lsusb`, in FreeBSD there are three choices at least:
 
 * pciconf -lv
