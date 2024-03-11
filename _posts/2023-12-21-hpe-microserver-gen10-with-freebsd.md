@@ -519,9 +519,32 @@ ugen0.2: <Burr-Brown from TI USB Audio DAC> at usbus0, cfg=0 md=HOST spd=FULL (1
 ugen1.2: <vendor 0x0438 product 0x7900> at usbus1, cfg=0 md=HOST spd=HIGH (480Mbps) pwr=SAVE (100mA)
 ugen1.3: <SanDisk Cruzer Blade> at usbus1, cfg=0 md=HOST spd=HIGH (480Mbps) pwr=ON (200mA)
 ```
+Good luck the USB Audio DAC is regonized by the [snd_uaudio driver (4)](https://www.freebsd.org/cgi/man.cgi?query=snd_uaudio), the chip is [TI PCM1794A](https://www.ti.com/product/PCM1794A), to get more details, fire the command:
+
+`dmesg | grep pcm`
+
+And
+
+`cat /dev/sndstat`
+
 So my USB DAC is on the thrid line, in alsa part of */usr/local/etc/owntone.conf* the card="hw 0,2"
+Or
+We can set the default playback device by command:
+
+`sysctl hw.snd.default_unit=number` # this number is what we get from above command *cat /dev/sndstat*.
+
+We can check the volume levels with command:
+
+`mixer -f /dev/mixer2`
+
+To set the volume, you can `mixer -f /dev/mixer2 vol 75` # if playback device has been set as defalut, there is no need to specify the device.
 
 You can check the log files either */var/log/owntone.log* or */var/log/messages* if something goes wrong.
+
+### References:
+
+* [USB audio devices on FreeBSD](https://www.davidschlachter.com/misc/freebsd-usb-audio)
+* [Audio on FreeBSD - Quick Guide](https://freebsdfoundation.org/resource/audio-on-freebsd-quick-guide/)
 
 In order to install **Owntone** you need to install and enable *avahai* and *dbus* in advance.
 
