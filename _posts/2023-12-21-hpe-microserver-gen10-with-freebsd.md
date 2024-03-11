@@ -533,6 +533,31 @@ We can set the default playback device by command:
 
 `sysctl hw.snd.default_unit=number` # this number is what we get from above command *cat /dev/sndstat*.
 
+```
+% cat /dev/sndstat
+Installed devices:
+pcm0: <Realtek ALC662 rev3 (Analog 2.0+HP/2.0)> (play/rec)
+pcm1: <Focusrite Scarlett Solo USB> (play/rec) default
+No devices installed from userspace.
+
+% sysctl hw.snd.default_unit=0
+hw.snd.default_unit: 1 -> 0
+```
+
+According to the [FreeBSD wiki: Sound & Audio](https://wiki.freebsd.org/Sound), with FreeBSD 14.0, the following solution also works:
+
+```
+% mixer -a | grep ^pcm
+pcm0:mixer: <Realtek ALC662 rev3 (Analog 2.0+HP/2.0)> on hdaa0 kld snd_hda (play/rec)
+pcm1:mixer: <Focusrite Scarlett Solo USB> on uaudio0 (play/rec) (default)
+
+% mixer -d0
+default_unit: 1 -> 0
+pcm1:mixer: <Focusrite Scarlett Solo USB> on uaudio0 (play/rec) (play/rec)
+    vol       = 0.70:0.70     pbk
+    pcm       = 0.75:0.75     pbk
+```
+
 We can check the volume levels with command:
 
 `mixer -f /dev/mixer2`
