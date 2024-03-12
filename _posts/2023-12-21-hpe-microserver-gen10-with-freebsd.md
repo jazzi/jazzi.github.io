@@ -540,17 +540,24 @@ ugen1.3: <SanDisk Cruzer Blade> at usbus1, cfg=0 md=HOST spd=HIGH (480Mbps) pwr=
 ```
 Good luck the USB Audio DAC is regonized by the [snd_uaudio driver (4)](https://www.freebsd.org/cgi/man.cgi?query=snd_uaudio), the chip is [TI PCM1794A](https://www.ti.com/product/PCM1794A), to get more details, fire the command:
 
-`dmesg | grep pcm`
+```
+root@rob:~ # dmesg | grep pcm
+pcm0: <ATI R6xx (HDMI)> at nid 3 on hdaa0
+pcm1: <ATI R6xx (HDMI)> at nid 5 on hdaa0
+pcm2: <USB audio> on uaudio0
+root@rob:~ # sysctl hw.snd.default_unit=2
+hw.snd.default_unit: 0 -> 2
+root@rob:~ # mixer -a | grep ^pcm
+pcm0:mixer: <ATI R6xx (HDMI)> on hdaa0  (play)
+pcm1:mixer: <ATI R6xx (HDMI)> on hdaa0  (play)
+pcm2:mixer: <USB audio> at ? kld snd_uaudio (play) (default)
+```
 
-And
-
-`cat /dev/sndstat`
-
-So my USB DAC is on the thrid line, in alsa part of */usr/local/etc/owntone.conf* the card="hw 0,2"
+So my USB DAC is on the thrid line, in alsa part of */usr/local/etc/owntone.conf* the card="hw 2,0"
 Or
 We can set the default playback device by command:
 
-`sysctl hw.snd.default_unit=number` # this number is what we get from above command *cat /dev/sndstat*.
+`sysctl hw.snd.default_unit=2` # this number is what we get from above command *cat /dev/sndstat*.
 
 ```
 % cat /dev/sndstat
