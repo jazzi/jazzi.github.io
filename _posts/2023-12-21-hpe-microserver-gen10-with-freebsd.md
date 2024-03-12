@@ -509,12 +509,14 @@ Before we dive in, we need some background about driver or call it module in adv
 
 ```
 # kldstat
- Id Refs Address    Size     Name
- 1    6 0xc0100000 52679c   kernel
- 3    1 0xc063b000 4a6ac    acpi.ko
- 8    1 0xc162e000 1f000    smbfs.ko
- 9    2 0xc1303000 3000     libiconv.ko
-10    2 0xc1309000 3000     libmchain.ko
+Id Refs Address                Size Name
+ 1   24 0xffffffff80200000  1d345b0 kernel
+ 2    1 0xffffffff81f35000   5d5958 zfs.ko
+ 3    1 0xffffffff82e20000     5f00 ig4.ko
+ 4    1 0xffffffff82e26000     3220 intpm.ko
+ 5    1 0xffffffff82e2a000     2178 smbus.ko
+ 6    1 0xffffffff82e2d000     3558 fdescfs.ko
+ 7    1 0xffffffff82e31000     e5ac snd_uaudio.ko
 ```
 If everything goes ok, you can let the system load it automatically at boot time by add the following line in file */boot/loader.conf*
 
