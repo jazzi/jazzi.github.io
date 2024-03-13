@@ -624,6 +624,9 @@ You can check the log files either */var/log/owntone.log* or */var/log/messages*
 * [USB audio devices on FreeBSD](https://www.davidschlachter.com/misc/freebsd-usb-audio)
 * [Audio on FreeBSD - Quick Guide](https://freebsdfoundation.org/resource/audio-on-freebsd-quick-guide/)
 * [FreeBSD wiki: Sound & Audio](https://wiki.freebsd.org/Sound)
+* [Multimedia of HandBook](https://docs.freebsd.org/en/books/handbook/multimedia/)
+
+### Install Owntone
 
 In order to install **Owntone** you need to install and enable *avahai* and *dbus* in advance.
 
