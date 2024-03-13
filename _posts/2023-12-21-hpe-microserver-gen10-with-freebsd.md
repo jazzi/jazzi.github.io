@@ -594,13 +594,6 @@ If everything goes right, we can make this change permanent by adding the next l
 
 `hw.snd.default_unit=2`
 
-```
-% mixer -a | grep ^pcm
-pcm0:mixer: <Realtek ALC662 rev3 (Analog 2.0+HP/2.0)> on hdaa0 kld snd_hda (play/rec)
-pcm1:mixer: <Focusrite Scarlett Solo USB> on uaudio0 (play/rec) (default)
-
-```
-
 We can check the volume levels with command:
 
 `mixer -f /dev/mixer2`
