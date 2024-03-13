@@ -553,22 +553,12 @@ pcm1:mixer: <ATI R6xx (HDMI)> on hdaa0  (play)
 pcm2:mixer: <USB audio> at ? kld snd_uaudio (play) (default)
 ```
 
-So my USB DAC is on the thrid line, in alsa part of */usr/local/etc/owntone.conf* the card="hw 2,0"
+So my USB DAC is on the thrid line, in alsa part of */usr/local/etc/owntone.conf* the card="hw:2"
 Or
 We can set the default playback device by command:
 
 `sysctl hw.snd.default_unit=2` # this number is what we get from above command *cat /dev/sndstat*.
 
-```
-% cat /dev/sndstat
-Installed devices:
-pcm0: <Realtek ALC662 rev3 (Analog 2.0+HP/2.0)> (play/rec)
-pcm1: <Focusrite Scarlett Solo USB> (play/rec) default
-No devices installed from userspace.
-
-% sysctl hw.snd.default_unit=0
-hw.snd.default_unit: 1 -> 0
-```
 
 ### Check default settings of sound card
 
