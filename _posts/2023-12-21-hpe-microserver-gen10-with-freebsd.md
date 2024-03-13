@@ -616,6 +616,8 @@ You can check the log files either */var/log/owntone.log* or */var/log/messages*
 * [FreeBSD wiki: Sound & Audio](https://wiki.freebsd.org/Sound)
 * [Multimedia of HandBook](https://docs.freebsd.org/en/books/handbook/multimedia/)
 
+**Big Shout, the DAC can get sound alone even motherboard has no sound card built-in.**
+
 ### Install Owntone
 
 In order to install **Owntone** you need to install and enable *avahai* and *dbus* in advance.
