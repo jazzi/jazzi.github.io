@@ -633,3 +633,27 @@ service owntone start
 ```
 
 You can check their status by command `service owntone status`.
+
+### Big Problem - no music once DAC turn off
+
+Yes, that's true. Whenever you power off the DAC and turn on again, there is no sound available any more, what's going on? I guess the wrong sound card is used, let's check it out:
+
+```
+# sysctl hw.snd | grep default
+hw.snd.default_unit: 0
+```
+
+As above stated, the default unit is 0, not 2 any more. I turn on the DAC and set it back to 2 again by command `sysctl hw.snd.default_unit=2", then check again:
+
+```
+# sysctl hw.snd | grep default
+hw.snd.default_unit: 2
+```
+
+This is huge problem, every time the DAC is turned off, the default sound card will be back to 0, even it's turned on, it is still 0. What can we do? Never mind, there is a thread on FreeBSD forum [USB DAC as default device?](https://forums.freebsd.org/threads/usb-dac-as-default-device.50489/) offered the solution. Two solutions actually, I chose the following one.
+
+`# sysctl hw.snd.default_auto=2` (see [sound(4)](https://man.freebsd.org/cgi/man.cgi?query=sound&sektion=4&manpath=freebsd-release-ports))
+
+---
+
+The third solution is to shut down the sound card on motherboard in BIOS settings.
