@@ -600,6 +600,10 @@ No devices installed from userspace.
 Now we can try to play some music or just hit command `beep` to get some noise.
 According to the [FreeBSD wiki: Sound & Audio](https://wiki.freebsd.org/Sound), with FreeBSD 14.0, the following solution also works:
 
+If everything goes right, we can make this change permanent by adding the next line into */etc/sysctl.conf*
+
+`hw.snd.default_unit=2`
+
 ```
 % mixer -a | grep ^pcm
 pcm0:mixer: <Realtek ALC662 rev3 (Analog 2.0+HP/2.0)> on hdaa0 kld snd_hda (play/rec)
