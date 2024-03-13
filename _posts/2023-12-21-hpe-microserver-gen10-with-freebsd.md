@@ -570,6 +570,34 @@ No devices installed from userspace.
 hw.snd.default_unit: 1 -> 0
 ```
 
+### Check default settings of sound card
+
+So right now how could we figure out which sound card is the default one? As sometimes there is just no sound and don't know what's going on, we can fire the following command to check it out:
+
+```
+ $ cat /dev/sndstat 
+Installed devices:
+pcm0: <ATI R6xx (HDMI)> (play) default
+pcm1: <ATI R6xx (HDMI)> (play)
+pcm2: <USB audio> (play)
+No devices installed from userspace.
+```
+
+As above output shows, the default one is pcm0, not the one I want now, so I hit the following command [mixer(8)](https://man.freebsd.org/cgi/man.cgi?query=mixer&sektion=8&format=html) and then run the above command again.
+
+
+`mixer -d2` # Set USB audio as DAC default
+
+```
+ # cat /dev/sndstat 
+Installed devices:
+pcm0: <ATI R6xx (HDMI)> (play)
+pcm1: <ATI R6xx (HDMI)> (play)
+pcm2: <USB audio> (play) default
+No devices installed from userspace.
+```
+
+Now we can try to play some music or just hit command `beep` to get some noise.
 According to the [FreeBSD wiki: Sound & Audio](https://wiki.freebsd.org/Sound), with FreeBSD 14.0, the following solution also works:
 
 ```
@@ -577,11 +605,6 @@ According to the [FreeBSD wiki: Sound & Audio](https://wiki.freebsd.org/Sound), 
 pcm0:mixer: <Realtek ALC662 rev3 (Analog 2.0+HP/2.0)> on hdaa0 kld snd_hda (play/rec)
 pcm1:mixer: <Focusrite Scarlett Solo USB> on uaudio0 (play/rec) (default)
 
-% mixer -d0
-default_unit: 1 -> 0
-pcm1:mixer: <Focusrite Scarlett Solo USB> on uaudio0 (play/rec) (play/rec)
-    vol       = 0.70:0.70     pbk
-    pcm       = 0.75:0.75     pbk
 ```
 
 We can check the volume levels with command:
@@ -596,6 +619,7 @@ You can check the log files either */var/log/owntone.log* or */var/log/messages*
 
 * [USB audio devices on FreeBSD](https://www.davidschlachter.com/misc/freebsd-usb-audio)
 * [Audio on FreeBSD - Quick Guide](https://freebsdfoundation.org/resource/audio-on-freebsd-quick-guide/)
+* [FreeBSD wiki: Sound & Audio](https://wiki.freebsd.org/Sound)
 
 In order to install **Owntone** you need to install and enable *avahai* and *dbus* in advance.
 
