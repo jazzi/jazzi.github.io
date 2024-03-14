@@ -654,6 +654,23 @@ This is huge problem, every time the DAC is turned off, the default sound card w
 
 `# sysctl hw.snd.default_auto=2` (see [sound(4)](https://man.freebsd.org/cgi/man.cgi?query=sound&sektion=4&manpath=freebsd-release-ports))
 
+The second solution is by utility [devd(8)](https://man.freebsd.org/cgi/man.cgi?query=devd&sektion=8&apropos=0&manpath=FreeBSD+14.0-RELEASE+and+Ports) which provides a way to have userland prorams run when certain kernel events happen like USB DAC attached. OP Sparklebastard offered his settings like below:
+
+```
+# cat /etc/devd/usb-dac.conf
+
+# /etc/devd/usb-dac.conf
+attach 100 {
+  device-name "pcm2";
+  action "sysctl hw.snd.default_unit=2";
+};
+
+detach 100 {
+  device-name "pcm4";
+  action "sysctl hw.snd.default_unit=0";
+};
+```
+
 ---
 
 The third solution is to shut down the sound card on motherboard in BIOS settings.
