@@ -501,7 +501,7 @@ Or more detailed control:
 
 Or
 
-`zfs set sharenfs ="on,-network=192.168.0.1/24" pool-name/dataset-name`
+`zfs set sharenfs=on & zfs set sharenfs ="network=192.168.0.1/24" pool-name/dataset-name`
 
 ## Set up Owntone with USB DAC
 
