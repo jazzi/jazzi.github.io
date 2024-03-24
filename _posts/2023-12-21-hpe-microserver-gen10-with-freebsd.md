@@ -634,6 +634,18 @@ service owntone start
 
 You can check their status by command `service owntone status`.
 
+Hereby is the part of */usr/local/etc/owntone.conf* changed:
+
+```
+directories = { "/data/music" }
+
+# Local audio output
+audio {
+	type = "alsa"
+}
+
+```
+
 ### Big Problem - no music once DAC turn off
 
 Yes, that's true. Whenever you power off the DAC and turn on again, there is no sound available any more, what's going on? I guess the wrong sound card is used, let's check it out:
@@ -674,3 +686,35 @@ detach 100 {
 ---
 
 The third solution is to shut down the sound card on motherboard in BIOS settings.
+
+---
+
+## Clone USB stick with dd or ddrescue
+
+At this point, the whole system is kind of fully ready, to backup I chose to clone another USB stick with same brand same size, so once the USB stick fails, I can remove it and plug another one immediately, 100% no worries left in the dream.
+
+### Clone with command dd
+
+Create an image
+
+`dd if=/dev/da1 of=/data/FreeBSD-USB.img bs=4m` 
+
+Burn the image into new USB stick
+
+`dd if=/data/FreeBSD-USB.img of=/dev/da2 bs=4m"
+
+Then downloaded the image file into my offline USB hard drive, thus you can create a working USB stick anytime you want.
+
+Be sure to double check out the right device number for plugged USB stick by command `camcontrol devlist`.
+
+### Clone USB with command ddrescue
+
+[ddrescue](https://www.gnu.org/software/ddrescue/manual/ddrescue_manual.html) is a very powerful and convenient tool for data saving, also good choice for clone USB stick, the command is very straight forward, just type:
+
+`ddrescue /dev/da1 /dev/da2` # da2 is the empty new one
+
+After clone finished, take a snapshot of zpool:
+
+`zfs snapshot -r zpool`
+
+Now we can move on to polish the system with [Jail(8)](https://man.freebsd.org/cgi/man.cgi?query=jail&apropos=0&sektion=0&manpath=FreeBSD+14.0-RELEASE+and+Ports&arch=default&format=html).
