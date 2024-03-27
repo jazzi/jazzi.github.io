@@ -683,7 +683,6 @@ detach 100 {
 };
 ```
 
----
 
 The third solution is to shut down the sound card on motherboard in BIOS settings.
 
@@ -718,3 +717,69 @@ After clone finished, take a snapshot of zpool:
 `zfs snapshot -r zpool`
 
 Now we can move on to polish the system with [Jail(8)](https://man.freebsd.org/cgi/man.cgi?query=jail&apropos=0&sektion=0&manpath=FreeBSD+14.0-RELEASE+and+Ports&arch=default&format=html).
+
+## Jailed music service mpd with FreeBSD OSS
+
+[Owntone doesn't support OSS](https://github.com/owntone/owntone-server/issues/285), in order to use Alsa you need to install the alsa library with `pkg install alsa-lib`. Actually you need to install a lot of packages if you want go with Owntone, and I want a more slim OS, good news is [mpd](https://www.musicpd.org) is very well supported by FreeBSD OSS - the native default sound system.
+
+Firstly a summary of the state of my USB DAC:
+
+```
+$ uname -a
+FreeBSD 14.0-RELEASE-p5 FreeBSD 14.0-RELEASE-p5 #0: Tue Feb 13 23:37:36 UTC 2024     root@amd64-builder.daemonology.net:/usr/obj/usr/src/amd64.amd64/sys/GENERIC amd64
+
+$ cat /dev/sndstat 
+Installed devices:
+pcm0: <ATI R6xx (HDMI)> (play)
+pcm1: <ATI R6xx (HDMI)> (play)
+pcm2: <USB audio> (play) default
+No devices installed from userspace.
+
+$ sysctl dev.pcm.2
+dev.pcm.2.feedback_rate: 0
+dev.pcm.2.mixer.mute_1.desc: 
+dev.pcm.2.mixer.mute_1.max: 1
+dev.pcm.2.mixer.mute_1.min: 0
+dev.pcm.2.mixer.mute_1.val: 0
+dev.pcm.2.mixer.vol_0_1.desc: 
+dev.pcm.2.mixer.vol_0_1.max: 0
+dev.pcm.2.mixer.vol_0_1.min: -16384
+dev.pcm.2.mixer.vol_0_1.val: -7209
+dev.pcm.2.mixer.vol_0_0.desc: 
+dev.pcm.2.mixer.vol_0_0.max: 0
+dev.pcm.2.mixer.vol_0_0.min: -16384
+dev.pcm.2.mixer.vol_0_0.val: -7209
+dev.pcm.2.mode: 3
+dev.pcm.2.bitperfect: 0
+dev.pcm.2.buffersize: 0
+dev.pcm.2.play.vchanformat: s16le:2.0
+dev.pcm.2.play.vchanrate: 48000
+dev.pcm.2.play.vchanmode: fixed
+dev.pcm.2.play.vchans: 1
+dev.pcm.2.hwvol_mixer: vol
+dev.pcm.2.hwvol_step: 5
+dev.pcm.2.%parent: uaudio0
+dev.pcm.2.%pnpinfo: 
+dev.pcm.2.%location: 
+dev.pcm.2.%driver: pcm
+dev.pcm.2.%desc: USB audio
+
+$ sysctl hw.usb.uaudio
+hw.usb.uaudio.debug: 0
+hw.usb.uaudio.buffer_ms: 2
+hw.usb.uaudio.default_channels: 0
+hw.usb.uaudio.default_bits: 32
+hw.usb.uaudio.default_rate: 0
+hw.usb.uaudio.handle_hid: 1
+
+$ dmesg | grep uaudio
+uaudio0 on uhub1
+uaudio0: <Burr-Brown from TI USB Audio DAC, class 0/0, rev 1.10/1.00, addr 1> on usbus0
+uaudio0: Play[0]: 48000 Hz, 2 ch, 16-bit S-LE PCM format, 2x2ms buffer.
+uaudio0: Play[0]: 44100 Hz, 2 ch, 16-bit S-LE PCM format, 2x2ms buffer.
+uaudio0: Play[0]: 32000 Hz, 2 ch, 16-bit S-LE PCM format, 2x2ms buffer.
+uaudio0: No recording.
+uaudio0: No MIDI sequencer.
+pcm2: <USB audio> on uaudio0
+uaudio0: HID volume keys found.
+```
