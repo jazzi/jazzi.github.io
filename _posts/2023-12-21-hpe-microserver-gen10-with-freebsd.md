@@ -491,17 +491,42 @@ rpc_lockd_enable="YES" # for MacOS client
 rpc_statd_enable="YES" # for MacOS client
 ```
 
+The whole picture of configuration in file */etc/rc.conf*
+
+```
+# Enable NFS service
+mountd_enable="YES"
+mountd_flags="-r -n" # add -p 624 if wanna specify port
+nfs_server_enable="YES"
+nfs_server_flags="-u -t -n 4"
+nfsuserd_enable="YES" # needed for NFSv4
+nfsuserd_flags="-verbose"
+nfsv4_server_enable="YES"
+nfsv4_server_only="YES"
+#rpcbind_enable="YES" # not needed for NFSv4
+#rpc_lockd_enable="YES" # for MacOS client
+#rpc_statd_enable="YES" # for MacOS client
+#############
+```
+
+According to [manual NFSv4(4)](https://man.freebsd.org/cgi/man.cgi?query=nfsv4&apropos=0&sektion=0&manpath=FreeBSD+14.0-RELEASE+and+Ports&arch=default&format=html), one line need to be existed in */etc/exports*
+
+`V4:	/`
+
+If both server and client use NFSv4, the followings should be existed in the server side */etc/sysct.conf*:
+
+```
+vfs.nfs.enable_uidtostring=1
+vfs.nfsd.enable_stringtouid=1
+```
+
 Also NFS share with ZFS enabled on FreeBSD has something special, it doesn't use */etc/exports* but */etc/zfs/exports* instead, this file should not be manually edited but issue the following command:
 
-`zfs set sharenfs=on pool-name/dataset-name`
+`zfs set sharenfs="-mapall=jazzi,-network=192.168.31.0/24" pool-name/dataset-name` # option -mallall for write permission
 
-Or more detailed control:
+In the MacOS fire the following command to mount it:
 
-`zfs set sharenfs="on,-maproot=root,name=my-share,rw=@192.168.0.1/24" pool-name/dataset-name`
-
-Or
-
-`zfs set sharenfs=on & zfs set sharenfs ="network=192.168.0.1/24" pool-name/dataset-name`
+`sudo mount -t nfs -o vers=4 192.168.31.249:/data /Users/jazzi/nfs`
 
 ## Set up Owntone with USB DAC
 
