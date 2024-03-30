@@ -522,6 +522,8 @@ In the MacOS fire the following command to mount it:
 
 `sudo mount -t nfs  192.168.31.249:/data /Users/jazzi/nfs`
 
+After mounted, you can use command `nfsstat -m` to verify it's NFSv4 used or not.
+
 ## Set up Owntone with USB DAC
 
 Before we dive in, we need some background about driver or call it module in advance. Normally all loadable modules sit under */boot/kernel*, you can manually load it by command `kldload module_name`, after that you can check the loaded modules by command:
