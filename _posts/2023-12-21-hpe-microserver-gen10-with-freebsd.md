@@ -476,20 +476,13 @@ But still the same error shows up, no worries, it's about the privilages, the us
 
 Then woooo, everything goes up, so let's wrap it up and put these two commands into */etc/rc.local*.
 
-## NFS setting problem
+## NFSv4 setting
 
 I have problem with MacOS client to connect to FreeBSD NFS server, maybe someday I will dip my toes into it. Anyway here is a link might be useful in the future.
 
 * [macOS X Mount NFS Share / Set an NFS Client](https://www.cyberciti.biz/faq/apple-mac-osx-nfs-mount-command-tutorial/)
 * [Share ZFS datasets with FreeBSD NFS](https://wiki.freebsd.org/ZFS/ShareNFS)
 * [NFS shares with ZFS](https://klarasystems.com/articles/nfs-shares-with-zfs/)
-
-The following two lines needed to be put into */etc/rc.conf* otherwise the MacOS client will have problem and even command `showmount -e 192.168.0.3` won't list any shares.
-
-```
-rpc_lockd_enable="YES" # for MacOS client
-rpc_statd_enable="YES" # for MacOS client
-```
 
 The whole picture of configuration in file */etc/rc.conf*
 
@@ -500,12 +493,12 @@ mountd_flags="-r -n" # add -p 624 if wanna specify port
 nfs_server_enable="YES"
 nfs_server_flags="-u -t -n 4"
 nfsuserd_enable="YES" # needed for NFSv4
-nfsuserd_flags="-verbose"
+nfsuserd_flags="-manage-gids -domain YOURDOMAIN -usertimeout 60 2" # 2 = start 2 servers 
 nfsv4_server_enable="YES"
 nfsv4_server_only="YES"
 #rpcbind_enable="YES" # not needed for NFSv4
-#rpc_lockd_enable="YES" # for MacOS client
-#rpc_statd_enable="YES" # for MacOS client
+#rpc_lockd_enable="YES" # not needed for NFSv4
+#rpc_statd_enable="YES" # not needed for NFSv4
 #############
 ```
 
@@ -513,11 +506,12 @@ According to [manual NFSv4(4)](https://man.freebsd.org/cgi/man.cgi?query=nfsv4&a
 
 `V4:	/`
 
-If both server and client use NFSv4, the followings should be existed in the server side */etc/sysct.conf*:
+On the MacOS, create */etc/nfs.conf* with followings:
 
 ```
-vfs.nfs.enable_uidtostring=1
-vfs.nfsd.enable_stringtouid=1
+# Settings for NFSv4
+nfs.client.default_nfs4domain=YOURDOMAIN # needs to be identical with server
+nfs.client.mount.options=vers=4,nfc # check man mount_nfs
 ```
 
 Also NFS share with ZFS enabled on FreeBSD has something special, it doesn't use */etc/exports* but */etc/zfs/exports* instead, this file should not be manually edited but issue the following command:
@@ -526,7 +520,7 @@ Also NFS share with ZFS enabled on FreeBSD has something special, it doesn't use
 
 In the MacOS fire the following command to mount it:
 
-`sudo mount -t nfs -o vers=4 192.168.31.249:/data /Users/jazzi/nfs`
+`sudo mount -t nfs  192.168.31.249:/data /Users/jazzi/nfs`
 
 ## Set up Owntone with USB DAC
 
