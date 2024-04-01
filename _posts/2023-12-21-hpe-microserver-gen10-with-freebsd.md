@@ -733,6 +733,20 @@ Be sure to double check out the right device number for plugged USB stick by com
 
 `ddrescue /dev/da1 /dev/da2` # da2 is the empty new one
 
+```
+ # ddrescue --force /dev/da0 /dev/da1
+GNU ddrescue 1.27
+Press Ctrl-C to interrupt
+     ipos:   61524 MB, non-trimmed:        0 B,  current rate:   2359 kB/s
+     opos:   61524 MB, non-scraped:        0 B,  average rate:   4911 kB/s
+non-tried:        0 B,  bad-sector:        0 B,    error rate:       0 B/s
+  rescued:   61524 MB,   bad areas:        0,        run time:  3h 28m 45s
+pct rescued:  100.00%, read errors:        0,  remaining time:         n/a
+                              time since last successful read:         n/a
+Copying non-tried blocks... Pass 1 (forwards)d
+Finished
+```
+
 After clone finished, take a snapshot of zpool:
 
 `zfs snapshot -r zpool`
