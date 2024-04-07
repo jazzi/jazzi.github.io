@@ -757,6 +757,8 @@ Now we can move on to polish the system with [Jail(8)](https://man.freebsd.org/c
 
 [Owntone doesn't support OSS](https://github.com/owntone/owntone-server/issues/285), in order to use Alsa you need to install the alsa library with `pkg install alsa-lib`. Actually you need to install a lot of packages if you want go with Owntone, and I want a more slim OS, good news is [mpd](https://www.musicpd.org) is very well supported by FreeBSD OSS - the native default sound system.
 
+By the way, mpd is called **Musicpd** in FreeBSD, the client *mpc* is called **musicpc**.
+
 Firstly a summary of the state of my USB DAC:
 
 ```
