@@ -901,7 +901,7 @@ Then change *devfs_ruleset=6* as below:
 # cat /usr/local/bastille/jails/mpdjail/jail.conf 
 mpdjail {
   devfs_ruleset = 6;
-  enforce_statfs = 2;
+#  enforce_statfs = 2;
   exec.clean;
   exec.consolelog = /var/log/bastille/mpdjail_console.log;
   exec.start = '/bin/sh /etc/rc';
@@ -917,6 +917,9 @@ mpdjail {
   ip4.addr = 192.168.31.241;
   
   ip6 = disable;
+  allow.mount;
+  allow.mount.devfs;
+  enforce_statfs = 0;
 ```
 
 Right now, we can restart the Jail:
@@ -926,3 +929,10 @@ Right now, we can restart the Jail:
 And visit mpd client webUI by any browser URL:
 
 `192.168.31.241:8080`
+
+### Useful links:
+
+1. [Why we're migrating servers from Linux to FreeBSD](https://it-notes.dragas.net/2022/01/24/why-were-migrating-many-of-our-servers-from-linux-to-freebsd/)
+2. [Managing Jails in FreeBSD with Bastille](https://alfaexploit.com/en/posts/managing_jails_in_freebsd_with_bastille/#mounting-directories)
+3. [Bastille Tips](https://adriel-tech.github.io/bastillebsd/freebsd13/2021/11/12/BastilleBSD-Tips.html)
+4. [Easy and lightweight jails with BastilleBSD](https://hackacad.net/freebsd/2021/01/18/easy-freebsd-jail-management-bastille.html)
