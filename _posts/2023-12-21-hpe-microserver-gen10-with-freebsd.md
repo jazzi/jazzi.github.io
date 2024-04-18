@@ -747,9 +747,9 @@ Copying non-tried blocks... Pass 1 (forwards)d
 Finished
 ```
 
-After clone finished, take a snapshot of zpool:
+After clone finished, take a snapshot of zroot:
 
-`zfs snapshot -r zpool`
+`zfs snapshot -r zroot`
 
 Now we can move on to polish the system with [Jail(8)](https://man.freebsd.org/cgi/man.cgi?query=jail&apropos=0&sektion=0&manpath=FreeBSD+14.0-RELEASE+and+Ports&arch=default&format=html).
 
@@ -820,3 +820,109 @@ uaudio0: No MIDI sequencer.
 pcm2: <USB audio> on uaudio0
 uaudio0: HID volume keys found.
 ```
+
+### Use Jail manager Bastille
+
+Either build the Jail by hand or by tool is ok, [the FreeBSD Documents](https://docs.freebsd.org/en/books/handbook/jails/) has it very well explained even with examples. However I prefer to making life easier, so I chose [Bastille](https://bastillebsd.org) to manage all my Jails. [iocell](https://iocell.readthedocs.io/en/latest/) is another option too but I got problem when run command `iocell fetch`, it just can not build the tree.
+
+Anyway, below is all built with Bastille.
+
+`pkg install bastille`
+
+After installation, configure two settings as below:
+
+```
+vim /usr/local/etc/bastille/bastille.conf
+
+## ZFS options
+bastille_zfs_enable="YES"                                                ## default: ""
+bastille_zfs_zpool="zroot/bastille"                                                 ## default: ""
+```
+
+Then create the dataset:
+
+`zfs create zroot/bastille`
+
+Everything is ready, so it's time to bootstrap it:
+
+`bastille bootstrap 14.0-RELEASE update`
+
+At this point, the foundation is finished for coming Jails.
+
+### Build a mpd within FreeBSD Jail
+
+Just build a jail for mpd as below:
+
+`bastille create mpdjail 14.0-RELEASE 192.168.31.241 bge0`
+
+Then start the jail:
+
+`bastille start mpdjail`
+
+Then install mpd and ympd:
+
+`bastille pkg mpdjail install musicpd ympd`
+
+Two points need to resolve:
+
+1. How to access music files on host from Jail
+2. How to access auido device on host from Jail
+
+Luckily FreeBSD Jails have very smart yet easy way to resolve these problems, and both can be done with Bastille.
+
+The first problem is done with **mount** - a sub command of Bastille:
+
+```
+bastille cmd mpdjail mkdir /var/mpd/music  # create directory for mount
+bastille mount mpdjail /data/music /var/mpd/music nullfs ro 0 0
+
+Usage: bastille mount jail_name host_path container_path [filesystem_type options dump pass_number]
+```
+
+You can see it makes use of **nullfs**.
+
+The second problem is resolved by making use of [devfs(8)](https://man.freebsd.org/cgi/man.cgi?query=devfs&sektion=8&apropos=0&manpath=FreeBSD+14.0-RELEASE+and+Ports), two steps to do, create the ruleset and apply it.
+
+OK, let's create the ruleset:
+
+```
+cat /etc/devfs.rules 
+# Devices exposed to jail for music playing
+# 
+[devfsrules_jail_mpd=6]
+add include $devfsrules_hide_all
+add path 'mixer*' unhide
+add path 'ugen*' unhide  # expose USB DAC
+```
+
+Then change *devfs_ruleset=6* as below:
+
+```
+# cat /usr/local/bastille/jails/mpdjail/jail.conf 
+mpdjail {
+  devfs_ruleset = 6;
+  enforce_statfs = 2;
+  exec.clean;
+  exec.consolelog = /var/log/bastille/mpdjail_console.log;
+  exec.start = '/bin/sh /etc/rc';
+  exec.stop = '/bin/sh /etc/rc.shutdown';
+  host.hostname = mpdjail;
+  mount.devfs;
+  mount.fstab = /usr/local/bastille/jails/mpdjail/fstab;
+  path = /usr/local/bastille/jails/mpdjail/root;
+  securelevel = 2;
+  osrelease = 14.0-RELEASE;
+
+  interface = bge0;
+  ip4.addr = 192.168.31.241;
+  
+  ip6 = disable;
+```
+
+Right now, we can restart the Jail:
+
+`bastille restart mpdjail`
+
+And visit mpd client webUI by any browser URL:
+
+`192.168.31.241:8080`
