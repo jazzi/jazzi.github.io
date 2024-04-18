@@ -936,3 +936,4 @@ And visit mpd client webUI by any browser URL:
 2. [Managing Jails in FreeBSD with Bastille](https://alfaexploit.com/en/posts/managing_jails_in_freebsd_with_bastille/#mounting-directories)
 3. [Bastille Tips](https://adriel-tech.github.io/bastillebsd/freebsd13/2021/11/12/BastilleBSD-Tips.html)
 4. [Easy and lightweight jails with BastilleBSD](https://hackacad.net/freebsd/2021/01/18/easy-freebsd-jail-management-bastille.html)
+5. [Jails - Accessing devices from Bastille](https://forums.freebsd.org/threads/jails-accessing-devices-from-bastille.79781/)
