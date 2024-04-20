@@ -875,6 +875,8 @@ The first problem is done with **mount** - a sub command of Bastille:
 ```
 bastille cmd mpdjail mkdir /var/mpd/music  # create directory for mount
 bastille mount mpdjail /data/music /var/mpd/music nullfs ro 0 0
+[mpdjail]:
+Added: /data/music /usr/local/bastille/jails/mpdjail/root//var/mpd/music nullfs ro 0 0
 
 Usage: bastille mount jail_name host_path container_path [filesystem_type options dump pass_number]
 ```
@@ -937,3 +939,4 @@ And visit mpd client webUI by any browser URL:
 3. [Bastille Tips](https://adriel-tech.github.io/bastillebsd/freebsd13/2021/11/12/BastilleBSD-Tips.html)
 4. [Easy and lightweight jails with BastilleBSD](https://hackacad.net/freebsd/2021/01/18/easy-freebsd-jail-management-bastille.html)
 5. [Jails - Accessing devices from Bastille](https://forums.freebsd.org/threads/jails-accessing-devices-from-bastille.79781/)
+6. [FreeBSD Audio](https://meka.rs/blog/2021/10/12/freebsd-audio/)
