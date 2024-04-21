@@ -823,7 +823,7 @@ uaudio0: HID volume keys found.
 
 ### Use Jail manager Bastille
 
-Either build the Jail by hand or by tool is ok, [the FreeBSD Documents](https://docs.freebsd.org/en/books/handbook/jails/) has it very well explained even with examples. However I prefer to making life easier, so I chose [Bastille](https://bastillebsd.org) to manage all my Jails. [iocell](https://iocell.readthedocs.io/en/latest/) is another option too but I got problem when run command `iocell fetch`, it just can not build the tree.
+Either build the Jail by hand or by tool is ok, [the FreeBSD Documents](https://docs.freebsd.org/en/books/handbook/jails/) has it very well explained even with examples. However I prefer to making life easier, so I chose [Bastille](https://bastillebsd.org) to manage all my Jails. [iocell](https://iocell.readthedocs.io/en/latest/) is another good option too.
 
 Anyway, below is all built with Bastille.
 
@@ -851,13 +851,9 @@ At this point, the foundation is finished for coming Jails.
 
 ### Build a mpd within FreeBSD Jail
 
-Just build a jail for mpd as below:
+Just build a jail for mpd as below and it will start automatically:
 
 `bastille create mpdjail 14.0-RELEASE 192.168.31.241 bge0`
-
-Then start the jail:
-
-`bastille start mpdjail`
 
 Then install mpd and ympd:
 
