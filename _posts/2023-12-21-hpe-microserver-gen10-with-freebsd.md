@@ -717,7 +717,7 @@ At this point, the whole system is kind of fully ready, to backup I chose to clo
 
 Create an image
 
-`dd if=/dev/da1 of=/data/FreeBSD-USB.img bs=4m` 
+`dd if=/dev/da0 of=/data/FreeBSD-USB.img bs=4m` 
 
 Burn the image into new USB stick
 
