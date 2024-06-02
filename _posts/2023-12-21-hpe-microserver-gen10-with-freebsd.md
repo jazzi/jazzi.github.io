@@ -936,3 +936,57 @@ And visit mpd client webUI by any browser URL:
 4. [Easy and lightweight jails with BastilleBSD](https://hackacad.net/freebsd/2021/01/18/easy-freebsd-jail-management-bastille.html)
 5. [Jails - Accessing devices from Bastille](https://forums.freebsd.org/threads/jails-accessing-devices-from-bastille.79781/)
 6. [FreeBSD Audio](https://meka.rs/blog/2021/10/12/freebsd-audio/)
+
+## Manully set up Lyrion Music Server in Jail
+
+Still encountering some minor problems with *Bastille*, so why not abandon Jail Manager Tool and work it out manully? Also what I need is not tons of Jails, it's so simple, just two or three Jails only.
+
+[Chapter 17. Jails and Containers](https://docs.freebsd.org/en/books/handbook/jails/) in the FreeBSD Handbook is an excellent instruction, just follow it and create a Jail named **lms**.
+
+To simplify the coming Jails, here is my /etc/jail.conf
+
+```
+$ cat /etc/jail.conf
+
+# Global settings applied to all jails
+
+interface = "bge0";
+host.hostname = "${name}";
+path = "/usr/local/jails/containers/${name}";
+ip4 = inherit;
+mount.fstab = "/usr/local/jails/containers/${name}.fstab";
+
+exec.start = "/bin/sh /etc/rc";
+exec.stop = "/bin/sh /etc/rc.shutdown";
+exec.consolelog = "/var/log/jail_console_${name}.log";
+allow.raw_sockets;
+exec.clean;
+mount.devfs;
+
+
+# The jail definition for cups
+cups {
+#  mount.fstab = "";
+  # PASSTHROUGHT PRINTER
+  devfs_ruleset = 10;
+  osrelease = 14.0-RELEASE;
+}
+
+# The jail definiton for lms - Lyrion Music Server
+lms {
+  osrelease = 14.0-RELEASE;
+#  mount.fstab = "";
+}
+```
+
+The only problem needs to work out is how to let the Jailed service access host's music files, the solution is to make use of [nullfs](https://man.freebsd.org/cgi/man.cgi?query=nullfs&apropos=0&sektion=0&manpath=FreeBSD+14.0-RELEASE+and+Ports&arch=default&format=html) and create a special *fstab* file as below.
+
+```
+$ cat /usr/local/jails/containers/lms.fstab 
+/data/music /usr/local/jails/containers/lms/var/music nullfs rw,late 0 0
+/var/cache/pkg /usr/local/jails/containers/lms/var/cache/pkg nullfs rw,late 0 0 # do it as your wish
+```
+
+Sure you need to get into the jail to create the mount point */var/music* in advance. Then restart jail with following command and you are able to read these music files in the Jail.
+
+`service jail restart lms`
