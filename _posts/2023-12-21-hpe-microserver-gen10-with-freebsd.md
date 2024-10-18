@@ -990,3 +990,15 @@ $ cat /usr/local/jails/containers/lms.fstab
 Sure you need to get into the jail to create the mount point */var/music* in advance. Then restart jail with following command and you are able to read these music files in the Jail.
 
 `service jail restart lms`
+
+## Common Issues
+
+### pkg install failed: size mismatch
+
+After OS minor upgrade, the command `pkg install` got problem as below:
+
+`pkg: cached package <portname>: size mismatch, cannot continue`
+
+The solution is [here](https://github.com/freebsd/pkg/issues/902) to remove the repo* from /var/db/pkg as below:
+
+`rm -rf /var/db/pkg/repo*` then `pkg update`
