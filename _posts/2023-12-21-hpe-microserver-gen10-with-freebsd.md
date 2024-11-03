@@ -721,7 +721,7 @@ Create an image
 
 Burn the image into new USB stick
 
-`dd if=/data/FreeBSD-USB.img of=/dev/da1 bs=4m"
+`dd if=/data/FreeBSD-USB.img of=/dev/da1 bs=4m`
 
 Then downloaded the image file into my offline USB hard drive, thus you can create a working USB stick anytime you want.
 
