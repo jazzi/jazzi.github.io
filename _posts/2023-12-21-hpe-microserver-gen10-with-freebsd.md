@@ -717,7 +717,7 @@ At this point, the whole system is kind of fully ready, to backup I chose to clo
 
 Create an image
 
-`dd if=/dev/da0 of=/data/FreeBSD-USB.img bs=4m` 
+`dd if=/dev/da0 of=/data/FreeBSD-USB.img bs=4m conv=noerror,sync status=progress` 
 
 Burn the image into new USB stick
 
@@ -731,7 +731,7 @@ Be sure to double check out the right device number for plugged USB stick by com
 
 [ddrescue](https://www.gnu.org/software/ddrescue/manual/ddrescue_manual.html) is a very powerful and convenient tool for data saving, also good choice for clone USB stick, the command is very straight forward, just type:
 
-`ddrescue /dev/da1 /dev/da2` # da2 is the empty new one
+`ddrescue /dev/da0 /dev/da1 logfile.map` # da1 is the empty new one
 
 ```
  # ddrescue --force /dev/da0 /dev/da1
