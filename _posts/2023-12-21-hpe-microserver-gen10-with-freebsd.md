@@ -182,13 +182,15 @@ Ater that we need to enable Samba and start it:
 
 So Samba Server is ready and it's time to add some users. By default Samba relies on system users, you need to use command *adduser* to create *system* grade user in advance, then enable it for Samba by:
 
-`pdedit -a -u jazzi`
+`pdbedit -a -u jazzi`
 
 After that you can open your MacOS App Finder and connect the server as:
 
 `smb://192.168.0.2`
 
 Also you might want to tune some kernel settings to max files handling. Add the followings suggested by [Davd.io](https://www.davd.io/samba-fileserver-on-freebsd/) into */etc/sysctl.conf*:
+
+You can check another post about [How to access samba without password](/howto-access-samba-without-password.html).
 
 ```
 kern.maxfiles=25600
