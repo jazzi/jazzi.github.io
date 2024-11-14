@@ -711,11 +711,11 @@ The third solution is to shut down the sound card on motherboard in BIOS setting
 
 ---
 
-## Clone USB stick with dd or ddrescue
+## ~Clone USB stick with dd or ddrescue~
 
 At this point, the whole system is kind of fully ready, to backup I chose to clone another USB stick with same brand same size, so once the USB stick fails, I can remove it and plug another one immediately, 100% no worries left in the dream.
 
-### Clone with command dd
+### ~Clone with command dd~
 
 Create an image
 
@@ -755,6 +755,33 @@ After clone finished, take a snapshot of zroot:
 
 Now we can move on to polish the system with [Jail(8)](https://man.freebsd.org/cgi/man.cgi?query=jail&apropos=0&sektion=0&manpath=FreeBSD+14.0-RELEASE+and+Ports&arch=default&format=html).
 
+
+## Confirmed both aboved clone method do not work
+
+After implimented above *dd* or *ddrescue* command, the booting will fail as the partition for booting is not right after dd, we need to partition it in advance with following command:
+
+`gpart backup usb-disk-1 | gpart restore -F usb-disk-2`
+
+[Argentum has a working procedure as below](https://forums.freebsd.org/threads/can-zfs-disks-be-cloned-with-dd.68930/post-464902):
+
+```
+I have done this few times but not with dd. ZFS has a functions send / receive -
+
+1. connected both drives to computer
+2. manually created partition table (including new ZFS and UEFI boot) on new drive using gpart
+3. wrote UEFi boot loader on new drive
+4. using zfs send and zfs receive transferred old ZFS partition to new drive
+5. also had to adjust root mount point on new drive
+
+Trere is another way, I have also tried and happen to like:
+
+1. partitioned and prepared the disk as in previous description
+2. added new ZFS partition as a mirror to existing partition using zpool attach
+3. allowed ZFS to resilver new disk
+4. now I had a working system with mirrored disks
+5. disconnected old disk and removed old device from mirror
+6. happy :)
+```
 ## Jailed music service mpd with FreeBSD OSS
 
 [Owntone doesn't support OSS](https://github.com/owntone/owntone-server/issues/285), in order to use Alsa you need to install the alsa library with `pkg install alsa-lib`. Actually you need to install a lot of packages if you want go with Owntone, and I want a more slim OS, good news is [mpd](https://www.musicpd.org) is very well supported by FreeBSD OSS - the native default sound system.
