@@ -711,11 +711,11 @@ The third solution is to shut down the sound card on motherboard in BIOS setting
 
 ---
 
-## ~Clone USB stick with dd or ddrescue~
+## ~~Clone USB stick with dd or ddrescue~~
 
 At this point, the whole system is kind of fully ready, to backup I chose to clone another USB stick with same brand same size, so once the USB stick fails, I can remove it and plug another one immediately, 100% no worries left in the dream.
 
-### ~Clone with command dd~
+### ~~Clone with command dd~~
 
 Create an image
 
@@ -729,7 +729,7 @@ Then downloaded the image file into my offline USB hard drive, thus you can crea
 
 Be sure to double check out the right device number for plugged USB stick by command `camcontrol devlist`.
 
-### Clone USB with command ddrescue
+### ~~Clone USB with command ddrescue~~
 
 [ddrescue](https://www.gnu.org/software/ddrescue/manual/ddrescue_manual.html) is a very powerful and convenient tool for data saving, also good choice for clone USB stick, the command is very straight forward, just type:
 
