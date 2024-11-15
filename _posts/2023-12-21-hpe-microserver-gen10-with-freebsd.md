@@ -758,9 +758,11 @@ Now we can move on to polish the system with [Jail(8)](https://man.freebsd.org/c
 
 ## Confirmed both aboved clone method do not work
 
-After implimented above *dd* or *ddrescue* command, the booting will fail as the partition for booting is not right after dd, we need to partition it in advance with following command:
+After implimented above *dd* or *ddrescue* command, the booting will fail as the partition for booting is not right after dd, we need to partition it in advance with following [gpart(8)](https://man.freebsd.org/cgi/man.cgi?query=gpart&sektion=8&manpath=freebsd-release-ports) command:
 
 `gpart backup usb-disk-1 | gpart restore -F usb-disk-2`
+
+Then as [T-Daemon](https://forums.freebsd.org/threads/install-freebsd-in-external-usb-hdd-disk-with-auto-zfs.85484/) shows up we need to create directories for the efi loader, copy efi loader and set the gpart bootcode.
 
 [Argentum has a working procedure as below](https://forums.freebsd.org/threads/can-zfs-disks-be-cloned-with-dd.68930/post-464902):
 
