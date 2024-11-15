@@ -762,6 +762,8 @@ After implimented above *dd* or *ddrescue* command, the booting will fail as the
 
 `gpart backup usb-disk-1 | gpart restore -F usb-disk-2`
 
+Please be advised, at this moment only the partition table is restored, this action does not affect the content of partitions.
+
 Then as [T-Daemon](https://forums.freebsd.org/threads/install-freebsd-in-external-usb-hdd-disk-with-auto-zfs.85484/) shows up we need to create directories for the efi loader, copy efi loader and set the gpart bootcode.
 
 [Argentum has a working procedure as below](https://forums.freebsd.org/threads/can-zfs-disks-be-cloned-with-dd.68930/post-464902):
