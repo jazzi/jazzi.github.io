@@ -58,8 +58,9 @@ Hereby is my full */usr/local/etc/smb4.conf*, this [link](https://www.server-wor
 
 [movie]
     path = /data/movie
-    public = no
+    public = yes
     writable = no
     printable = no
+    guest ok = yes
     map to guest = bad user
 ``` 
