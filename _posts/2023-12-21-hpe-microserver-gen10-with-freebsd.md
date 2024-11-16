@@ -756,7 +756,7 @@ After clone finished, take a snapshot of zroot:
 Now we can move on to polish the system with [Jail(8)](https://man.freebsd.org/cgi/man.cgi?query=jail&apropos=0&sektion=0&manpath=FreeBSD+14.0-RELEASE+and+Ports&arch=default&format=html).
 
 
-## Confirmed both aboved clone method do not work
+## Confirmed both aboved clone methods do not work
 
 After implimented above *dd* or *ddrescue* command, the booting will fail as the partition for booting is not right after dd, we need to partition it in advance with following [gpart(8)](https://man.freebsd.org/cgi/man.cgi?query=gpart&sektion=8&manpath=freebsd-release-ports) command:
 
