@@ -711,6 +711,63 @@ The third solution is to shut down the sound card on motherboard in BIOS setting
 
 ---
 
+## Defend with PF firewall
+
+Firstly enable PF & PFlog service
+
+`sysrc pf_enable=YES`
+`sysrc pflog_enable=YES`
+
+Then copy pf configuration from /usr/share/example/pf/pf.conf to /etc/pf.conf and edit it according to your needs, what I want is just to restrict SSH access allowed from a specific IP address only and Samba connection from local LAN only. Below is my configuration.
+
+```
+cat /etc/pf.conf 
+#	$OpenBSD: pf.conf,v 1.34 2007/02/24 19:30:59 millert Exp $
+#
+# See pf.conf(5) and /usr/share/examples/pf for syntax and examples.
+# Remember to set gateway_enable="YES" and/or ipv6_gateway_enable="YES"
+# in /etc/rc.conf if packets are to be forwarded between interfaces.
+
+#ext_if="bge0"
+#int_if="bge1"
+lan_net="192.168.31.0/24"
+
+#table <spamd-white> persist
+
+set skip on lo
+
+#scrub in
+
+#nat-anchor "ftp-proxy/*"
+#rdr-anchor "ftp-proxy/*"
+#nat on $ext_if inet from !($ext_if) -> ($ext_if:0)
+#rdr pass on $int_if proto tcp to port ftp -> 127.0.0.1 port 8021
+#no rdr on $ext_if proto tcp from <spamd-white> to any port smtp
+#rdr pass on $ext_if proto tcp from any to any port smtp \
+#	-> 127.0.0.1 port spamd
+
+#anchor "ftp-proxy/*"
+block in
+pass out 
+
+# allow ssh connection from specific ip
+pass in log quick on bge1 proto tcp from 192.168.31.201 to any port 1122 no state
+# allow samba connection from local network
+pass in quick on bge1 proto tcp from $lan_net to any port { 139, 445, 8080 }
+
+
+#pass quick on $int_if no state
+#antispoof quick for { lo $int_if }
+
+#pass in on $ext_if proto tcp to ($ext_if) port ssh
+#pass in log on $ext_if proto tcp to ($ext_if) port smtp
+#pass out log on $ext_if proto tcp from ($ext_if) to port smtp
+#pass in on $ext_if inet proto icmp from any to ($ext_if) icmp-type { unreach, redir, timex }
+
+```
+
+---
+
 ## ~~Clone USB stick with dd or ddrescue~~
 
 At this point, the whole system is kind of fully ready, to backup I chose to clone another USB stick with same brand same size, so once the USB stick fails, I can remove it and plug another one immediately, 100% no worries left in the dream.
