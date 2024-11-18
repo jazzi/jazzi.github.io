@@ -728,8 +728,8 @@ cat /etc/pf.conf
 # Remember to set gateway_enable="YES" and/or ipv6_gateway_enable="YES"
 # in /etc/rc.conf if packets are to be forwarded between interfaces.
 
-#ext_if="bge0"
-#int_if="bge1"
+#ext_if="bge0" # Marked 1 on HPE Gen10
+#int_if="bge1" # Marked 2
 lan_net="192.168.31.0/24"
 
 #table <spamd-white> persist
@@ -751,10 +751,10 @@ block in
 pass out 
 
 # allow ssh connection from specific ip
-pass in log quick on bge1 proto tcp from 192.168.31.201 to any port 1122 no state
+block return in proto tcp from any to any port 1122
+pass in log quick on bge1 inet proto tcp from 192.168.31.201 to any port 1122 no state
 # allow samba connection from local network
-pass in quick on bge1 proto tcp from $lan_net to any port { 139, 445, 8080 }
-
+pass in quick on bge1 inet proto tcp from $lan_net to any port { 139, 445, 8080 }
 
 #pass quick on $int_if no state
 #antispoof quick for { lo $int_if }
