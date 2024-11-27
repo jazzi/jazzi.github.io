@@ -4,14 +4,14 @@ layout: post
 
 In order to change the site URL of Wordpress, I prefer to do it with command line as below:
 
-1. edit *wp-config.php* file and change the following two lines
+Firstly edit *wp-config.php* file and change the following two lines
 
 ```
 define( 'WP_SITEURL', 'https://nothing.com' );
 define( 'WP_HOME', 'https://nothing.com' );
 ```
 
-2. issue the following four mySQL commands
+Secondly issue the following four mySQL commands
 
 ```
 UPDATE wp_options SET option_value = replace(option_value, 'https://old.example.com', 'https://new.example.com') WHERE option_name = 'home' OR option_name = 'siteurl';
@@ -32,3 +32,5 @@ But before doing that you need to
 ---
 
 Sure before new URL available, you need to change the http server too, also point the right IP address to new domain through your domain vendor. 
+
+*Lastly, login to Wordpress dashboard and delete the cache if you have cache plugin installed.**
