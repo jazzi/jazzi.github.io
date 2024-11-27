@@ -33,4 +33,4 @@ But before doing that you need to
 
 Sure before new URL available, you need to change the http server too, also point the right IP address to new domain through your domain vendor. 
 
-*Lastly, login to Wordpress dashboard and delete the cache if you have cache plugin installed.**
+*Lastly, login to Wordpress dashboard and delete the cache if you have cache plugin installed.*
