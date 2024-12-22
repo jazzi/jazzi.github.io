@@ -46,6 +46,9 @@ block quick proto tcp from <troublemakers> \
   to any port $ssh_alternate_port
 
 # non-domestic v4/v6 connections simply not allowed to touch SSH
+# IPv4 GeoIP blocks: https://www.ipdeny.com/ipblocks/data/aggregated/cn-aggregated.zone
+# IPv6 GeoIP blocks: https://www.ipdeny.com/ipv6/ipaddresses/aggregated/cn-aggregated.zone
+#
 block quick inet proto tcp \
   from ! <domesticv4> \
   to any port $ssh_alternate_port
