@@ -57,7 +57,7 @@ Modify
 
 To
 
-listen = /var/run/php82.sock
+> listen = /var/run/php82.sock
 
 Then, uncomment the following lines:
 
@@ -72,6 +72,7 @@ One more step left, or Wordpress would not accept localhost and encounter databa
 `cp /usr/local/etc/php.ini-production /usr/local/etc/php.ini`	# Prepare it and add the following two lines
 
 > pdo_mysql.default_socket = /var/run/mysql/mysql.sock
+>
 > mysqli.default_socket = /var/run/mysql/mysql.sock
 
 
