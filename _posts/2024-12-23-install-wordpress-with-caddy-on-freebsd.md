@@ -113,7 +113,7 @@ teagogo.com, www.teagogo.com {
 
 ## Summarize up
 
-Nothing different to Linux plantforms, just be aware of the *php-fpm* who has a different location on FreeBSD, also the damon *php_fpm* it not *php-fpm*, it is underline.
+Nothing different to Linux plantforms, just be aware of the *php-fpm* who has a different location on FreeBSD, also the damon *php_fpm* is not *php-fpm*, it is underline.
 
 Next better practise would be jail up them.
 
