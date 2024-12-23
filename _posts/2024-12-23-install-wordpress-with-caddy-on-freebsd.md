@@ -45,7 +45,7 @@ chown -R www:www /usr/local/www/wordpress	# Change ownership
 
 ## Install PHP
 
-`pkg install phpmailer php82-extension`		# Version might not be 8.2
+`pkg install phpmailer php82-extension php82-mbstring php82-intl`		# Version might not be 8.2
 
 Actually PHP and the other extensions have been installed along with the Wordpress, so no need to install it again but need some adjustments.
 
