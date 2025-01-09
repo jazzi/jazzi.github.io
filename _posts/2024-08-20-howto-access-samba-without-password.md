@@ -64,3 +64,93 @@ Hereby is my full */usr/local/etc/smb4.conf*, this [link](https://www.server-wor
     guest ok = yes
     map to guest = bad user
 ``` 
+
+---
+
+And the full configurations:
+
+```
+cat /usr/local/etc/smb4.conf
+[global]
+    unix charset = UTF-8
+    workgroup = WORKGROUP
+    realm = home
+    netbios name = Rob
+    interfaces = bge1 192.168.31.0/24 127.0.0.1
+    bind interfaces only = yes
+    hosts allow = 192.168.31.0/24
+# recommended fruit config for MacOS
+    vfs objects = fruit streams_xattr  
+    fruit:aapl = yes
+    fruit:metadata = stream
+    fruit:model = MacSamba
+    fruit:veto_appledouble = no
+    fruit:nfs_aces = no
+    fruit:wipe_intentionally_left_blank_rfork = yes 
+    fruit:delete_empty_adfiles = yes 
+    fruit:posix_rename = yes
+    spotlight = no
+    ea support = yes
+    min protocol = SMB2
+# performance tunning reference 
+# https://hilltopsw.com/blog/faster-samba-smb-cifs-share-performance/
+# https://fy.blackhats.net.au/blog/2021-03-22-time-machine-on-samba-with-zfs/
+# https://serverfault.com/questions/999920/very-slow-smb-speeds-on-macos
+# The following three lines can be put into /etc/nsmb.conf of MacOS client
+#
+## signing_required = no
+## protocol_vers_map=6
+## port445=no_netbios
+#
+    strict allocate = Yes
+    allocation roundup size = 4096
+    read raw = YES
+    server signing = No
+    write raw = Yes
+    strict locking = No
+    socket options = TCP_NODELAY IPTOS_LOWDELAY SO_RCVBUF=131072 SO_SNDBUF=131072
+    min receivefile size = 16384
+    use sendfile = Yes
+    aio read size = 16384
+    aio write size = 16384
+
+#[timemachine_a]
+#comment = Time Machine
+#fruit:time machine = yes
+#fruit:time machine max size = 1050G
+#path = /var/data/backup/timemachine_a
+#browseable = yes
+#write list = timemachine
+#create mask = 0600
+#directory mask = 0700
+## NOTE: Changing these will require a new initial backup cycle if you already have an existing
+## timemachine share.
+#case sensitive = true
+#default case = lower
+#preserve case = no
+#short preserve case = no
+
+[data]
+    path = /data
+    public = no
+    writable = yes
+    printable = no
+    guest ok = no
+    valid users = jazzi
+
+[music]
+    path = /data/music
+    public = no
+    writable = no
+    printable = no
+    guest ok = no
+    valid users = jazzi
+
+[movie]
+    path = /data/movie
+    public = yes
+    guest ok = yes
+    writable = no
+    printable = no
+    map to guest = bad user
+```
