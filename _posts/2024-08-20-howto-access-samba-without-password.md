@@ -94,6 +94,7 @@ cat /usr/local/etc/smb4.conf
     min protocol = SMB2
 # performance tunning reference 
 # https://hilltopsw.com/blog/faster-samba-smb-cifs-share-performance/
+# https://github.com/jazzi/Quicker-macOS-SMB/blob/main/Quicker-macOS-SMB.sh
 # https://fy.blackhats.net.au/blog/2021-03-22-time-machine-on-samba-with-zfs/
 # https://serverfault.com/questions/999920/very-slow-smb-speeds-on-macos
 # The following three lines can be put into /etc/nsmb.conf of MacOS client
