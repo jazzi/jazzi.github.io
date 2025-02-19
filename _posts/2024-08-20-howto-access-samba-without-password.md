@@ -161,6 +161,8 @@ cat /usr/local/etc/smb4.conf
 Here is the settings on MacOS from [ms8.com](https://www.ms8.com/enhancing-macos-smb-stability-and-usability-with-custom-configurations/)
 
 ```
+cat /etc/nsmb.conf
+
 [default]
 # Use NTFS streams if supported
 streams=yes
