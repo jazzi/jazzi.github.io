@@ -155,3 +155,38 @@ cat /usr/local/etc/smb4.conf
     printable = no
     map to guest = bad user
 ```
+
+## MacOS settings
+
+Here is the settings on MacOS from [ms8.com](https://www.ms8.com/enhancing-macos-smb-stability-and-usability-with-custom-configurations/)
+
+```
+[default]
+# Use NTFS streams if supported
+streams=yes
+
+# Soft mount by default
+soft=yes
+
+# Disable signing due to macOS bug
+signing_required=no
+
+# Disable directory caching
+dir_cache_max_cnt=0
+dir_cache_max=0
+dir_cache_off=yes
+
+# Lock negotiation to SMB2/3 only
+protocol_vers_map=4
+
+# No SMB1, so we disable NetBIOS
+port445=no_netbios
+validate_neg_off=yes
+
+# Turn off notifications
+notify_off=yes
+
+# SMB Multichannel behavior
+mc_on=yes
+mc_prefer_wired=yes
+```
