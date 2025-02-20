@@ -36,35 +36,6 @@ I set *map to guest = bad user* and restart it by command `service samba_server 
 
 Hereby is my full */usr/local/etc/smb4.conf*, this [link](https://www.server-world.info/en/note?os=FreeBSD_14&p=samba&f=1) is quite helpful too.
 
-```
-# cat /usr/local/etc/smb4.conf
-
-[global]
-    unix charset = UTF-8
-    workgroup = WORKGROUP
-    realm = yohoho.home
-    netbios name = Rob
-    interfaces = bge0 192.168.31.0/24 127.0.0.1
-    bind interfaces only = yes
-    hosts allow = 192.168.31.0/24
-
-[data]
-    path = /data
-    public = no
-    writable = yes
-    printable = no
-    guest ok = no
-    valid users = jazzi
-
-[movie]
-    path = /data/movie
-    public = yes
-    writable = no
-    printable = no
-    guest ok = yes
-    map to guest = bad user
-``` 
-
 ---
 
 And the full configurations:
@@ -81,44 +52,43 @@ cat /usr/local/etc/smb4.conf
     hosts allow = 192.168.31.0/24
 # recommended fruit config for MacOS
     vfs objects = catia fruit streams_xattr  
-    fruit:aapl = yes
     fruit:metadata = stream
     fruit:model = MacSamba
     fruit:zero_file_id = no
-#    fruit:veto_appledouble = no
+    fruit:veto_appledouble = no
     fruit:nfs_aces = no
-#    fruit:wipe_intentionally_left_blank_rfork = yes 
-#    fruit:delete_empty_adfiles = yes 
-#    fruit:posix_rename = yes 
+    fruit:wipe_intentionally_left_blank_rfork = yes 
+    fruit:delete_empty_adfiles = yes 
     fruit:encoding = native
-    readdir_attr:aapl_rsize = no
-    readdir_attr:aapl_finder_info = no
-    readdir_attr:aapl_max_access = no
+    fruit:aapl = yes
+      readdir_attr:aapl_rsize = no
+      readdir_attr:aapl_finder_info = no
+      readdir_attr:aapl_max_access = no
 # performance tunning reference 
 # https://hilltopsw.com/blog/faster-samba-smb-cifs-share-performance/
 # https://fy.blackhats.net.au/blog/2021-03-22-time-machine-on-samba-with-zfs/
 # https://serverfault.com/questions/999920/very-slow-smb-speeds-on-macos
 # https://gist.github.com/fschiettecatte/02d61e3d36c5f8d36bd45586fc5d0dc7
 # https://www.samba.org/~ab/output/htmldocs/Samba3-HOWTO/speed.html
-# https://gist.github.com/othyn/4554c1f409f34d1674ba2095acf441ee
-# The following three lines can be put into /etc/nsmb.conf of MacOS client
 #
-## signing_required = no
-## protocol_vers_map=6
-## port445=no_netbios
-#
-    strict allocate = no
-    strict sync = yes  # Someone reported "no" can help the porformance
-    read raw = yes
-    write raw = yes
-    strict locking = Auto
-#    socket options = TCP_NODELAY IPTOS_LOWDELAY SO_RCVBUF=131072 SO_SNDBUF=131072
-socket options = TCP_NODELAY IPTOS_LOWDELAY
+#    strict allocate = no
+#    strict sync = yes
+#    read raw = yes
+#    write raw = yes
+#    strict locking = Auto
+    socket options = TCP_NODELAY IPTOS_LOWDELAY
     min receivefile size = 32768
     use sendfile = Yes
+#    aio read size = 1
+#    aio write size = 1
 
-    # Linux supports kernel oplocks
+    # Linux supports only kernel oplocks
 #    kernel oplocks = yes
+
+#    printing = cups
+#    printcap name = cups
+#    load printers = yes
+#    cups options = raw
 
 #[timemachine_a]
 #comment = Time Machine
@@ -163,7 +133,7 @@ socket options = TCP_NODELAY IPTOS_LOWDELAY
     map to guest = bad user
 ```
 
-## MacOS settings
+## MacOS client settings
 
 Here is the settings on MacOS from [ms8.com](https://www.ms8.com/enhancing-macos-smb-stability-and-usability-with-custom-configurations/)
 
