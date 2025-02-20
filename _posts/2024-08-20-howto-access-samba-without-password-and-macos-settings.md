@@ -107,7 +107,7 @@ cat /usr/local/etc/smb4.conf
 ## port445=no_netbios
 #
     strict allocate = no
-    strict sync = yes
+    strict sync = yes  # Someone reported "no" can help the porformance
     read raw = yes
     write raw = yes
     strict locking = Auto
@@ -115,8 +115,6 @@ cat /usr/local/etc/smb4.conf
 socket options = TCP_NODELAY IPTOS_LOWDELAY
     min receivefile size = 32768
     use sendfile = Yes
-#    aio read size = 1
-#    aio write size = 1
 
     # Linux supports kernel oplocks
 #    kernel oplocks = yes
