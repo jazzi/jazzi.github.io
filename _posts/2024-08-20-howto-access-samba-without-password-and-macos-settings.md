@@ -74,47 +74,52 @@ cat /usr/local/etc/smb4.conf
 [global]
     unix charset = UTF-8
     workgroup = WORKGROUP
-    realm = home
+    realm = yohoho.home
     netbios name = Rob
-    interfaces = bge1 192.168.31.0/24 127.0.0.1
+    interfaces = 192.168.31.0/24 bge1 127.0.0.1
     bind interfaces only = yes
     hosts allow = 192.168.31.0/24
 # recommended fruit config for MacOS
-    vfs objects = fruit streams_xattr  
+    vfs objects = catia fruit streams_xattr  
     fruit:aapl = yes
     fruit:metadata = stream
     fruit:model = MacSamba
-    fruit:veto_appledouble = no
+    fruit:zero_file_id = no
+#    fruit:veto_appledouble = no
     fruit:nfs_aces = no
-    fruit:wipe_intentionally_left_blank_rfork = yes 
-    fruit:delete_empty_adfiles = yes 
-    fruit:posix_rename = yes
-    spotlight = no
-    ea support = yes
-    min protocol = SMB2
+#    fruit:wipe_intentionally_left_blank_rfork = yes 
+#    fruit:delete_empty_adfiles = yes 
+#    fruit:posix_rename = yes 
+    fruit:encoding = native
+    readdir_attr:aapl_rsize = no
+    readdir_attr:aapl_finder_info = no
+    readdir_attr:aapl_max_access = no
 # performance tunning reference 
 # https://hilltopsw.com/blog/faster-samba-smb-cifs-share-performance/
-# https://github.com/jazzi/Quicker-macOS-SMB/blob/main/Quicker-macOS-SMB.sh
 # https://fy.blackhats.net.au/blog/2021-03-22-time-machine-on-samba-with-zfs/
 # https://serverfault.com/questions/999920/very-slow-smb-speeds-on-macos
-# https://discourse.practicalzfs.com/t/samba-performance-for-macos-clients-truenas-scale/1993/4
+# https://gist.github.com/fschiettecatte/02d61e3d36c5f8d36bd45586fc5d0dc7
+# https://www.samba.org/~ab/output/htmldocs/Samba3-HOWTO/speed.html
 # The following three lines can be put into /etc/nsmb.conf of MacOS client
 #
 ## signing_required = no
 ## protocol_vers_map=6
 ## port445=no_netbios
 #
-    strict allocate = Yes
-    allocation roundup size = 4096
-    read raw = YES
-    server signing = No
-    write raw = Yes
-    strict locking = No
-    socket options = TCP_NODELAY IPTOS_LOWDELAY SO_RCVBUF=131072 SO_SNDBUF=131072
-    min receivefile size = 16384
+    strict allocate = no
+    strict sync = yes
+    read raw = yes
+    write raw = yes
+    strict locking = Auto
+#    socket options = TCP_NODELAY IPTOS_LOWDELAY SO_RCVBUF=131072 SO_SNDBUF=131072
+socket options = TCP_NODELAY IPTOS_LOWDELAY
+    min receivefile size = 32768
     use sendfile = Yes
-    aio read size = 16384
-    aio write size = 16384
+#    aio read size = 1
+#    aio write size = 1
+
+    # Linux supports kernel oplocks
+#    kernel oplocks = yes
 
 #[timemachine_a]
 #comment = Time Machine
@@ -138,6 +143,8 @@ cat /usr/local/etc/smb4.conf
     writable = yes
     printable = no
     guest ok = no
+    veto files = /._*/.DS_Store/
+    delete veto files = yes
     valid users = jazzi
 
 [music]
