@@ -100,6 +100,7 @@ cat /usr/local/etc/smb4.conf
 # https://serverfault.com/questions/999920/very-slow-smb-speeds-on-macos
 # https://gist.github.com/fschiettecatte/02d61e3d36c5f8d36bd45586fc5d0dc7
 # https://www.samba.org/~ab/output/htmldocs/Samba3-HOWTO/speed.html
+# https://gist.github.com/othyn/4554c1f409f34d1674ba2095acf441ee
 # The following three lines can be put into /etc/nsmb.conf of MacOS client
 #
 ## signing_required = no
