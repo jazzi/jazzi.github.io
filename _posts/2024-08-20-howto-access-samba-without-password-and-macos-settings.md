@@ -180,14 +180,22 @@ soft=yes
 signing_required=no
 
 # Disable directory caching
+dir_cache_off=yes
+dir_cache_async_cnt=0
 dir_cache_max_cnt=0
 dir_cache_max=0
-dir_cache_off=yes
+dir_cache_min=0
 
 # Lock negotiation to SMB2/3 only
-protocol_vers_map=4
+# Require SMB2/3
+# 7 == 0111  SMB 1/2/3 should be enabled
+# 6 == 0110  SMB 2/3 should be enabled
+# 4 == 0100  SMB 3 should be enabled
+protocol_vers_map=6
 
 # No SMB1, so we disable NetBIOS
+# How to disable SMB 1 or NetBIOS in macOS
+# https://support.apple.com/en-us/HT211927
 port445=no_netbios
 validate_neg_off=yes
 
@@ -195,7 +203,8 @@ validate_neg_off=yes
 notify_off=yes
 
 # SMB Multichannel behavior
-mc_on=yes
+# https://support.apple.com/en-us/102010
+mc_on=no
 mc_prefer_wired=yes
 ```
 
