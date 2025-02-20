@@ -193,3 +193,13 @@ notify_off=yes
 mc_on=yes
 mc_prefer_wired=yes
 ```
+
+Also better to disable.DS_Store files as below, 
+
+`sudo defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool TRUE`
+
+**Reference:** [https://support.apple.com/de-de/HT208209}(https://support.apple.com/de-de/HT208209)
+
+Next step is to disable TCP ACK as below:
+
+`sudo sysctl -w net.inet.tcp.delayed_ack=0` 
