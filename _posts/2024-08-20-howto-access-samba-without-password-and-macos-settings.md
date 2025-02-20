@@ -97,6 +97,7 @@ cat /usr/local/etc/smb4.conf
 # https://github.com/jazzi/Quicker-macOS-SMB/blob/main/Quicker-macOS-SMB.sh
 # https://fy.blackhats.net.au/blog/2021-03-22-time-machine-on-samba-with-zfs/
 # https://serverfault.com/questions/999920/very-slow-smb-speeds-on-macos
+# https://discourse.practicalzfs.com/t/samba-performance-for-macos-clients-truenas-scale/1993/4
 # The following three lines can be put into /etc/nsmb.conf of MacOS client
 #
 ## signing_required = no
