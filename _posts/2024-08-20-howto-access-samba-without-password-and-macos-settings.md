@@ -51,19 +51,19 @@ cat /usr/local/etc/smb4.conf
     bind interfaces only = yes
     hosts allow = 192.168.31.0/24
 # recommended fruit config for MacOS
-    vfs objects = catia fruit streams_xattr  
-    fruit:metadata = stream
-    fruit:model = MacSamba
-    fruit:zero_file_id = no
-    fruit:veto_appledouble = no
-    fruit:nfs_aces = no
-    fruit:wipe_intentionally_left_blank_rfork = yes 
-    fruit:delete_empty_adfiles = yes 
-    fruit:encoding = native
-    fruit:aapl = yes
-      readdir_attr:aapl_rsize = no
-      readdir_attr:aapl_finder_info = no
-      readdir_attr:aapl_max_access = no
+#    vfs objects = catia fruit streams_xattr  
+#    fruit:metadata = stream
+#    fruit:model = MacSamba
+#    fruit:zero_file_id = no
+#    fruit:veto_appledouble = no
+#    fruit:nfs_aces = no
+#    fruit:wipe_intentionally_left_blank_rfork = yes 
+#    fruit:delete_empty_adfiles = yes 
+#    fruit:encoding = native
+#    fruit:aapl = yes
+#      readdir_attr:aapl_rsize = no
+#      readdir_attr:aapl_finder_info = no
+#      readdir_attr:aapl_max_access = no
 # performance tunning reference 
 # https://hilltopsw.com/blog/faster-samba-smb-cifs-share-performance/
 # https://fy.blackhats.net.au/blog/2021-03-22-time-machine-on-samba-with-zfs/
@@ -79,6 +79,7 @@ cat /usr/local/etc/smb4.conf
     socket options = TCP_NODELAY IPTOS_LOWDELAY
     min receivefile size = 32768
     use sendfile = Yes
+    aio max threads = 1000 # default 100
 #    aio read size = 1
 #    aio write size = 1
 
