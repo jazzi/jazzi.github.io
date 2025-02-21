@@ -184,7 +184,7 @@ Also better to disable.DS_Store files as below,
 
 `sudo defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool TRUE`
 
-**Reference:** [https://support.apple.com/de-de/HT208209}(https://support.apple.com/de-de/HT208209)
+**Reference:** [https://support.apple.com/de-de/HT208209](https://support.apple.com/de-de/HT208209)
 
 Next step is to disable TCP ACK as below:
 
