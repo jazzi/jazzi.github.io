@@ -192,3 +192,35 @@ Also better to disable.DS_Store files as below,
 Next step is to disable TCP ACK as below:
 
 `sudo sysctl -w net.inet.tcp.delayed_ack=0` 
+
+**Remember to reboot the MacOS**
+
+## MacOS Finder takes too long time (2+ minutes) to list big directory on SMB share
+
+Many people suggests to disable the preview function on Finder, that might be faster but actually no need to do that. I have lots of pictures on the SMB Share and now I have no problem to list and preview them on MacOS Finder in one second.
+
+You need to put some settings into both server and client.
+
+```
+Server Part
+
+[global]
+    fruit:aapl = yes
+      readdir_attr:aapl_rsize = no
+      readdir_attr:aapl_finder_info = no
+      readdir_attr:aapl_max_access = no
+```
+
+---
+
+```
+Client Part
+
+[default]
+# Disable directory caching
+dir_cache_off=yes
+dir_cache_async_cnt=0
+dir_cache_max_cnt=0
+dir_cache_max=0
+dir_cache_min=0
+```
