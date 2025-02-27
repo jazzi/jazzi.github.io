@@ -47,7 +47,7 @@ cat /usr/local/etc/smb4.conf
     workgroup = WORKGROUP
     realm = yohoho.home
     netbios name = Rob
-    interfaces = 192.168.31.0/24 re0 127.0.0.1
+    interfaces = 192.168.31.250/24 re0 127.0.0.1
     bind interfaces only = yes
     hosts allow = 192.168.31.0/24
 # recommended fruit config for MacOS
@@ -79,7 +79,7 @@ cat /usr/local/etc/smb4.conf
 #    socket options = TCP_NODELAY IPTOS_LOWDELAY
 #    min receivefile size = 32768
     use sendfile = Yes
-    aio max threads = 1000 # default 100
+#    aio max threads = 1000 # default 100
 #    aio read size = 1
 #    aio write size = 1
 
