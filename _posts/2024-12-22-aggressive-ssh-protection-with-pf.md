@@ -6,6 +6,8 @@ This pf(4) configuration mostly comes from [Tim's blog](http://blog.thechases.co
 
 One more word for SSH protection, it's better to forbit Root login as well as Password login, this can be done in file */etc/ssh/sshd_config*.
 
+
+
 ```
 cat /etc/pf.conf
 ##########
