@@ -45,13 +45,22 @@ cat /usr/local/etc/smb4.conf
 [global]
     unix charset = UTF-8
     workgroup = WORKGROUP
+    security = user
+    passdb backedn = tdbsam
     realm = yohoho.home
     netbios name = Rob
     interfaces = 192.168.31.250/24 re0 127.0.0.1
     bind interfaces only = yes
     hosts allow = 192.168.31.0/24
+
+# Enforce a minimum of Samba v2 (Vista / Server 2008) for server and client connections
+server min protocol = SMB2
+client min protocol = SMB2
+
 # recommended fruit config for MacOS
     vfs objects = catia fruit streams_xattr  
+    fruit:posix_rename = yes
+    fruit:advertise_fullsync = true
     fruit:metadata = stream
     fruit:model = MacSamba
     fruit:zero_file_id = no
@@ -64,12 +73,20 @@ cat /usr/local/etc/smb4.conf
       readdir_attr:aapl_rsize = no
       readdir_attr:aapl_finder_info = no
       readdir_attr:aapl_max_access = no
+
+# (OPTIONAL) Don't allow MacOS clients to write .DS_Store files to server shares
+veto files = /.snap/.sujournal/._.DS_Store/.DS_Store/.Trashes/.TemporaryItems/
+delete veto files = yes
+spotlight backend = tracker
+
 # performance tunning reference 
 # https://hilltopsw.com/blog/faster-samba-smb-cifs-share-performance/
 # https://fy.blackhats.net.au/blog/2021-03-22-time-machine-on-samba-with-zfs/
 # https://serverfault.com/questions/999920/very-slow-smb-speeds-on-macos
 # https://gist.github.com/fschiettecatte/02d61e3d36c5f8d36bd45586fc5d0dc7
 # https://www.samba.org/~ab/output/htmldocs/Samba3-HOWTO/speed.html
+# The following three lines can be put into /etc/nsmb.conf of MacOS client
+#
 #
 #    strict allocate = no
 #    strict sync = yes
@@ -79,7 +96,7 @@ cat /usr/local/etc/smb4.conf
 #    socket options = TCP_NODELAY IPTOS_LOWDELAY
 #    min receivefile size = 32768
     use sendfile = Yes
-#    aio max threads = 1000 # default 100
+#    aio max threads = 1000
 #    aio read size = 1
 #    aio write size = 1
 
@@ -91,17 +108,19 @@ cat /usr/local/etc/smb4.conf
 #    load printers = yes
 #    cups options = raw
 
-#[timemachine_a]
+## Samba-based Time Machine Backups from https://freebsdfoundation.org/our-work/journal/browser-based-edition/storage-and-filesystems/samba-based-time-machine-backups/
+#[TimemMachine]
 #comment = Time Machine
 #fruit:time machine = yes
 #fruit:time machine max size = 1050G
-#path = /var/data/backup/timemachine_a
+#path = /data/backup/timemachine/%U
+#valid users = %U
 #browseable = yes
-#write list = timemachine
+#writeable = yes
 #create mask = 0600
 #directory mask = 0700
-## NOTE: Changing these will require a new initial backup cycle if you already have an existing
-## timemachine share.
+## NOTE: Changing these will require a new initial backup cycle if you already have an existing timemachine share.
+
 #case sensitive = true
 #default case = lower
 #preserve case = no
@@ -163,11 +182,12 @@ dir_cache_min=0
 # 7 == 0111  SMB 1/2/3 should be enabled
 # 6 == 0110  SMB 2/3 should be enabled
 # 4 == 0100  SMB 3 should be enabled
-protocol_vers_map=6
+protocol_vers_map=4
 
 # No SMB1, so we disable NetBIOS
 # How to disable SMB 1 or NetBIOS in macOS
 # https://support.apple.com/en-us/HT211927
+# https://support.apple.com/en-us/102050
 port445=no_netbios
 validate_neg_off=yes
 
@@ -181,6 +201,9 @@ mc_prefer_wired=yes
 
 unix extensions = no
 veto files=/._*/.DS_Store/
+
+# Disable SMB session signing
+validate_neg_off=yes
 ```
 
 Also better to disable.DS_Store files as below, 
