@@ -85,7 +85,7 @@ spotlight backend = tracker
 # https://serverfault.com/questions/999920/very-slow-smb-speeds-on-macos
 # https://gist.github.com/fschiettecatte/02d61e3d36c5f8d36bd45586fc5d0dc7
 # https://www.samba.org/~ab/output/htmldocs/Samba3-HOWTO/speed.html
-# The following three lines can be put into /etc/nsmb.conf of MacOS client
+# https://www.dokispace.com/posts/freebsd-file-server/
 #
 #
 #    strict allocate = no
