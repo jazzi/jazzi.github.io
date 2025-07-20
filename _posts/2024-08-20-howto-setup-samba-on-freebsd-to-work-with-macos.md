@@ -62,7 +62,9 @@ client min protocol = SMB2
     fruit:posix_rename = yes
     fruit:advertise_fullsync = true
     fruit:metadata = stream
-    fruit:model = MacSamba
+#    fruit:model = MacSamba
+    fruit:model = MacPro7,1@ECOLOR=226,226,224
+    fruit:copyfile = yes
     fruit:zero_file_id = no
     fruit:veto_appledouble = no
     fruit:nfs_aces = no
@@ -89,7 +91,10 @@ spotlight backend = tracker
 #
 #
 #    strict allocate = no
-#    strict sync = yes
+     strict sync = no
+     block size = 4096
+     disable netbios = yes
+     fstype = ZFS
 #    read raw = yes
 #    write raw = yes
 #    strict locking = Auto
