@@ -58,8 +58,8 @@ cat /usr/local/etc/smb4.conf
     hosts allow = 192.168.31.
 
 # Enforce a minimum of Samba v2 (Vista / Server 2008) for server and client connections
-server min protocol = SMB2
-client min protocol = SMB2
+server min protocol = SMB3
+client min protocol = SMB3
 
 # recommended fruit config for MacOS
     vfs objects = catia fruit streams_xattr  
@@ -108,6 +108,8 @@ spotlight backend = tracker
 #    aio max threads = 1000
 #    aio read size = 1
 #    aio write size = 1
+     server smb encrypt = required
+# if client has problem of encryption then set to desired
 
     # Linux supports only kernel oplocks
 #    kernel oplocks = yes
