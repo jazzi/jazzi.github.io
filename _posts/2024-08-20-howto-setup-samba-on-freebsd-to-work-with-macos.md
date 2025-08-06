@@ -146,7 +146,8 @@ spotlight backend = tracker
     guest ok = no
     veto files = /._*/.DS_Store/
     delete veto files = yes
-    valid users = jazzi
+    valid users = jazzi, @owners
+    write list = jazzi
     create mask = 0666
     directory mask = 0755
 
