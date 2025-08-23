@@ -489,19 +489,19 @@ I have problem with MacOS client to connect to FreeBSD NFS server, maybe someday
 The whole picture of configuration in file */etc/rc.conf*
 
 ```
-# Enable NFS service
-mountd_enable="YES"
-mountd_flags="-r -n" # add -p 624 if wanna specify port
-nfs_server_enable="YES"
-nfs_server_flags="-u -t -n 4"
-nfsuserd_enable="YES" # needed for NFSv4
-nfsuserd_flags="-manage-gids -domain YOURDOMAIN -usertimeout 60 2" # 2 = start 2 servers 
-nfsv4_server_enable="YES"
-nfsv4_server_only="YES"
-#rpcbind_enable="YES" # not needed for NFSv4
-#rpc_lockd_enable="YES" # not needed for NFSv4
-#rpc_statd_enable="YES" # not needed for NFSv4
-#############
+hostname="rob.yohoyo.home"
+#ifconfig_re0="DHCP"
+ifconfig_bge1="DHCP"
+sshd_enable="YES"
+moused_nondefault_enable="NO"
+# Set dumpdev to "AUTO" to enable crash dumps, "NO" to disable
+dumpdev="AUTO"
+zfs_enable="YES"
+samba_server_enable="YES"
+musicpd_enable="YES"
+ympd_enable="YES"
+pf_enable="yes"
+pflog_enable="yes"
 ```
 
 According to [manual NFSv4(4)](https://man.freebsd.org/cgi/man.cgi?query=nfsv4&apropos=0&sektion=0&manpath=FreeBSD+14.0-RELEASE+and+Ports&arch=default&format=html), one line need to be existed in */etc/exports*
@@ -729,10 +729,12 @@ cat /etc/pf.conf
 # in /etc/rc.conf if packets are to be forwarded between interfaces.
 
 #ext_if="bge0" # Marked 1 on HPE Gen10
-#int_if="bge1" # Marked 2
+int_if="bge1" # Marked 2
+#int_if="re0" # PCIe 2.5Gbps
 lan_net="192.168.31.0/24"
 
 #table <spamd-white> persist
+#table <bruteforce> persist # uncomment it if SSH rule below used.
 
 set skip on lo
 
@@ -751,10 +753,16 @@ block in
 pass out 
 
 # allow ssh connection from specific ip
-block return in proto tcp from any to any port 1122
-pass in log quick on bge1 inet proto tcp from 192.168.31.201 to any port 1122 no state
+block return in proto tcp from any to any port 22
+#pass in quick on $int_if inet proto tcp from 192.168.31.201 to any port 22 no state
+pass in quick on $int_if inet proto tcp from $lan_net to any port 22 no state
+
+# protecting SSH port from brute force attacks which need to decleared the table in the front in advance.
+#pass in on $int_if inet proto tcp to port { 1122 } keep state (max-src-conn 15, max-src-conn-rate 3/1, overload <bruteforce> flush global)
+
 # allow samba connection from local network
-pass in quick on bge1 inet proto tcp from $lan_net to any port { 139, 445, 8080 }
+pass in quick on $int_if inet proto tcp from $lan_net to any port { 139, 445, 8080 }
+
 
 #pass quick on $int_if no state
 #antispoof quick for { lo $int_if }
@@ -763,7 +771,6 @@ pass in quick on bge1 inet proto tcp from $lan_net to any port { 139, 445, 8080 
 #pass in log on $ext_if proto tcp to ($ext_if) port smtp
 #pass out log on $ext_if proto tcp from ($ext_if) to port smtp
 #pass in on $ext_if inet proto icmp from any to ($ext_if) icmp-type { unreach, redir, timex }
-
 ```
 
 ---
