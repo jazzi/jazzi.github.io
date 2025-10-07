@@ -478,53 +478,34 @@ But still the same error shows up, no worries, it's about the privilages, the us
 
 Then woooo, everything goes up, so let's wrap it up and put these two commands into */etc/rc.local*.
 
-## NFSv4 setting
+## NFSv3 setting
 
-I have problem with MacOS client to connect to FreeBSD NFS server, maybe someday I will dip my toes into it. Anyway here is a link might be useful in the future.
+Put the followings into `/etc/rc.conf`
 
-* [macOS X Mount NFS Share / Set an NFS Client](https://www.cyberciti.biz/faq/apple-mac-osx-nfs-mount-command-tutorial/)
-* [Share ZFS datasets with FreeBSD NFS](https://wiki.freebsd.org/ZFS/ShareNFS)
-* [NFS shares with ZFS](https://klarasystems.com/articles/nfs-shares-with-zfs/)
-
-The whole picture of configuration in file */etc/rc.conf*
-
-```
-hostname="rob.yohoyo.home"
-#ifconfig_re0="DHCP"
-ifconfig_bge1="DHCP"
-sshd_enable="YES"
-moused_nondefault_enable="NO"
-# Set dumpdev to "AUTO" to enable crash dumps, "NO" to disable
-dumpdev="AUTO"
-zfs_enable="YES"
-samba_server_enable="YES"
-musicpd_enable="YES"
-ympd_enable="YES"
-pf_enable="yes"
-pflog_enable="yes"
+```text
+# Set NFS service
+nfs_server_enable="YES"
+rpcbind_enable="YES"
+mountd_enable="YES"
+rpc_lockd_enable="YES"
+rpc_statd_enable="YES"
+mountd_flags="-r -p 4046"
+rpc_lockd_flags="-p 4045"
+rpc_statd_flags="-p 4047"
 ```
 
-According to [manual NFSv4(4)](https://man.freebsd.org/cgi/man.cgi?query=nfsv4&apropos=0&sektion=0&manpath=FreeBSD+14.0-RELEASE+and+Ports&arch=default&format=html), one line need to be existed in */etc/exports*
+Then start some services:
 
-`V4:	/`
-
-On the MacOS, create */etc/nfs.conf* with followings:
-
-```
-# Settings for NFSv4
-nfs.client.default_nfs4domain=YOURDOMAIN # needs to be identical with server
-nfs.client.mount.options=vers=4,nfc # check man mount_nfs
+```text
+# service nfsd start
+# /etc/rc.d/lockd start
+# 以下是启动statd的，在刚刚启动lockd时会自动启动它
+# /etc/rc.d/statd start
 ```
 
-Also NFS share with ZFS enabled on FreeBSD has something special, it doesn't use */etc/exports* but */etc/zfs/exports* instead, this file should not be manually edited but issue the following command:
+Finaly check on client by `showmount -e 192.168.31.240`
 
-`zfs set sharenfs="-mapall=jazzi,-network=192.168.31.0/24" pool-name/dataset-name` # option -mallall for write permission
-
-In the MacOS fire the following command to mount it:
-
-`sudo mount -t nfs  192.168.31.249:/data /Users/jazzi/nfs`
-
-After mounted, you can use command `nfsstat -m` to verify it's NFSv4 used or not.
+And mount it by `sudo mount -t nfs 192.168.31.240:/data /Users/jazzi/nfs`
 
 ## Set up Owntone with USB DAC
 
