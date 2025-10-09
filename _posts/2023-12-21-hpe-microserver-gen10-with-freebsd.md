@@ -494,6 +494,14 @@ rpc_lockd_flags="-p 4045"
 rpc_statd_flags="-p 4047"
 ```
 
+Put the following line to **/etc/exports** (manual pages of [Exports](https://man.freebsd.org/cgi/man.cgi?query=exports&apropos=0&sektion=0&manpath=FreeBSD+14.3-RELEASE+and+Ports&arch=default&format=html))
+
+`/data -alldirs -mapall=1001  -network 192.168.31/24`
+
+Be cautious, check **/etc/zfs/exports** if ZFS used, make sure it's right there or just set a simple one or leave it empty.
+
+`zfs set sharenfs="-network 192.168.31/24" data`
+
 Then start some services:
 
 ```text
@@ -506,6 +514,10 @@ Then start some services:
 Finaly check on client by `showmount -e 192.168.31.240`
 
 And mount it by `sudo mount -t nfs 192.168.31.240:/data /Users/jazzi/nfs`
+
+**Don't forget to check log file of the server `tail /var/log/messages`**
+
+The problem is if you mount /data, the contents of /data/tv can not be listed as both /data and /data/tv are zfs dataset, don't know how to fix this problem.
 
 ## Set up Owntone with USB DAC
 
