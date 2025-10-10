@@ -515,6 +515,8 @@ Finaly check on client by `showmount -e 192.168.31.240`
 
 And mount it by `sudo mount -t nfs 192.168.31.240:/data /Users/jazzi/nfs`
 
+If you still get *Permission error*, do `zfs share -a`
+
 **Don't forget to check log file of the server `tail /var/log/messages`**
 
 The problem is if you mount /data, the contents of /data/tv can not be listed as both /data and /data/tv are zfs dataset, don't know how to fix this problem.
