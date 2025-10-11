@@ -937,6 +937,8 @@ Now can manage it through Web UI, visit http://192.168.31.240:8080 through web b
 
 `/var/mpd/.mpd/socket`
 
+Or you will have **Connection refused** error.
+
 If command line [mpc](https://www.musicpd.org/doc/mpc/html/) is the client you want, try `pkg install musicpc` and connect to server by `mpc --host=/var/mpd/.mpd/socketi`. 
 
 ### Use Jail manager Bastille
