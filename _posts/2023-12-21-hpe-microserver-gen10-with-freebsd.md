@@ -476,6 +476,10 @@ But still the same error shows up, no worries, it's about the privilages, the us
 
 `chmod 664 /var/log/aria2.log`
 
+### Missing dht.dat
+
+Download it from [here](https://github.com/jazzi/aria2.conf/blob/master/dht.dat) and move it to ~/.aria2/
+
 Then woooo, everything goes up, so let's wrap it up and put these two commands into */etc/rc.local*.
 
 ## NFSv3 setting
