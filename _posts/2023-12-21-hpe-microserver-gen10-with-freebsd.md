@@ -853,7 +853,7 @@ Trere is another way, I have also tried and happen to like:
 5. disconnected old disk and removed old device from mirror
 6. happy :)
 ```
-## Jailed music service mpd with FreeBSD OSS
+## Music service mpd with FreeBSD OSS
 
 [Owntone doesn't support OSS](https://github.com/owntone/owntone-server/issues/285), in order to use Alsa you need to install the alsa library with `pkg install alsa-lib`. Actually you need to install a lot of packages if you want go with Owntone, and I want a more slim OS, good news is [mpd](https://www.musicpd.org) is very well supported by FreeBSD OSS - the native default sound system.
 
@@ -862,64 +862,82 @@ By the way, mpd is called **Musicpd** in FreeBSD, the client *mpc* is called **m
 Firstly a summary of the state of my USB DAC:
 
 ```
-$ uname -a
-FreeBSD 14.0-RELEASE-p5 FreeBSD 14.0-RELEASE-p5 #0: Tue Feb 13 23:37:36 UTC 2024     root@amd64-builder.daemonology.net:/usr/obj/usr/src/amd64.amd64/sys/GENERIC amd64
-
-$ cat /dev/sndstat 
+# cat /dev/sndstat           
 Installed devices:
-pcm0: <ATI R6xx (HDMI)> (play)
-pcm1: <ATI R6xx (HDMI)> (play)
-pcm2: <USB audio> (play) default
+pcm0: <Schiit Audio Im Fulla Schiit> (play/rec) default
 No devices installed from userspace.
 
-$ sysctl dev.pcm.2
-dev.pcm.2.feedback_rate: 0
-dev.pcm.2.mixer.mute_1.desc: 
-dev.pcm.2.mixer.mute_1.max: 1
-dev.pcm.2.mixer.mute_1.min: 0
-dev.pcm.2.mixer.mute_1.val: 0
-dev.pcm.2.mixer.vol_0_1.desc: 
-dev.pcm.2.mixer.vol_0_1.max: 0
-dev.pcm.2.mixer.vol_0_1.min: -16384
-dev.pcm.2.mixer.vol_0_1.val: -7209
-dev.pcm.2.mixer.vol_0_0.desc: 
-dev.pcm.2.mixer.vol_0_0.max: 0
-dev.pcm.2.mixer.vol_0_0.min: -16384
-dev.pcm.2.mixer.vol_0_0.val: -7209
-dev.pcm.2.mode: 3
-dev.pcm.2.bitperfect: 0
-dev.pcm.2.buffersize: 0
-dev.pcm.2.play.vchanformat: s16le:2.0
-dev.pcm.2.play.vchanrate: 48000
-dev.pcm.2.play.vchanmode: fixed
-dev.pcm.2.play.vchans: 1
-dev.pcm.2.hwvol_mixer: vol
-dev.pcm.2.hwvol_step: 5
-dev.pcm.2.%parent: uaudio0
-dev.pcm.2.%pnpinfo: 
-dev.pcm.2.%location: 
-dev.pcm.2.%driver: pcm
-dev.pcm.2.%desc: USB audio
+# dmesg | grep -i pcm0
+pcm0 on uaudio0
+pcm0: detached
+pcm0 on uaudio0
 
-$ sysctl hw.usb.uaudio
-hw.usb.uaudio.debug: 0
-hw.usb.uaudio.buffer_ms: 2
-hw.usb.uaudio.default_channels: 0
-hw.usb.uaudio.default_bits: 32
-hw.usb.uaudio.default_rate: 0
-hw.usb.uaudio.handle_hid: 1
-
-$ dmesg | grep uaudio
-uaudio0 on uhub1
-uaudio0: <Burr-Brown from TI USB Audio DAC, class 0/0, rev 1.10/1.00, addr 1> on usbus0
-uaudio0: Play[0]: 48000 Hz, 2 ch, 16-bit S-LE PCM format, 2x2ms buffer.
-uaudio0: Play[0]: 44100 Hz, 2 ch, 16-bit S-LE PCM format, 2x2ms buffer.
-uaudio0: Play[0]: 32000 Hz, 2 ch, 16-bit S-LE PCM format, 2x2ms buffer.
-uaudio0: No recording.
+# dmesg | grep -i uaudio0
+uaudio0 on uhub0
+uaudio0: <Schiit Audio Im Fulla Schiit, class 239/2, rev 2.00/0.03, addr 1> on usbus0
+uaudio0: Play[0]: 48000 Hz, 2 ch, 32-bit S-LE PCM format, 2x4ms buffer. (selected)
+uaudio0: Record[0]: 48000 Hz, 2 ch, 24-bit S-LE PCM format, 2x4ms buffer. (selected)
 uaudio0: No MIDI sequencer.
-pcm2: <USB audio> on uaudio0
+pcm0 on uaudio0
+uaudio0: No HID volume keys found.
+uaudio0: at uhub0, port 5, addr 1 (disconnected)
+uaudio0: detached
+uaudio0 on uhub0
+uaudio0: <Schiit Audio Im Fulla Schiit, class 0/0, rev 2.00/0.03, addr 1> on usbus0
+uaudio0: Play[0]: 48000 Hz, 2 ch, 16-bit S-LE PCM format, 2x4ms buffer. (selected)
+uaudio0: Record[0]: 48000 Hz, 2 ch, 16-bit S-LE PCM format, 2x4ms buffer. (selected)
+uaudio0: No MIDI sequencer.
+pcm0 on uaudio0
 uaudio0: HID volume keys found.
 ```
+
+`pkg install musicpd`
+
+Add **musicpd_enable="YES"** into */etc/rc.conf*, then config */usr/local/etc/musicpd.conf*.
+
+> Edit the variables in the section "Files and directories"
+according to your local environment. Ensure that the referenced
+directories exist and owned by the 'mpd' user, except for the
+variable music_directory. It is sufficient for the 'mpd' user
+to have read permissions to the referenced directory.
+
+```
+music_directory		"/var/mpd/music"
+playlist_directory	"/var/mpd/.mpd/playlists"
+db_file			"/var/mpd/.mpd/database"
+log_file		"/var/mpd/.mpd/log"
+bind_to_address		"/var/mpd/.mpd/socket"
+```
+
+```
+mkdir -p /var/mpd/.mpd/playlists
+touch /var/mpd/.mpd/database
+chown -R mpd:mpd /var/mpd/
+
+# For music directory, as all music files are already exists, so create a symbolic link is fine enough.
+ln -s /data/music /var/mpd/music
+```
+
+### mpd client ympd install
+
+[ympd](https://ympd.org) is a stand-alone lightweight web UI controller for audio/musicpd, written in C.
+
+`pkg install ympd`
+
+Add *ympd_enable="YES"* into /etc/rc.conf
+
+Now start all:
+
+```
+service musicpd start
+service ympd start
+```
+
+Now can manage it through Web UI, visit http://192.168.31.240:8080 through web browser, put the following line into **MPD Host/IP** of *Settings*,
+
+`/var/mpd/.mpd/socket`
+
+If command line [mpc](https://www.musicpd.org/doc/mpc/html/) is the client you want, try `pkg install musicpc` and connect to server by `mpc --host=/var/mpd/.mpd/socketi`. 
 
 ### Use Jail manager Bastille
 
