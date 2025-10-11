@@ -521,6 +521,8 @@ If you still get *Permission error*, do `zfs share -a`
 
 The problem is if you mount /data, the contents of /data/tv can not be listed as both /data and /data/tv are zfs dataset, don't know how to fix this problem.
 
+A tricky workaround is to create new directory and move all contens into it, then `zfs destroy data/tv`. In short, use common directory instead of child dataset.
+
 ## Set up Owntone with USB DAC
 
 Before we dive in, we need some background about driver or call it module in advance. Normally all loadable modules sit under */boot/kernel*, you can manually load it by command `kldload module_name`, after that you can check the loaded modules by command:
