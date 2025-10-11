@@ -506,7 +506,7 @@ Be cautious, check **/etc/zfs/exports** if ZFS used, make sure it's right there 
 
 `zfs set sharenfs="-network 192.168.31/24" data`
 
-And give its owner permission as `chown -R jazzi /data` or you won't be able to create new files.
+And give its owner permission as `chown -R jazzi /data` or you won't be able to create new files. Also *it's better to have identical UID of both client and server*, or if you changed UID, do remember to `chown -R UID /home/jazzi`.
 
 Then start some services:
 
