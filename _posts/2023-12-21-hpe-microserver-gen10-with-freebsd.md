@@ -939,6 +939,8 @@ Now can manage it through Web UI, visit http://192.168.31.240:8080 through web b
 
 Or you will have **Connection refused** error.
 
+Another solution is change *bind_to_address "/var/mpd/.mpd/socket" into "127.0.0.1" in configuration file */usr/local/etc/musicpd.conf* as the setting value will back to default as long as **ympd** restart.
+
 If command line [mpc](https://www.musicpd.org/doc/mpc/html/) is the client you want, try `pkg install musicpc` and connect to server by `mpc --host=/var/mpd/.mpd/socketi`. 
 
 ### Use Jail manager Bastille
