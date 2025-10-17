@@ -34,3 +34,5 @@ Finally you can list and start it with command:
 `cbsd bls && cbsd bstart [vm-name]`
 
 And connect it with VNC client, in MacOS just type *vcn://192.168.31.240:5900* into the Safari browser.
+
+For the iso image, it will try to download it once you start the vm, also you can get it ready in advance under **/usr/cbsd/src/iso** too. Remember the **sha256sum** can be turned off in the configuration by setting **sha256sum=0**, also need to adjust the version number in */usr/cbsd/etc/defaults/*.
