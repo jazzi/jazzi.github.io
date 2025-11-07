@@ -38,6 +38,7 @@ WantedBy=multi-user.target
 ## Debug errors
 
 `sudo systemctl status crympd.service`
+
 `sudo journalctl -u crympd.service -f`
 
 
