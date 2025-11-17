@@ -330,6 +330,7 @@ dir=/data/download
 # The default location for MacOS is /usr/local/openssl/cert.pem
 # The default location for OpenBSD is
 # The default location for Archlinux is
+# The default location for Debian is /etc/ssl/certs/ca-certificates.crt
  ca-certificate=/etc/ssl/cert.pem
 
 
