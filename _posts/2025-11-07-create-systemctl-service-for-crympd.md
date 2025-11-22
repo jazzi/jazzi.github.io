@@ -42,3 +42,19 @@ WantedBy=multi-user.target
 `sudo journalctl -u crympd.service -f`
 
 
+## Change Crympd to Hympd
+
+Crympd doesn't have the function of choosing files, so replace it with [hympd](https://github.com/cortsf/hympd) and add **hympd.service** file into */etc/systemd/system/*.
+
+```
+[Unit]
+Description=A minimalistic web-based MPD client
+Wants=network.target
+
+[Service]
+ExecStart=/usr/local/bin/hympd --port 3001
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+```
