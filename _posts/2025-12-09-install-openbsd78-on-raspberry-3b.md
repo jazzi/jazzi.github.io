@@ -94,7 +94,7 @@ If you need more details, you can check [How to Boot Raspberry Pi from USB witho
 
 And two commands to connect rpi to pc/mac as below:
 
-1. sudo screen /dev/tty.usbserial0 115200 # works in Mac
+1. sudo screen /dev/tty.usbserial-1110 115200 # works in Mac
 2. sudo cu -l /dev/cu.usbserial -s 115200 # works in OpenBSD
 
 After above command executed, insert the USB stick and power on the Raspberry Pi and you will see something as below on your Mac screen:
