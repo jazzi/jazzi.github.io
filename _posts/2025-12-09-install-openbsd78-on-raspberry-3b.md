@@ -73,6 +73,8 @@ If everything works, it should show you something like below:
 
 `sudo sed -i 's/program_usb_boot_mode=1//g' /boot/config.txt`
 
+If you need more details, you can check [How to Boot Raspberry Pi from USB without SD Card](https://circuitdigest.com/tutorial/raspberry-pi-usb-boot-complete-guide)
+
 
 ## Connect USB-UART serial cable to PC/MAC
 
