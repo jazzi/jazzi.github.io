@@ -42,3 +42,17 @@ UPDATE_SELF=0 SKIP_DOWNLOAD=1 rpi-update
 reboot
 
 ```
+
+## WiFi blocked
+
+Login again and you will see the following error:
+
+> Wi-Fi is currently blocked by rfkill.
+>
+> Use raspi-config to set the country before use.
+
+**rfkill** = radio frequency kill, is a manage system for WiFi and BulueTooth. Hereby explain what is [rfkill](https://wireless.docs.kernel.org/en/latest/en/users/documentation/rfkill.html):
+
+> rfkill is a small userspace tool to query the state of the rfkill switches, buttons and subsystem interfaces. Some devices come with a hard switch that lets you kill different types of RF radios: 802.11 / Bluetooth / NFC / UWB / WAN / WIMAX / FM. 
+
+So what need to do is to set the country code through command *raspi-config* and choose **Change wlan country**.
