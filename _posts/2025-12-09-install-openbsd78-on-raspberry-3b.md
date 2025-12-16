@@ -88,11 +88,9 @@ If you need more details, you can check:
 
 ### Find the right tty port in /dev
 
-```
-`ls -l /dev/tty.usbserial* ## in MacOS`
-`ls -l /dev/ttyUSB* ## in Linux`
-`ls -l /dev/cu.usbserial* ## in OpenBSD`
-```
+* `ls -l /dev/tty.usbserial* ## in MacOS`
+* `ls -l /dev/ttyUSB* ## in Linux`
+* `ls -l /dev/cu.usbserial* ## in OpenBSD`
 
 And two commands to connect rpi to pc/mac as below:
 
