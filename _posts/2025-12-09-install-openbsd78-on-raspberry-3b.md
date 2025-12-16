@@ -63,7 +63,7 @@ So what need to do is to set the country code through command *raspi-config* and
 
 Then reboot and check the result of following command:
 
-`vcgencmd otp_dump | grep 302:`
+`vcgencmd otp_dump | grep 17:`
 
 If everything works, it should show you something like below:
 
@@ -96,8 +96,8 @@ If you need more details, you can check:
 
 And two commands to connect rpi to pc/mac as below:
 
-1. sudo screen /dev/tty.usbserial-1110 115200 # works in Mac
-2. sudo cu -l /dev/cu.usbserial -s 115200 # works in OpenBSD
+1. `sudo screen /dev/tty.usbserial-1110 115200 # works in Mac`
+2. `sudo cu -l /dev/cu.usbserial -s 115200 # works in OpenBSD`
 
 After above command executed, insert the USB stick and power on the Raspberry Pi and you will see something as below on your Mac screen:
 
