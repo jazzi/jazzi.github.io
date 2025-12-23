@@ -8,6 +8,24 @@ This installation instruction mostly comes from [mipam007](https://github.com/mi
 
 Host computer is MacOS.
 
+## The plan
+
+My plan is to boot from USB by changing the booting order through Raspberry Pi OS, though it never work.
+
+So the backup plan is to boot from SD Card which has miniboot.img burned, when it goes to the boot process, interrupt it and shoot command `boot sd1a:/bsd` to boot from USB stick which has *install78.img* burned, sadly it failed too and showed the following errors:
+
+> cannot open sd1a:/etc/random.seed: No such file or directory
+
+[Here](https://daemonforums.org/showthread.php?p=72923) has an explain what's *random.seed* and offer a solution but didn't work to me.
+
+So finally I just boot from SD Card which has *miniboot.img* and insert USB stick which has *install78.img*, then install straight forward, choose **sd1** (USB) as source of filesets, but just can not install the following three file sets:
+
+* bsd.mp
+* bsd.rd
+* xbase78.tgz
+
+But luckily it can work after reboot, later I fixed and installed these three file sets.
+
 ## Update RPI3b firmware
 
 Download Raspberry Pi OS lite and write to SD card, the tool for burning image is Raspberry Imager which can enalbe SSH, set up password even WiFi, recommended.
@@ -58,6 +76,8 @@ Login again and you will see the following error:
 So what need to do is to set the country code through command *raspi-config* and choose **Change wlan country**.
 
 ## Set to boot from USB
+
+**Upates: this doesn't work.**
 
 `sudo echo program_usb_boot_mode=1 | sudo tee -a /boot/config.txti`
 
@@ -121,14 +141,96 @@ Hit any key to stop autoboot:  0
 U-Boot>  
 ``` 
 
-## Interrupt the boot process and let it boot from USB stick
+## Setting NIC after reboot
 
-Just hit any key to stop autoboot and find where is USB stick for booting:
+This can be done two ways:
 
-`U-boot> ls sd0a:/` or `ls sd1a:/`
+1. DHCP
+2. Static IP
 
-to examine the filesystem before booting. For me, sd0 was the microSD card and sd1 the USB drive.
+Before you dive deeper, fire command *ifconfig* to see what NIC you have:
 
-Then boot from USB as below:
+```
+rp3# ifconfig
+lo0: flags=2008049<UP,LOOPBACK,RUNNING,MULTICAST,LRO> mtu 32768
+	index 2 priority 0 llprio 3
+	groups: lo
+	inet6 ::1 prefixlen 128
+	inet6 fe80::1%lo0 prefixlen 64 scopeid 0x2
+	inet 127.0.0.1 netmask 0xff000000
+enc0: flags=0<>
+	index 1 priority 0 llprio 3
+	groups: enc
+	status: active
+bwfm0: flags=808803<UP,BROADCAST,SIMPLEX,MULTICAST,AUTOCONF4> mtu 1500
+	lladdr 00:00:00:00:00:00
+	index 3 priority 4 llprio 3
+	groups: wlan
+	media: IEEE802.11 autoselect
+	status: no network
+	ieee80211: nwid ""
+smsc0: flags=808843<UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST,AUTOCONF4> mtu 1500
+	lladdr b8:27:eb:f8:46:7f
+	index 4 priority 0 llprio 3
+	groups: egress
+	media: Ethernet autoselect (100baseTX full-duplex)
+	status: active
+	inet 192.168.31.120 netmask 0xffffff00 broadcast 192.168.31.255
+pflog0: flags=141<UP,RUNNING,PROMISC> mtu 33136
+	index 5 priority 0 llprio 3
+	groups: pflog
+```
 
-`U-boot> boot sd1a:/bsd` 
+Apparently two NICs available: bwfm0 (wifi) and smsc0 (ethernet)
+
+For DHCP, just add the following line to */etc/hostname.smsc0* and */etc/hostname.bwfm0*
+
+```
+rp3# cat /etc/hostname.smsc0                                                   
+dhcp
+rtsol
+```
+
+For Static IP, add the followings:
+
+```
+cat /etc/hostname.smsc0
+inet 192.168.31.120 255.255.255.0
+```
+
+Also default gateway and DNS server needed for static IP
+
+```
+cat /etc/mygate
+192.168.31.1
+```
+
+```
+cat /etc/resolv.conf
+domain rp3.yohoho.home
+nameserver 192.168.31.1
+nameserver 114.114.114.114
+```
+
+## Install missing file sets
+
+As mentioned earlier, three file sets are not installed during the installation: bsd.mp, bsd.rd, xbase78.tgz
+
+We are gonna use command *syspatch* to install them, but we need to download them in advance and no downloading tool available.
+
+1. Change mirror by putting this line into */etc/installurl*: https://mirror.iscas.ac.cn/OpenBSD/
+2. Install downloading tool: `pkg_add -v curl`
+3. Move to /tmp: `cd /tmp`
+4. Download file sets: `curl -O https://mirror.iscas.ac.cn/OpenBSD/7.8/arm64/bsd.mp`
+5. Extract: *tar -zxvf xbase78.tgz`
+6. Run command to install them: `syspatch`
+
+Here is the source: [How to install sets after installation](https://trysiteprice.com/blog/openbsd-how-to-install-sets-after-installation/)
+
+## Set timezone and upgrade installed packages
+
+`ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime` or `tzsetup`
+
+`pkg_add -Uu`
+
+Then reboot.
