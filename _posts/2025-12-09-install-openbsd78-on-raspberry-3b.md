@@ -243,5 +243,6 @@ Finally found the file sets on USB stick has problem, don't know why even burned
 
 When the installer asks for where is the file sets, choose **http** and offer the following information:
 
+* Location of sets? (disk http nfs or 'done') [done] http
 * HTTP Server? (hostname or 'done') [mirror.iscas.ac.cn]
 * Server directory? [OpenBSD//7.8/arm64]
