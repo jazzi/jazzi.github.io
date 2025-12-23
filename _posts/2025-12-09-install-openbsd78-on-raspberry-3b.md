@@ -234,3 +234,14 @@ Here is the source: [How to install sets after installation](https://trysitepric
 `pkg_add -Uu`
 
 Then reboot.
+
+---
+
+## http instead of disk for installing file sets
+
+Finally found the file sets on USB stick has problem, don't know why even burned several times with different tools, anyway it's **better to use http**.
+
+When the installer asks for where is the file sets, choose **http** and offer the following information:
+
+* HTTP Server? (hostname or 'done') [mirror.iscas.ac.cn]
+* Server directory? [OpenBSD//7.8/arm64]
