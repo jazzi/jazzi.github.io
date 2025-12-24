@@ -259,3 +259,48 @@ The problem is about the date, it has wrong date, to fix it:
 2. date YYYYMMDDHHMM ## also temporary
 3. add `ntpd_flags="-s"` to `/etc/rc.conf.local` and reboot
 4. if [you're with VirtualBox](https://obsd.solutions/en/blog/2022/02/18/openbsd-pkg_add-didnt-work-due-to-wrong-time/), check "Hardware Clock in UTC Time"
+
+## How to boot from USB?
+
+Changing the settings in Raspberry Pi, this solution doesn't work to me, but I found another solution from [UnitedBSD](https://www.unitedbsd.com/blog/774-installing-openbsd-on-raspberry-pi-3), it's kind of simple, just boot the SD Card and interrupting the *autoboot* and run `boot_targets usb0 mmc0 dhcp` then `boot` command followed:
+
+```
+U-Boot 2018.03 (Mar 20 2018 - 04:28:27 -0600)
+
+DRAM:  948 MiB
+RPI 3 Model B (0xa02082)
+MMC:   mmc@7e202000: 0, sdhci@7e300000: 1
+Loading Environment from FAT... *** Warning - bad CRC, using default environment
+
+Failed (-5)
+In:    serial
+Out:   vidconsole
+Err:   vidconsole
+Net:   No ethernet found.
+starting USB...
+USB0:   Core Release: 2.80a
+scanning bus 0 for devices... 5 USB Device(s) found
+       scanning usb for storage devices... 1 Storage Device(s) found
+Hit any key to stop autoboot:  0 
+U-Boot> setenv boot_targets usb0 mmc0 dhcp
+U-Boot> boot
+
+
+
+Device 0: Vendor: SanDisk Rev: 1.00 Prod: Ultra Fit
+            Type: Removable Hard Disk
+            Capacity: 14663.6 MB = 14.3 GB (30031250 x 512)
+... is now current device
+Scanning usb 0:1...
+Found EFI removable media binary efi/boot/bootaa64.efi
+Scanning disk mmc@7e202000.blk...
+Card did not respond to voltage select!
+Scanning disk sdhci@7e300000.blk...
+Disk sdhci@7e300000.blk not ready
+Scanning disk usb_mass_storage.lun0...
+Found 6 disks
+97355 bytes read in 90 ms (1 MiB/s)
+## Starting EFI application at 01000000 ...
+>> OpenBSD/arm64 BOOTAA64 0.12
+boot> 
+```
