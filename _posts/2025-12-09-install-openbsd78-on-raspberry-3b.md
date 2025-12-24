@@ -246,3 +246,16 @@ When the installer asks for where is the file sets, choose **http** and offer th
 * Location of sets? (disk http nfs or 'done') [done] http
 * HTTP Server? (hostname or 'done') [mirror.iscas.ac.cn]
 * Server directory? [OpenBSD//7.8/arm64]
+
+## TLS handshake failure
+
+After reboot it shows the following error when try to install package or *syspatch*:
+
+> TLS handshake failure: ocsp verify failed
+
+The problem is about the date, it has wrong date, to fix it:
+
+1. rdate time.cloudflare.com ## temporarily
+2. date YYYYMMDDHHMM ## also temporary
+3. add `ntpd_flags="-s"` to `/etc/rc.conf.local` and reboot
+4. if [you're with VirtualBox](https://obsd.solutions/en/blog/2022/02/18/openbsd-pkg_add-didnt-work-due-to-wrong-time/), check "Hardware Clock in UTC Time"
