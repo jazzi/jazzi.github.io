@@ -304,3 +304,17 @@ Found 6 disks
 >> OpenBSD/arm64 BOOTAA64 0.12
 boot> 
 ```
+
+## Wireless wifi configuration
+
+1. `fw_update` # install wireless card firmware
+2. `ifconfig` # as show up bwfm0 is the wireless NIC
+3. `vi /etc/hostname.bwfm0` # add two lines as below
+
+```
+nwid 'SSID-name' wpakey 'password-here'
+inet autoconf
+```
+
+Then reboot and unplug wired cable.
+For more information you can check this [OpenBSD FAQ](https://www.openbsd.org/faq/faq6.html#Wireless).
