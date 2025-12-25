@@ -318,3 +318,24 @@ inet autoconf
 
 Then reboot and unplug wired cable.
 For more information you can check this [OpenBSD FAQ](https://www.openbsd.org/faq/faq6.html#Wireless).
+
+## Laggy SSH connection through wifi
+
+First of all, it has no problem with Ethernet wired cable. But with wifi, after ssh login, the every typing needs about 5s to response, so it's defenitely about the Raspberry Pi's wireless problem.
+
+Ever tried the following two methods but neither work:
+1. Removing comment out 'UseDNS no'
+2. Set 'ClientAliveInterval' to 10 in SSH server's configuration
+
+So, gotta try disabling the power management of the WiFi card:
+
+```
+# Raspberry Pi OS arm64
+iwconfig wlan0 power off
+
+# Fedora 33
+mcli connection modify wlan0 wifi.powersave disable
+
+# If use USB NIC then modify by `vi /boot/firmware/config.txt` and add one line:
+dtoverlay=disable-wifi
+```
