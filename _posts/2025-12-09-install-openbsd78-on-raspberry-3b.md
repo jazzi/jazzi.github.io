@@ -339,3 +339,9 @@ mcli connection modify wlan0 wifi.powersave disable
 # If use USB NIC then modify by `vi /boot/firmware/config.txt` and add one line:
 dtoverlay=disable-wifi
 ```
+
+## OpenBSD as NFS client
+
+`mount_nfs -T 192.168.31.240:/fs/1000/nfs/music /var/mpd/music`
+
+The option -T is to force use TCP
