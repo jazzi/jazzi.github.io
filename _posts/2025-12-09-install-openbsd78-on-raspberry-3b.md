@@ -350,6 +350,6 @@ The option -T is to force use TCP, or you will encounter error like below:
 
 To make the mount persistent, add it to /etc/fstab
 
-`192.168.31.240:/fs/1000/nfs/music /var/mpd/music	nfs	rw 0 0`
+`192.168.31.240:/fs/1000/nfs/music /var/mpd/music	nfs	-3,-T,ro,nodev,nosuid,soft,intr 0 0`
 
 Check more on this [OpenBSD Handbook](https://www.openbsdhandbook.com/nfs/).
