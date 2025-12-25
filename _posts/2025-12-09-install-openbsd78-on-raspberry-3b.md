@@ -344,7 +344,9 @@ dtoverlay=disable-wifi
 
 `mount_nfs -T 192.168.31.240:/fs/1000/nfs/music /var/mpd/music`
 
-The option -T is to force use TCP
+The option -T is to force use TCP, or you will encounter error like below:
+
+> NFS Portmap: RPC: Program not registered
 
 To make the mount persistent, add it to /etc/fstab
 
