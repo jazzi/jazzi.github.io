@@ -345,3 +345,9 @@ dtoverlay=disable-wifi
 `mount_nfs -T 192.168.31.240:/fs/1000/nfs/music /var/mpd/music`
 
 The option -T is to force use TCP
+
+To make the mount persistent, add it to /etc/fstab
+
+`192.168.31.240:/fs/1000/nfs/music /var/mpd/music	nfs	rw 0 0`
+
+Check more on this [OpenBSD Handbook](https://www.openbsdhandbook.com/nfs/).
