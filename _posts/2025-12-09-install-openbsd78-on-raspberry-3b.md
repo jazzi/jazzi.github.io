@@ -353,3 +353,13 @@ To make the mount persistent, add it to /etc/fstab
 `192.168.31.240:/fs/1000/nfs/music /var/mpd/music	nfs	-3,-T,ro,nodev,nosuid,soft,intr 0 0`
 
 Check more on this [OpenBSD Handbook](https://www.openbsdhandbook.com/nfs/).
+
+## Install mpd music server and client ympd
+
+```
+music_directory		"/var/mpd/music"
+playlist_directory	"/var/mpd/.mpd/playlists"
+log_file                "/var/log/mpd/mpd.log"
+bind_to_address         "localhost"
+db_file                 "/var/mpd/mpd.db"
+```
