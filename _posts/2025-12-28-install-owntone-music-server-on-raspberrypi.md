@@ -69,6 +69,10 @@ I choose **ALSA**, hereby is the key lines from the documentation:
 
 So mine is *hw:2,0*, the full configuration is as below:
 
+## Start OwnTone
+
+`sudo systemctl start owntone` or `sudo service owntone start` and check status `sudo systemctl status owntone` or check the log directly.
+
 *One more thing, do remember to pick the DAC as the output in the Web Interface settings, also Apple has a nice free App named iOS Remote or 控制器.*
 
 ```
