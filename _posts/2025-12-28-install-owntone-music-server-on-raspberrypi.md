@@ -643,4 +643,5 @@ For more radio stations, please refer to [Radio Browser](https://www.radio-brows
 mpc lsplaylists # List available playlists
 mpc load playlist-name
 mpc clear # Empty the queue
+mpc playlist # List all songs in current queue
 ```
