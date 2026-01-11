@@ -572,3 +572,23 @@ streaming {
 }
 
 ```
+
+## AirPlay - Macbook does not have PIN code for pairing
+
+To Pair OwnTone to a MacBook, here my settings need a PIN code to verify when you check the *Outputs* tab of OwnTone Web Gui.
+
+If you toggle MacBook Speaker before PIN code available, it would be refused and show you an error, also command `sudo systemctl status owntone.service` will show you the error messages too. Anyway it needs a PIN code.
+
+### But where is my PIN code? The Macbook just doesn't show it out.
+
+Here is the key, open the *Settings* of MacBook - *General* - *AirPlay receiver* - *Allow AirPlay from*:
+
+1. Anybody
+2. Current User
+3. Anyone from the same LAN
+
+My current setting is #2 *Current User*, that's the reason I did not receive the notification of AirPaly message from OwnTone, once changed, you will get a notification on the up right as below:
+
+> Mac via AirPlay, Accept or Refuse
+
+Choose *Accept* and the PIN code will show out, just open OwnTone WebUI in another computer and input that code, done.
