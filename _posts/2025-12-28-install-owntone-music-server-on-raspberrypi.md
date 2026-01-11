@@ -596,3 +596,39 @@ Choose *Accept* and the PIN code will show out, just open OwnTone WebUI in anoth
 ### Where to find answers?
 
 A great source for resolving problems is the offical website of [OwnTone on GitHub](https://github.com/owntone/owntone-server/issues/1885).
+
+## Audiobooks, Podcasts and Radio
+
+1. Creating a direcrtory named *Audiobooks* and *Podcasts* under your music library, then put something inside, you can search [LibriVox](https://librivox.org) for free audiobooks.
+2. Creating a file end with .m3u for Radio as below:
+
+```
+$ cat radio.m3u 
+#EXTM3U
+#EXTINF:-1, 凤凰卫视资讯台
+http://playtv-live.ifeng.com/live/06OLEEWQKN4_audio.m3u8
+#EXTINF:-1, CCTV-13新闻伴音
+https://piccpndali.v.myalicdn.com/audio/cctv13_2.m3u8
+#BBC World Service
+http://stream.live.vc.bbcmedia.co.uk/bbc_world_service
+#EXTINF:-1, NOVA
+https://novazz.ice.infomaniak.ch/novazz-128.mp3
+#EXTINF:-1, FIP
+https://icecast.radiofrance.fr/fip-hifi.aac
+#EXTINF:-1, FIP_Jazz
+https://icecast.radiofrance.fr/fipjazz-hifi.aac
+#EXTINF:-1, TSF_Jazz
+https://tsfjazz.ice.infomaniak.ch/tsfjazz-high.mp3
+#EXTINF:-1, FRANCE_Musique
+https://icecast.radiofrance.fr/francemusique-hifi.aac
+#EXTINF:-1, JAZZ_Radio
+https://jazzradio.ice.infomaniak.ch/jazzradio-high.mp3
+#EXTINF:-1, JAZZ_Radio_Manouche
+https://jazz-wr02.ice.infomaniak.ch/jazz-wr02-128.mp3
+#EXTINF:-1, La_Grosse_Radio_Metal
+https://hd.lagrosseradio.info/lagrosseradio-metal-192.mp3
+#EXTINF:-1, RFM
+https://stream.rfm.fr/rfm.mp3#RFM
+```
+
+For more radio stations, please refer to [Radio Browser](https://www.radio-browser.info).
