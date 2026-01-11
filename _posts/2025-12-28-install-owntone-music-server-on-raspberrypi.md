@@ -632,3 +632,15 @@ https://stream.rfm.fr/rfm.mp3#RFM
 ```
 
 For more radio stations, please refer to [Radio Browser](https://www.radio-browser.info).
+
+## How to create playlist with mpd client mpc
+
+*mpc* is a command line client of *MPD*, hereis the way to create a playlist:
+
+`mpc ls | mpc add | mpc save playlist-name`
+
+```
+mpc lsplaylists # List available playlists
+mpc load playlist-name
+mpc clear # Empty the queue
+```
