@@ -592,3 +592,7 @@ My current setting is #2 *Current User*, that's the reason I did not receive the
 > Mac via AirPlay, Accept or Refuse
 
 Choose *Accept* and the PIN code will show out, just open OwnTone WebUI in another computer and input that code, done.
+
+### Where to find answers?
+
+A great source for resolving problems is the offical website of [OwnTone on GitHub](https://github.com/owntone/owntone-server/issues/1885).
