@@ -34,7 +34,7 @@ If your server has SSH Key, also config this server with head name like **server
 
 To download a whole directory, add option -r:
 
-`scp -r server`:/remote/directory ./local/download/`
+`scp -r server:/remote/directory ./local/download/`
 
 ## Backup Wordpress files with rsync
 
