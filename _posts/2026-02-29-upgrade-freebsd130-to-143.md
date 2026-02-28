@@ -77,3 +77,27 @@ Then do some config jobs:
 # chown -R www:www /var/db/caddy /var/log/caddy /var/run/caddy
 ```
 
+## upgrade mariadb from 11.4 to 11.8
+
+Actually I got very nice instructions from [Upgrade MariaDB from 10.6 LTS to 11.8 LTS](https://www.gaelanlloyd.com/blog/upgrade-mariadb-106-to-118/), hereby is the key steps:
+
+### backup in advance
+
+`mysqldump --all-databases > /root/mysql-upgrade-backup-$(date +%Y%m%d).sql`
+
+`tar -cvzf /root/mysql_config_backup_$(date +%Y%m%d).tar.gz /usr/local/etc/mysql`
+
+Then stop service and install it:
+
+```
+service mysql-server stop
+pkg install mariadb118-server
+```
+
+Then start it again:
+
+`service mysql-server start`
+
+`mariadb-upgrade`
+
+*There is no need to remove the old MariaDB packages as it will be removed automatically.*
