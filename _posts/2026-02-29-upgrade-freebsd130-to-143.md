@@ -117,3 +117,5 @@ Before
 After (Correct way)
 
 `mariadb-upgrade -u root -p`
+
+For more errors, check [this post](https://runebook.dev/en/docs/mariadb/mariadb-upgrade/index).
