@@ -98,6 +98,22 @@ Then start it again:
 
 `service mysql-server start`
 
-`mariadb-upgrade`
+`mariadb-upgrade -u root -p`
 
 *There is no need to remove the old MariaDB packages as it will be removed automatically.*
+
+### error with mariadb-upgrade
+
+There is a very frequent error as below:
+
+> ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: NO)
+
+As the correct way to run this command:
+
+Before
+
+`mariadb-upgrade`
+
+After (Correct way)
+
+`mariadb-upgrade -u root -p`
