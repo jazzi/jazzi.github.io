@@ -119,3 +119,11 @@ After (Correct way)
 `mariadb-upgrade -u root -p`
 
 For more errors, check [this post](https://runebook.dev/en/docs/mariadb/mariadb-upgrade/index).
+
+## /etc/master.passwd
+
+When upgrade from 13.2 to 14.0, there is a big change that need you pay a close look and edit it, as the default shell for root changed from csh to sh in *FreeBSD 14*. 
+
+You'd better to change the shell of root from */usr/bin/csh* to */usr/bin/sh* and keep your existing part still as below:
+
+> root:$900$2dwsWdTSXoA/.pz2$n1zXjcF9kO6ERUooHHcYZWmtb/HwtaR4xU5MY48VDisYAvypYGCbHI6ietZXFlkoRGnpeUYIG6qXN1OD4q.uS60:0:0::0:0:Charlie &:/root:/bin/sh
