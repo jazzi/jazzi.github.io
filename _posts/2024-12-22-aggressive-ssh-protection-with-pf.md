@@ -2,7 +2,28 @@
 layout: post
 ---
 
-This pf(4) configuration mostly comes from [Tim's blog](http://blog.thechases.com/posts/bsd/aggressive-pf-config-for-ssh-protection/), and a bit of change in order to work on FreeBSD 13.1.
+This pf(4) configuration mostly comes from [Tim's blog](http://blog.thechases.com/posts/bsd/aggressive-pf-config-for-ssh-protection/), and a bit of change in order to work on FreeBSD 13.1 which also works on FreeBSD 14.3.
+
+For the IP blocks, [IPDeny.com](https://www.ipdeny.com/ipblocks/) provides regularly-updated lists of IPv4 & IPv6 ranges for each country, you can download it and put it under somewhere like */user/local/share/geoip*.
+
+```
+user$ DEST="/usr/local/share/geoip"
+user$ doas mkdir -p "$DEST/tmp"
+user$ doas chmod 755 "$DEST"
+user$ doas chmod 750 "$DEST/tmp"
+```
+
+Then download the IP blocks you want as below:
+
+```
+user$ DEST="/usr/local/share/geoip"
+user$ V4URL="https://www.ipdeny.com/ipblocks/data/aggregated/cn-aggregated.zone"
+user$ V6URL="https://www.ipdeny.com/ipv6/ipaddresses/aggregated/cn-aggregated.zone"
+user$ V4DEST="$DEST/ipv4_cn-aggregated.zone"
+user$ V6DEST="$DEST/ipv6_cn-aggregated.zone"
+user$ ftp -o "$V4DEST" "$V4URL"
+user$ ftp -o "$V6DEST" "$V6URL"
+```
 
 One more word for SSH protection, it's better to forbit Root login as well as Password login, this can be done in file */etc/ssh/sshd_config*.
 
