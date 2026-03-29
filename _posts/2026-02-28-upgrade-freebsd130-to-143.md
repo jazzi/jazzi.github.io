@@ -127,3 +127,33 @@ When upgrade from 13.2 to 14.0, there is a big change that need you pay a close 
 You'd better to change the shell of root from */usr/bin/csh* to */usr/bin/sh* and keep your existing part still as below:
 
 > root:$900$2dwsWdTSXoA/.pz2$n1zXjcF9kO6ERUooHHcYZWmtb/HwtaR4xU5MY48VDisYAvypYGCbHI6ietZXFlkoRGnpeUYIG6qXN1OD4q.uS60:0:0::0:0:Charlie &:/root:/bin/sh
+
+## Upgrade PHP82 to PHP84
+
+According to this excellent post - [Upgrade PHP 8.x on FreeBSD](https://www.gaelanlloyd.com/blog/how-to-upgrade-php-80-to-82-on-freebsd/), all I need to do is just to install new packages and it will remove old ones and upgrade automatically.
+
+`pkg query -a %n | grep php8`
+
+Above command will list all php packages installed, then install new ones accordingly as below:
+
+`# pkg install php84 php84-ctype php84-curl php84-dom php84-exif php84-extensions php84-fileinfo php84-filter php84-ftp php84-gd php84-icon php84-intl php84-mbstring php84-mysqli php84-opcache php84-pdo  php84-pdo_sqlite php84-pecl-imagick php84-phar php84-posix php84-session php84-simplexml php84-sqlite3 php84-tokenizer php84-xml php84-xmlreader php84-xmlwriter php84-zip php84-zlib`
+
+Then edit file /usr/local/etc/php-fpm.d/www.conf and change *php82.sock* to *php84.sock* as below:
+
+```
+listen = /var/run/php84.sock
+```
+
+As Web Server Caddy is used here, so we need to modiy the Caddy settings too.
+
+`vi /usr/local/etc/caddy/Caddyfile`
+
+```
+php_fastcgi unix//var/run/php84.sock
+```
+
+Then restart php-fpm and Caddy as below:
+
+`service php_fpm restart`
+
+`service caddy restart`
