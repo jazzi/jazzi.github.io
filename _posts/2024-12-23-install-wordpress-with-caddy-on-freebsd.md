@@ -111,6 +111,80 @@ teagogo.com, www.teagogo.com {
 }
 ```
 
+## Memcached Object Cache
+
+*This is optional as my website seems ok without it.*
+
+Install the following packages to get *Memcached*, or you can try [redis](https://redis.io/downloads/) too.
+
+```
+pkg install memcached
+pkg install php84-pecl-memcached
+```
+
+Then add *memcached_enable="YES"* to /etc/rc.conf, after that you can start it by `service memcached start` and check it by `service memcached status`.
+
+Take a look at the stat of memcached:
+
+`echo "stats settings" | nc localhost 11211`
+
+```
+STAT maxbytes 67108864
+STAT maxconns 1024
+STAT tcpport 11211
+STAT udpport 0
+STAT inter NULL
+STAT verbosity 0
+STAT oldest 0
+STAT evictions on
+STAT domain_socket NULL
+STAT umask 700
+STAT shutdown_command no
+STAT growth_factor 1.25
+```
+
+Or play with Telnet as below:
+
+```
+$ telnet localhost 11211
+Trying 127.0.0.1...
+Connected to localhost.
+Escape character is '^]'.
+get foo
+VALUE foo 0 2
+hi
+END
+stats
+STAT pid 8861
+(etc)
+```
+
+There is no independent configuration file in FreeBSD for Memcached, but you can set it like below in */etc/rc.conf*:
+
+```
+memcached_user = ""
+memcached_port = "11211"
+memcached_maxconn = "2048"
+memcached_cachesize = "4096"
+memcached_options = "-l 10.10.1.5"
+```
+
+## Plugins & Themes used for Wordpress eCommerce
+
+* [Advanced Shipment Tracking for WooCommerce](https://wordpress.org/plugins/woo-advanced-shipment-tracking/)
+* [Currency Switcher for WooCommerce](https://wordpress.org/plugins/currency-switcher-woocommerce/)
+* [Header Footer Code Manager](https://wordpress.org/plugins/header-footer-code-manager/)
+* [SimpleTOC](https://wordpress.org/plugins/simpletoc/)
+* [Wenprise Alipay Gateway For WooCommerce](https://wordpress.org/plugins/wenprise-alipay-checkout-for-woocommerce/)
+* [WooCommerce](https://wordpress.org/plugins/woocommerce/)
+* [WooCommerce PayPal Payments](https://wordpress.org/plugins/woocommerce-paypal-payments/)
+* Optional [Smush Image Optimization](https://wordpress.org/plugins/wp-smushit/)
+* Optional [WP Super Cache](https://wordpress.org/plugins/wp-super-cache/)
+
+*It's very interesting after both Smush and WP Super Cache deactived, the website feels faster.*
+
+And the theme used is [YITH Wonder](https://wordpress.org/themes/yith-wonder/).
+
 ## Summarize up
 
 Nothing different to Linux plantforms, just be aware of the *php-fpm* who has a different location on FreeBSD, also the damon *php_fpm* is not *php-fpm*, it is underline.
