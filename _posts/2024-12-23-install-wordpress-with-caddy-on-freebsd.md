@@ -169,15 +169,28 @@ memcached_cachesize = "4096"
 memcached_options = "-l 10.10.1.5"
 ```
 
+## Cache? Database cache or what?
+
+For small VPN, *Memcached* and *redis* is too heavy, [SQLite Object Cache](https://wordpress.org/plugins/sqlite-object-cache/) is the right option, but in order to get *SQLite Object Cache* plugin installed and working, your OS need to haveSQLite3 exentension to php installed, also better to have another php extension installed too, that's [igbinary](https://www.php.net/manual/en/intro.igbinary.php) or [APCu](https://www.php.net/manual/en/book.apcu.php).
+
+In FreeBSD the three packages are:
+
+* php84-sqlite3
+* php84-pecl-APCu
+* php84-pecl-igbinary
+
+
 ## Plugins & Themes used for Wordpress eCommerce
 
 * [Advanced Shipment Tracking for WooCommerce](https://wordpress.org/plugins/woo-advanced-shipment-tracking/)
 * [Currency Switcher for WooCommerce](https://wordpress.org/plugins/currency-switcher-woocommerce/)
-* [Header Footer Code Manager](https://wordpress.org/plugins/header-footer-code-manager/)
+* [Header Footer Code Manager](https://wordpress.org/plugins/header-footer-code-manager/) for adding code 百度统计
 * [SimpleTOC](https://wordpress.org/plugins/simpletoc/)
 * [Wenprise Alipay Gateway For WooCommerce](https://wordpress.org/plugins/wenprise-alipay-checkout-for-woocommerce/)
 * [WooCommerce](https://wordpress.org/plugins/woocommerce/)
 * [WooCommerce PayPal Payments](https://wordpress.org/plugins/woocommerce-paypal-payments/)
+* [自定义SEO设置]()https://www.jingxialai.com/
+* [SQlite3 Object Cache](https://wordpress.org/plugins/sqlite-object-cache/)
 * Optional [Smush Image Optimization](https://wordpress.org/plugins/wp-smushit/)
 * Optional [WP Super Cache](https://wordpress.org/plugins/wp-super-cache/)
 
