@@ -179,6 +179,12 @@ In FreeBSD the three packages are:
 * php84-pecl-APCu
 * php84-pecl-igbinary
 
+I chose APCu instead of igbinary, after this package installed, run the following command to get it working:
+
+`service php_fpm restart`
+
+And check **Use APCu** in the plugin setting page.
+
 
 ## Plugins & Themes used for Wordpress eCommerce
 
