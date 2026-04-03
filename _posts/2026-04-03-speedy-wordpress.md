@@ -128,3 +128,19 @@ ALTER TABLE wpp_comments ADD INDEX idx_approved_post (comment_approved, comment_
 Before you do all these might you find out what slows it down, plugin *Query Monitor* can help or enable *slow_query_log* in configurations and analysis it by command `mysqldumpslow` every week.
 
 **TIPS**: There is an interesting command that can analysis *the slow SQL* from *Query Monitor* and find out why, this command looks like `EXPLAIN [你刚才复制的SQL语句];`
+
+---
+
+## Helpfuls links
+
+1. [Redis vs Memcached vs APCu: Best WordPress Object Cache](https://uxnitro.com/redis-vs-memcached-vs-apcu-best-wordpress-object-cache/)
+2. [Object Cache | Page Cache | OP Cache – Caching for WordPress](https://immanuelraj.dev/wordpress-caching-opcache-object-page-optimization/)
+3. [MariaDB 数据库之索引详解](https://www.cnblogs.com/LyShark/p/10189504.html)
+4. [高性能WordPress站优化技巧](https://www.zhichai.top/archives/4643)
+5. [Caddy额外缓存配置,加快网站访问速度](https://blog.wjqserver.com/post/caddy-cache/)
+
+
+
+
+
+
