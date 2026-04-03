@@ -138,6 +138,7 @@ Before you do all these might you find out what slows it down, plugin *Query Mon
 3. [MariaDB 数据库之索引详解](https://www.cnblogs.com/LyShark/p/10189504.html)
 4. [高性能WordPress站优化技巧](https://www.zhichai.top/archives/4643)
 5. [Caddy额外缓存配置,加快网站访问速度](https://blog.wjqserver.com/post/caddy-cache/)
+6. [揭秘Caddy 2 + PHP-FPM 部署WordPress的卡顿谜团](https://www.zhichai.top/archives/4364)
 
 
 
