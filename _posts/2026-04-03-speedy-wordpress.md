@@ -15,6 +15,80 @@ Two ways to speedy Wordpress website: Cache and Adjustment of configuration
 1. PHP pm model: static, dynamic and ondemand(good for small website)
 2. Disable PHP gc: zend.enable_gc = Off
 
+## Memcached Object Cache
+
+*This is optional as my website seems ok without it.*
+
+Install the following packages to get *Memcached*, or you can try [redis](https://redis.io/downloads/) too.
+
+```
+pkg install memcached
+pkg install php84-pecl-memcached
+```
+
+Then add *memcached_enable="YES"* to /etc/rc.conf, after that you can start it by `service memcached start` and check it by `service memcached status`.
+
+Take a look at the stat of memcached:
+
+`echo "stats settings" | nc localhost 11211`
+
+```
+STAT maxbytes 67108864
+STAT maxconns 1024
+STAT tcpport 11211
+STAT udpport 0
+STAT inter NULL
+STAT verbosity 0
+STAT oldest 0
+STAT evictions on
+STAT domain_socket NULL
+STAT umask 700
+STAT shutdown_command no
+STAT growth_factor 1.25
+```
+
+Or play with Telnet as below:
+
+```
+$ telnet localhost 11211
+Trying 127.0.0.1...
+Connected to localhost.
+Escape character is '^]'.
+get foo
+VALUE foo 0 2
+hi
+END
+stats
+STAT pid 8861
+(etc)
+```
+
+There is no independent configuration file in FreeBSD for Memcached, but you can set it like below in */etc/rc.conf*:
+
+```
+memcached_user = ""
+memcached_port = "11211"
+memcached_maxconn = "2048"
+memcached_cachesize = "4096"
+memcached_options = "-l 10.10.1.5"
+```
+
+## Cache? Database cache or what?
+
+For small VPN, *Memcached* and *redis* is too heavy, [SQLite Object Cache](https://wordpress.org/plugins/sqlite-object-cache/) is the right option, but in order to get *SQLite Object Cache* plugin installed and working, your OS need to haveSQLite3 exentension to php installed, also better to have another php extension installed too, that's [igbinary](https://www.php.net/manual/en/intro.igbinary.php) or [APCu](https://www.php.net/manual/en/book.apcu.php).
+
+In FreeBSD the three packages are:
+
+* php84-sqlite3
+* php84-pecl-APCu
+* php84-pecl-igbinary
+
+I chose APCu instead of igbinary, after this package installed, run the following command to get it working:
+
+`service php_fpm restart`
+
+And check **Use APCu** in the plugin setting page.
+
 
 
 ## Index MariaDB
