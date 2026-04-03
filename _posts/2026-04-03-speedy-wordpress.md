@@ -128,6 +128,7 @@ ALTER TABLE wpp_comments ADD INDEX idx_approved_post (comment_approved, comment_
 Before you do all these might you find out what slows it down, plugin *Query Monitor* can help or enable *slow_query_log* in configurations and analysis it by command `mysqldumpslow` every week.
 
 **TIPS**: There is an interesting command that can analysis *the slow SQL* from *Query Monitor* and find out why, this command looks like `EXPLAIN [你刚才复制的SQL语句];`
+```
 
 ---
 
