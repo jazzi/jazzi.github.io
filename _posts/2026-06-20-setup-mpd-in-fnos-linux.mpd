@@ -1,0 +1,40 @@
+---
+layout: post
+---
+
+[fnos](https://www.fnos.com) is based on Debian Linux, so no big deal to set up this [mpd](https://www.musicpd.org) music player daemon, just `sudo apt install mpd` to install and do the following configurations.
+
+## Important configurations
+
+Two configuration files:
+
+* /etc/mpd.conf
+* ~/.config/mpd/mpd.conf
+
+I chose the first one as it is system wide, good for NAS haha. Some items need to look up:
+
+1. music_directory		"/var/lib/mpd/music"
+2. playlist_directory		"/var/lib/mpd/playlists"
+3. db_file			"/var/lib/mpd/tag_cache"
+4. #log_file			"/var/log/mpd/mpd.log"
+5. state_file			"/var/lib/mpd/state"
+6. sticker_file                   "/var/lib/mpd/sticker.sql"
+7. user				"mpd"
+8. #group				"nogroup"
+9. bind_to_address			"localhost" ## For network
+10. #bind_to_address		"/run/mpd/socket" ## And for Unix Socket
+11. #port				"6600"
+
+And an example of an ALSA output:
+#
+#audio_output {
+#	type		"alsa"
+#	name		"My ALSA Device"
+##	device		"hw:0,0"	# optional
+##	mixer_type      "hardware"	# optional
+##	mixer_device	"default"	# optional
+##	mixer_control	"PCM"		# optional
+##	mixer_index	"0"		# optional
+#}
+
+---
