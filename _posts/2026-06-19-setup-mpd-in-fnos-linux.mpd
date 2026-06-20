@@ -38,3 +38,25 @@ And an example of an ALSA output:
 #}
 
 ---
+
+## Set up music directory
+
+```
+$ ls -l /var/lib/mpd
+total 8
+drwxr-xr-x 2 root root  4096 Apr  9  2023 music
+drwxr-xr-x 2 mpd  audio 4096 Apr  9  2023 playlists
+```
+
+As the music files are already stored in the NAS, so I wanna create a soft link instead of moving all music files into */var/lib/mpd/music*.
+
+```
+sudo rmdir /var/lib/mpd/music # remove it
+sudo ln -s /vol2/1000/music /var/lib/mpd/music # create soft link
+
+Then check it again
+$ ls -l /var/lib/mpd
+total 4
+lrwxrwxrwx 1 root root    16 Jun 20 21:47 music -> /vol2/1000/music
+drwxr-xr-x 2 mpd  audio 4096 Apr  9  2023 playlists
+```
