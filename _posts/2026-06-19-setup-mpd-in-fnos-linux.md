@@ -2,7 +2,7 @@
 layout: post
 ---
 
-[fnos](https://www.fnos.com) is based on Debian Linux, so no big deal to set up this [mpd](https://www.musicpd.org) music player daemon, just `sudo apt install mpd` to install and do the following configurations.
+[fnos](https://www.fnnas.com) is based on Debian Linux, so no big deal to set up this [mpd](https://www.musicpd.org) music player daemon, just `sudo apt install mpd` to install and do the following configurations.
 
 ## Important configurations
 
