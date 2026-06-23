@@ -26,6 +26,8 @@ I chose the first one as it is system wide, good for NAS haha. Some items need t
 11. #port				"6600"
 
 And an example of an ALSA output:
+
+```
 #
 #audio_output {
 #	type		"alsa"
@@ -36,6 +38,7 @@ And an example of an ALSA output:
 ##	mixer_control	"PCM"		# optional
 ##	mixer_index	"0"		# optional
 #}
+```
 
 ---
 
