@@ -67,6 +67,14 @@ lrwxrwxrwx 1 root root    16 Jun 20 21:47 music -> /vol2/1000/music
 drwxr-xr-x 2 mpd  audio 4096 Apr  9  2023 playlists
 ```
 
+## Allow remote access
+
+Change the default value of **bind_to_address** from *localhost* to as below:
+
+> bind_to_address		"0.0.0.0" 
+
+Also need to add *firewall* rules to allow accessing the default port 6600
+
 ## Configure alsa for USB DAC
 
 I chose *ALSA* for output thus need to install one package:
