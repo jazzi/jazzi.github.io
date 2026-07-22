@@ -89,7 +89,7 @@ Warning: This process erases all data on the SD card. Back up any important file
 
 Use the raw device (rdisk) for faster writing:
 
-```
+```bash
 # Write miniroot image
 sudo dd if=miniroot79.img of=/dev/rdisk2 bs=1m conv=sync status=progress
 
@@ -104,7 +104,7 @@ sudo dd if=u-boot.itb of=/dev/rdisk2 bs=512 seek=16384 conv=sync status=progress
 After writing, the card will have a FAT partition (usually auto‑mounted under /Volumes/). Navigate to that mount point:
 
 * `cd /Volumes/NAME_OF_PARTITION/`
-* ` mkdir rockchip`
+* `mkdir rockchip`
 * `cp /path/to/downloaded/rk3399-nanopi-r4s.dtb rockchip/`
 
 (Replace NAME_OF_PARTITION with the actual volume name, e.g., MINIROOT.)
