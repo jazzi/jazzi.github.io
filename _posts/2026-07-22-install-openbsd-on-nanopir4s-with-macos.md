@@ -103,6 +103,7 @@ sudo dd if=u-boot.itb of=/dev/rdisk2 bs=512 seek=16384 conv=sync status=progress
 
 After writing, the card will have a FAT partition (usually auto‑mounted under /Volumes/). Navigate to that mount point:
 
+
 ```
 cd /Volumes/NAME_OF_PARTITION/
 mkdir rockchip
