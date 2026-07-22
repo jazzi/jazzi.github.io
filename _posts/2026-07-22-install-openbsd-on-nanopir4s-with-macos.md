@@ -89,7 +89,7 @@ Warning: This process erases all data on the SD card. Back up any important file
 
 Use the raw device (rdisk) for faster writing:
 
-```bash
+```
 # Write miniroot image
 sudo dd if=miniroot79.img of=/dev/rdisk2 bs=1m conv=sync status=progress
 
@@ -97,7 +97,8 @@ sudo dd if=miniroot79.img of=/dev/rdisk2 bs=1m conv=sync status=progress
 sudo dd if=idbloader.img of=/dev/rdisk2 bs=512 seek=64 conv=sync status=progress
 
 # Write u-boot.itb at offset 16384 (seek=16384)
-sudo dd if=u-boot.itb of=/dev/rdisk2 bs=512 seek=16384 conv=sync status=progress```
+sudo dd if=u-boot.itb of=/dev/rdisk2 bs=512 seek=16384 conv=sync status=progress
+```
 
 ### 4. Copy the DTB file to the FAT partition that now appears on the SD card.
 
