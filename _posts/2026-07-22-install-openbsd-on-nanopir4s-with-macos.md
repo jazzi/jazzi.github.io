@@ -29,7 +29,7 @@ Download the following four files from the official OpenBSD 7.9 mirror. All link
 | File | Purpose | Download URL |
 |------|---------|--------------|
 | `miniroot79.img` | Installation kernel and installer | [https://cdn.openbsd.org/pub/OpenBSD/7.9/arm64/miniroot79.img](https://cdn.openbsd.org/pub/OpenBSD/7.9/arm64/miniroot79.img) |
-| `rk3399-nanopi-r4s.dtb` | Device tree blob for NanoPi R4S | [https://cdn.openbsd.org/pub/OpenBSD/7.9/arm64/dtb/rk3399-nanopi-r4s.dtb](https://cdn.openbsd.org/pub/OpenBSD/7.9/arm64/dtb/rk3399-nanopi-r4s.dtb) |
+| `rk3399-nanopi-r4s.dtb` | Device tree blob for NanoPi R4S | [https://cdn.openbsd.org/pub/OpenBSD/7.9/packages/aarch64/dtb-6.14.tgz, unpack it and find it under /share/dtb/arm64/rockchip/](https://cdn.openbsd.org/pub/OpenBSD/7.9/packages/aarch64/dtb-6.14.tgz) |
 | `u-boot-aarch64-2021.10p14.tgz` | U‑Boot package (contains the bootloader files) | [https://cdn.openbsd.org/pub/OpenBSD/7.9/packages/aarch64/u-boot-aarch64-2021.10p14.tgz](https://cdn.openbsd.org/pub/OpenBSD/7.9/packages/aarch64/u-boot-aarch64-2021.10p14.tgz) |
 
 After downloading the tarball, extract it and locate the `nanopi-r4s-rk3399` directory. Inside you will find two essential files: **`idbloader.img`** and **`u-boot.itb`**.
