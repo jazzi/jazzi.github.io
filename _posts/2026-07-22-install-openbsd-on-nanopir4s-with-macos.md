@@ -123,8 +123,8 @@ You should immediately see U‑Boot and OpenBSD boot messages in the screen term
 The installer is mostly interactive and similar to the standard OpenBSD installation. Pay special attention to the following points:
 
 * Select the root disk – this is the most critical step.
- * Ideally, the installer will detect your SD card (usually listed as sd0 or similar).
- * If no disk is listed (you may see an error like sdmmc0: can't enable card), try a different SD card brand/model, or consider installing to a USB drive instead. Some users have succeeded with USB installation, but booting from USB may require additional steps.
+  * Ideally, the installer will detect your SD card (usually listed as sd0 or similar).
+  * If no disk is listed (you may see an error like sdmmc0: can't enable card), try a different SD card brand/model, or consider installing to a USB drive instead. Some users have succeeded with USB installation, but booting from USB may require additional steps.
 * Follow the prompts for hostname, network configuration, choice of installation sets, etc. – these are identical to a standard OpenBSD installation.
 
 ## Step 6: First Boot and Post‑Installation
