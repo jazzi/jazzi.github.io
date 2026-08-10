@@ -69,6 +69,8 @@ I choose **ALSA**, hereby is the key lines from the documentation:
 
 So mine is *hw:2,0*, the full configuration is as below:
 
+**Actually [sometimes the cards index would change](https://bbs.archlinux.org/viewtopic.php?id=224426) after reboot, so it's better to solder it staticly as *how:DAC*.**
+
 ## Start OwnTone
 
 `sudo systemctl start owntone` or `sudo service owntone start` and check status `sudo systemctl status owntone` or check the log directly.
