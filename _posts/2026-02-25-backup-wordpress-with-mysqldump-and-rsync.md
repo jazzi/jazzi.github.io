@@ -49,7 +49,7 @@ They way to use **rsync** is as below:
 ### Caution about the slash ('/') in the end of path
 
 * no slash of source like /data/src will copy the whole directory of **src**
-* with slash like /data/src will only copy the files within **src**
+* with slash like /data/src/ will only copy the files within **src**
 
 ### Backup files from server to local
 
