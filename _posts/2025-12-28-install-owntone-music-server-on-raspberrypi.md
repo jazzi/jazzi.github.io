@@ -28,6 +28,26 @@ Then `sudo apt update & sudo apt install owntone`
 2. `sudo mkdir /srv/music && sudo mount -t nfs 192.168.31.240:/fs/1000/nfs/music /srv/music` ## or put the following line into `/etc/fstab`
 3. `192.168.31.240:/fs/1000/nfs/music /srv/music nfs ro,nodev,nosuid,soft,intr 0 0`
 
+### Error message - Stale file handler
+
+If you can play radio but not local music files and got **500 internal server error**, then go forward one more step to identiy the problem by:
+
+```
+sudo systemctl status owntone.service
+
+xcode: Cannot open '/srv/music/Ahmad Jamal - The Essence Part I/01 - Ahmad Jamal - Flight.mp3': Stale file handle
+```
+
+**Stale file handle**? this means we have problem with the files, as we are using NFS, once the server changed, the nfs client doesn't change accordantly, here shows such problem.
+
+The solution is easy, just unmount and remount it as below:
+
+```
+sudo umount /srv/music
+sudo mount /srv/music
+```
+Then generate the music database of Owntone.
+
 ## Configure Owntone
 
 ### Audio output with ALSA
